@@ -13,7 +13,7 @@
 				@if(layouts!='horizontal'){
 				<div class="">
 					<div class="main-menu-header">
-						<img class="img-radius" src="assets/images/user/avatar-2.jpg" alt="User-Profile-Image">
+						<img class="img-radius" src="{{ asset('assets/images/user/avatar-2.jpg') }}" alt="User-Profile-Image">
 						<div class="user-details">
 							<span>John Doe</span>
 							<div id="more-details">UX Designer<i class="fa fa-chevron-down m-l-5"></i></div>
@@ -21,15 +21,15 @@
 					</div>
 					<div class="collapse" id="nav-user-link">
 						<ul class="list-unstyled">
-							<li class="list-group-item"><a href="user-profile.html"><i class="feather icon-user m-r-5"></i>View Profile</a></li>
+							<li class="list-group-item"><a href="{{ url('user-profile') }}"><i class="feather icon-user m-r-5"></i>View Profile</a></li>
 							<li class="list-group-item"><a href="#!"><i class="feather icon-settings m-r-5"></i>Settings</a></li>
-							<li class="list-group-item"><a href="auth-normal-sign-in.html"><i class="feather icon-log-out m-r-5"></i>Logout</a></li>
+							<li class="list-group-item"><a href="{{ url('auth-normal-sign-in') }}"><i class="feather icon-log-out m-r-5"></i>Logout</a></li>
 						</ul>
 					</div>
 				</div>
 				}
 				<ul class="nav pcoded-inner-navbar @if(layouts=='horizontal'){sidenav-inner}">
-					@include('./menu-list.html')
+					@include('home.menu-list')
 				</ul>
 				@if(layouts!='horizontal'){
 				<div class="card text-center">
@@ -54,8 +54,8 @@
 					<a class="mobile-menu" id="mobile-collapse" href="#!"><span></span></a>
 					<a href="#!" class="b-brand">
 						<!-- ========   change your logo hear   ============ -->
-						<img src="assets/images/logo.png" alt="" class="logo">
-						<img src="assets/images/logo-icon.png" alt="" class="logo-thumb">
+						<img src="{{ asset('assets/images/logo.png') }}" alt="" class="logo">
+						<img src="{{ asset('assets/images/logo-icon.png') }}" alt="" class="logo-thumb">
 					</a>
 					<a href="#!" class="mob-toggler">
 						<i class="feather icon-more-vertical"></i>
@@ -79,9 +79,9 @@
 								</a>
 								<div class="dropdown-menu profile-notification ">
 									<ul class="pro-body">
-										<li><a href="user-profile.html" class="dropdown-item"><i class="fas fa-circle"></i> Profile</a></li>
-										<li><a href="email_inbox.html" class="dropdown-item"><i class="fas fa-circle"></i> My Messages</a></li>
-										<li><a href="auth-signin.html" class="dropdown-item"><i class="fas fa-circle"></i> Lock Screen</a></li>
+										<li><a href="{{ url('user-profile') }}" class="dropdown-item"><i class="fas fa-circle"></i> Profile</a></li>
+										<li><a href="{{ url('email_inbox') }}" class="dropdown-item"><i class="fas fa-circle"></i> My Messages</a></li>
+										<li><a href="{{ url('auth-signin') }}" class="dropdown-item"><i class="fas fa-circle"></i> Lock Screen</a></li>
 									</ul>
 								</div>
 							</div>
@@ -161,7 +161,7 @@
 										</li>
 										<li class="notification">
 											<div class="media">
-												<img class="img-radius" src="assets/images/user/avatar-1.jpg" alt="Generic placeholder image">
+												<img class="img-radius" src="{{ asset('assets/images/user/avatar-1.jpg') }}" alt="Generic placeholder image">
 												<div class="media-body">
 													<p><strong>John Doe</strong><span class="n-time text-muted"><i class="icon feather icon-clock m-r-10"></i>5 min</span></p>
 													<p>New ticket Added</p>
@@ -173,7 +173,7 @@
 										</li>
 										<li class="notification">
 											<div class="media">
-												<img class="img-radius" src="assets/images/user/avatar-2.jpg" alt="Generic placeholder image">
+												<img class="img-radius" src="{{ asset('assets/images/user/avatar-2.jpg') }}" alt="Generic placeholder image">
 												<div class="media-body">
 													<p><strong>Joseph William</strong><span class="n-time text-muted"><i class="icon feather icon-clock m-r-10"></i>10 min</span></p>
 													<p>Prchace New Theme and make payment</p>
@@ -182,7 +182,7 @@
 										</li>
 										<li class="notification">
 											<div class="media">
-												<img class="img-radius" src="assets/images/user/avatar-1.jpg" alt="Generic placeholder image">
+												<img class="img-radius" src="{{ asset('assets/images/user/avatar-1.jpg') }}" alt="Generic placeholder image">
 												<div class="media-body">
 													<p><strong>Sara Soudein</strong><span class="n-time text-muted"><i class="icon feather icon-clock m-r-10"></i>12 min</span></p>
 													<p>currently login</p>
@@ -191,7 +191,7 @@
 										</li>
 										<li class="notification">
 											<div class="media">
-												<img class="img-radius" src="assets/images/user/avatar-2.jpg" alt="Generic placeholder image">
+												<img class="img-radius" src="{{ asset('assets/images/user/avatar-2.jpg') }}" alt="Generic placeholder image">
 												<div class="media-body">
 													<p><strong>Joseph William</strong><span class="n-time text-muted"><i class="icon feather icon-clock m-r-10"></i>30 min</span></p>
 													<p>Prchace New Theme and make payment</p>
@@ -212,16 +212,16 @@
 								</a>
 								<div class="dropdown-menu dropdown-menu-right profile-notification">
 									<div class="pro-head">
-										<img src="assets/images/user/avatar-1.jpg" class="img-radius" alt="User-Profile-Image">
+										<img src="{{ asset('assets/images/user/avatar-1.jpg') }}" class="img-radius" alt="User-Profile-Image">
 										<span>John Doe</span>
-										<a href="auth-signin.html" class="dud-logout" title="Logout">
+										<a href="{{ url('auth-signin') }}" class="dud-logout" title="Logout">
 											<i class="feather icon-log-out"></i>
 										</a>
 									</div>
 									<ul class="pro-body">
-										<li><a href="user-profile.html" class="dropdown-item"><i class="feather icon-user"></i> Profile</a></li>
-										<li><a href="email_inbox.html" class="dropdown-item"><i class="feather icon-mail"></i> My Messages</a></li>
-										<li><a href="auth-signin.html" class="dropdown-item"><i class="feather icon-lock"></i> Lock Screen</a></li>
+										<li><a href="{{ url('user-profile') }}" class="dropdown-item"><i class="feather icon-user"></i> Profile</a></li>
+										<li><a href="{{ url('email_inbox') }}" class="dropdown-item"><i class="feather icon-mail"></i> My Messages</a></li>
+										<li><a href="{{ url('auth-signin') }}" class="dropdown-item"><i class="feather icon-lock"></i> Lock Screen</a></li>
 									</ul>
 								</div>
 							</div>
@@ -233,19 +233,21 @@
 			@if(layouts=='horizontal' && rtltheme== 'true'){</div>}
 	</header>
 	<!-- [ Header ] end -->
-	@if(sublayouts=='v2'){
+	@if($sublayouts=='v2')
 	<script class="h2temp">
 		setTimeout(function() {
 			document.getElementsByClassName("pcoded-content")[0].classList.add("container");
 			document.getElementsByClassName("h2temp")[0].remove();
 		}, 1)
 	</script>
-	}
-	@if(layouts=='horizontal' && rtltheme== 'true'){
+	@endif
+
+	
+	@if($layouts=='horizontal' && $rtltheme== 'true')
 	<script class="h2temp">
 		setTimeout(function() {
 			document.getElementsByClassName("pcoded-content")[0].classList.add("container");
 			document.getElementsByClassName("h2temp")[0].remove();
 		}, 1)
 	</script>
-	}
+	@endif
