@@ -14,12 +14,24 @@ class HomeController extends Controller
         return view('dashb.kategori');
     }
 
+    public function tb_kategori() {
+        return view('dashb.tambah-kategori');
+    }
+
     public function data_brg() {
         return view('dashb.barang');
     }
 
+    public function tb_barang() {
+        return view('dashb.tambah-barang');
+    }
+
     public function stok_brg() {
         return view('dashb.stok');
+    }
+
+    public function tb_stok() {
+        return view('dashb.tambah-stok');
     }
 
     public function penjualan() {

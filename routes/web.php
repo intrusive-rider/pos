@@ -32,3 +32,8 @@ Route::get('/penjualan',[HomeController::class, 'penjualan'])->name('penjualan')
 
 Route::get('/laporan-pb',[HomeController::class, 'laporan_pb'])->name('laporan_pb');
 
+Route::get('/kategori-brg/tambah-kategori',[HomeController::class, 'tb_kategori'])->name('tb_kategori');
+
+Route::get('/data-brg/tambah-barang',[HomeController::class, 'tb_barang'])->name('tb_barang');
+
+Route::get('/stok-brg/tambah-stok',[HomeController::class, 'tb_stok'])->name('tb_stok');

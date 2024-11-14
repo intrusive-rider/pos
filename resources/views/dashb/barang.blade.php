@@ -52,50 +52,63 @@
 
         <!-- [ Main Content ] start -->
 
-             <!-- [ stiped-table ] start -->
+             <!-- [ TABEL BARANG ] start -->
              <div class="col-xl-12">
                 <div class="card">
                     <div class="card-header">
                         <h5>Data Barang</h5>
-                        <span class="d-block m-t-5">use class <code>table-striped</code> inside table element</span>
-                    </div>
+                        <div class="card-header-right">
+                            <a href="{{ url('/data-brg/tambah-barang') }}" type="button" class="btn btn-sm btn-success">Tambah Data</a>
+                        </div>
+                        
+                    </div> 
+                    
                     <div class="card-body table-border-style">
                         <div class="table-responsive">
+                            
                             <table class="table table-striped">
                                 <thead>
                                     <tr>
-                                        <th>#</th>
-                                        <th>First Name</th>
-                                        <th>Last Name</th>
-                                        <th>Username</th>
+                                        <th>No</th>
+                                        <th>Nama Barang</th>
+                                        <th>Kategori Barang</th>
+                                        <th>Ukuran</th>
+                                        <th>Harga</th>
+                                        <th>Foto</th>
+                                        <th>Aksi</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr>
                                         <td>1</td>
-                                        <td>Mark</td>
-                                        <td>Otto</td>
-                                        <td>@mdo</td>
-                                    </tr>
-                                    <tr>
-                                        <td>2</td>
-                                        <td>Jacob</td>
-                                        <td>Thornton</td>
-                                        <td>@fat</td>
-                                    </tr>
-                                    <tr>
-                                        <td>3</td>
-                                        <td>Larry</td>
-                                        <td>the Bird</td>
-                                        <td>@twitter</td>
+                                        <td>Baju muslim</td>
+                                        <td>Baju</td>
+                                        <td>S</td>
+                                        <td>Rp.150,000</td>
+                                        <td>foto</td>
+                                        <td>
+                                            <button type="button" class="btn btn-warning btn-sm">Edit</button>
+                                            <button type="button" class="btn btn-danger btn-sm">Hapus</button>
+                                        </td>
+
                                     </tr>
                                 </tbody>
                             </table>
+
+                            <ul class="pagination justify-content-end">
+								<li class="page-item disabled"><span class="page-link">Previous</span></li>
+								<li class="page-item"><a class="page-link" href="#!">1</a></li>
+								<li class="page-item active"><span class="page-link">2<span class="sr-only">(current)</span></span>
+								</li>
+								<li class="page-item"><a class="page-link" href="#!">3</a></li>
+								<li class="page-item"><a class="page-link" href="#!">Next</a></li>
+							</ul>
+
                         </div>
                     </div>
                 </div>
             </div>
-            <!-- [ stiped-table ] end -->
+            <!-- [ TABEL BARANG ] end -->
 
 
             
