@@ -61,13 +61,20 @@
                             <h5>Tambah Data Kategori</h5>
                         </div>
                         <div class="card-body">
-                            <form>
+                            <form action="{{ route('kategori.submit') }}" method="POST" enctype="multipart/form-data">
+
+                                @csrf
+
                                 <div class="form-group">
                                     <label>Nama Kategori</label>
-                                    <input type="text" class="form-control" placeholder="Nama Kategori">
+
+                                    <input type="text" name="nama_kategori" class="form-control" placeholder="Nama Kategori" value="{{ old('nama_kategori') }}">
+                                    @error('nama_kategori')
+                                        <div class="text-danger">{{ $message }}</div>
+                                    @enderror
                                 </div>
 
-                                <button type="submit" class="btn  btn-primary">Simpan</button>
+                                <button type="submit" class="btn btn-primary">Simpan</button>
                             </form>
                         </div>
                     </div>

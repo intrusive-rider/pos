@@ -89,8 +89,12 @@
                 </div>
             </li>
         </ul>
+
         <ul class="navbar-nav ml-auto">
-            <li>
+
+            {{-- NOTIFIKASI NAVBAR --}}
+
+            {{-- <li>
                 <div class="dropdown">
                     <a class="dropdown-toggle" href="#" data-toggle="dropdown">
                         <i class="icon feather icon-bell"></i>
@@ -153,24 +157,38 @@
                         </div>
                     </div>
                 </div>
-            </li>
+            </li> --}}
+
             <li>
                 <div class="dropdown drp-user">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                         <i class="feather icon-user"></i>
                     </a>
                     <div class="dropdown-menu dropdown-menu-right profile-notification">
+                       
                         <div class="pro-head">
-                            <img src="{{ asset('assets/images/user/avatar-1.jpg') }}" class="img-radius" alt="User-Profile-Image">
-                            <span>John Doe</span>
-                            <a href="{{ url('auth-signin') }}" class="dud-logout" title="Logout">
-                                <i class="feather icon-log-out"></i>
-                            </a>
+                           
+                            {{-- <img src="{{ asset('storage/' . Auth::user()->avatar) }}" class="img-radius" alt="User-Profile-Image"> --}}
+                        
+                           
+                            <span>{{ Auth::user()->name }}</span>
+                            
+                          
+                            <form action="{{ route('logout') }}" method="POST" style="display: inline;">
+                                @csrf
+                                <button type="submit" class="dud-logout" title="Logout" style="background: none; border: none;">
+                                    <i class="feather icon-log-out"></i>
+                                </button>
+                            </form>
                         </div>
+                        
+
                         <ul class="pro-body">
                             <li><a href="{{ url('user-profile') }}" class="dropdown-item"><i class="feather icon-user"></i> Profile</a></li>
-                            <li><a href="{{ url('email_inbox') }}" class="dropdown-item"><i class="feather icon-mail"></i> My Messages</a></li>
-                            <li><a href="{{ url('auth-signin') }}" class="dropdown-item"><i class="feather icon-lock"></i> Lock Screen</a></li>
+
+                            {{-- <li><a href="{{ url('email_inbox') }}" class="dropdown-item"><i class="feather icon-mail"></i> My Messages</a></li>
+                            
+                            <li><a href="{{ url('auth-signin') }}" class="dropdown-item"><i class="feather icon-lock"></i> Lock Screen</a></li> --}}
                         </ul>
                     </div>
                 </div>

@@ -54,7 +54,16 @@
 
              <!-- [ stiped-table ] start -->
              <div class="col-xl-12">
+                
+                @if(Auth::check())
+                    <div class="alert alert-primary alert-dismissible fade show" role="alert">
+                        <strong>Halo {{ Auth::user()->name }},</strong> Anda berhasil login !
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    </div>
+                @endif
+
                 <div class="card">
+                    
                     <div class="card-header">
                         <h5>Striped Table</h5>
                         <span class="d-block m-t-5">use class <code>table-striped</code> inside table element</span>
