@@ -9,6 +9,10 @@ export default {
         "./resources/**/*.vue",
     ],
 
+    daisyui: {
+        themes: ["emerald"],
+    },
+
     theme: {
         extend: {
             fontFamily: {

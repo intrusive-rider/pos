@@ -2,8 +2,12 @@
     <x-forms.auth-session-status class="mb-4" :status="session('status')" />
 
     @slot('left')
-        <h1 class="text-5xl font-bold">Welcome back!</h1>
-        <p>Log into your Acme account to shop right away.</p>
+        <h1 class="text-5xl font-bold">Welcome!</h1>
+        <p class="text-xl">
+            It appears that you're not logged in. <br />
+            Please log into your account to get started. <br/><br/>
+            <a href="/register" class="link">New employee?</a>
+        </p>
     @endslot
 
     @slot('right')
@@ -18,14 +22,6 @@
             </x-forms.input>
             <x-forms.checkbox name="remember_me">{{ __('Remember me') }}</x-forms.checkbox>
             <button type="submit" class="btn btn-primary btn-block">{{ __('Log in') }}</button>
-            <div class="divider"></div>
-            <div class="space-y-4">
-                <h1 class="text-2xl font-bold text-neutral">Don't have an account?</h1>
-                <div class="grid grid-cols-2 gap-4">
-                    <a href="/register" class="btn btn-neutral btn-block">Register</a>
-                    <a href="/register" class="btn btn-ghost btn-block">For employee</a>
-                </div>
-            </div>
         </x-layouts.form>
     @endslot
 </x-layouts.guest>

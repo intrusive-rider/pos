@@ -1,10 +1,27 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    @include('dashb.head')
-</head>
-
+<x-layouts.app class="flex gap-x-12 items-baseline">
+    <div class="h-full">
+        <section class="space-y-4 max-w-prose">
+            <h1 class="text-5xl font-bold">Good day, {{ Auth::user()->name }}.</h1>
+            <p class="text-4xl">What would you like to do?</p>
+        </section>
+        <section class="grid grid-cols-3 gap-6 py-6">
+            <x-card href="/" icon="user-plus">Add customer</x-card>
+            <x-card href="/" icon="package">Update stocks</x-card>
+            <x-card href="/" icon="seal-percent" color="green">20% off</x-card>
+            <x-card href="/" icon="link" color="amber">
+                Visit website
+                <p class="font-normal text-xl">acme.com</p>
+            </x-card>
+            <x-card href="/" icon="truck">Send to customer</x-card>
+            <x-card href="/" icon="scroll">Report sales</x-card>
+        </section>
+    </div>
+    <section class="w-2/5 space-y-4 border-2 border-black/10 p-6 rounded-xl h-full">
+        <h1 class="text-4xl font-bold">No customer added.</h1>
+        <p class="text-lg">When you add a customer, their orders would appear here.</p>
+    </section>
+</x-layouts.app>
+{{-- 
 
 <body class="">
 	<!-- [ Pre-loader ] start -->
@@ -55,7 +72,7 @@
              <!-- [ stiped-table ] start -->
              <div class="col-xl-12">
                 
-                @if(Auth::check())
+                @if (Auth::check())
                     <div class="alert alert-primary alert-dismissible fade show" role="alert">
                         <strong>Halo {{ Auth::user()->name }},</strong> Anda berhasil login !
                         <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
@@ -244,4 +261,4 @@
 
 </body>
 
-</html>
+</html> --}}

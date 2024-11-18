@@ -1,3 +1,12 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+* {
+    font-feature-settings: "calt" 1, "liga" 1, "cv08" 1, "cv10" 1, "cv01" 1;
+}
+
+h1,
+h2 {
+    @apply tracking-tight;
+}
