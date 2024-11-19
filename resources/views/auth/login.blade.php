@@ -21,7 +21,7 @@
                 @endslot
             </x-forms.input>
             <x-forms.checkbox name="remember_me">{{ __('Remember me') }}</x-forms.checkbox>
-            <button type="submit" class="btn btn-primary btn-block">{{ __('Log in') }}</button>
+            <button type="submit" class="btn btn-lg btn-primary btn-block">{{ __('Log in') }}</button>
         </x-layouts.form>
     @endslot
 </x-layouts.guest>

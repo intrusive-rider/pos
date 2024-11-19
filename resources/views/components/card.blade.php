@@ -7,7 +7,7 @@
     $styles = [
         'flex flex-col justify-between',
         'bg-' . $color . '-500',
-        'hover:opacity-85',
+        'hover:opacity-75',
         'p-8 h-72',
         'text-white text-4xl font-bold',
         'rounded-xl shadow-lg',

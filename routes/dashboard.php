@@ -1,0 +1,8 @@
+<?php
+
+use Illuminate\Support\Facades\Route;
+
+Route::middleware('auth')->group(function () {
+    Route::view('/', 'dashboard.index');
+    Route::view('/create', 'dashboard.create');
+});
