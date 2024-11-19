@@ -1,7 +1,7 @@
 <x-layouts.app class="pb-16">
     <section class="space-y-4 max-w-prose">
         <h1 class="text-5xl font-bold">New order</h1>
-        <p class="text-4xl">Select their items below.</p>
+        <p class="text-4xl">Select the items below.</p>
     </section>
     <section class="flex items-center justify-between sticky top-0 z-10 backdrop-blur-sm">
         <x-layouts.form method="POST" action="/search">
