@@ -10,3 +10,15 @@ h1,
 h2 {
     @apply tracking-tight;
 }
+
+/* Hide spinners in modern browsers */
+.no-spinner::-webkit-inner-spin-button,
+.no-spinner::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* For Firefox */
+.no-spinner {
+    -moz-appearance: textfield;
+}

@@ -8,6 +8,7 @@
     <main {{ $attributes }}>
         {{ $slot }}
     </main>
+    @livewireScripts
 </body>
 
 </html>
