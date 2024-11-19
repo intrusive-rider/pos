@@ -21,9 +21,9 @@
             {{ $top_label }}
         @endisset
     </div>
-    <label for="{{ $name }}" class="input input-lg input-bordered flex items-center gap-2">
+    <label for="{{ $name }}" class="input input-bordered flex items-center gap-2">
         @isset($icon)
-            <i class="ph ph-{{ $icon }} text-2xl opacity-70"></i>
+            <i class="ph ph-{{ $icon }} text-xl opacity-70"></i>
         @endisset
         <input {{ $attributes($defaults) }} />
     </label>

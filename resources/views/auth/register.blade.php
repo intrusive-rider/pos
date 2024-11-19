@@ -14,8 +14,7 @@
             <x-forms.input name="email" type="email" icon="envelope" :placeholder="__('Email')" />
             <x-forms.input name="password" type="password" icon="key" :placeholder="__('Password')" />
             <x-forms.input name="password_confirmation" type="password" icon="key" :placeholder="__('Confirm password')" />
-
-            <button type="submit" class="btn btn-lg btn-primary btn-block">{{ __('Register') }}</button>
+            <button type="submit" class="mt-6 btn btn-primary btn-block">{{ __('Register') }}</button>
         </x-layouts.form>
     @endslot
 </x-layouts.guest>

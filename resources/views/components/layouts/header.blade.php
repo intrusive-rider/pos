@@ -3,9 +3,7 @@
         <x-app-icon size="40" />
     </div>
     <div class="navbar-end">
-        <p class="text-sm text-right leading-tight tracking-wider uppercase font-semibold opacity-70">
-            &copy; 2024 <br />
-            All rights reserved
-        </p>
+        <button type="submit" form="logout" class="btn btn-ghost">Sign off</button>
+        <x-layouts.form method="DELETE" action="/logout" class="hidden" id="logout" />
     </div>
 </nav>

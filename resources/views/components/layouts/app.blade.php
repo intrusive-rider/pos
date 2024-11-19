@@ -5,7 +5,7 @@
 
 <body class="antialiased flex flex-col min-h-screen bg-base-100 px-48 pb-8 space-y-6">
     <x-layouts.header />
-    <main {{ $attributes(['class' => 'space-y-6']) }}>
+    <main {{ $attributes }}>
         {{ $slot }}
     </main>
 </body>
