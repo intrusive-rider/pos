@@ -22,4 +22,3 @@
         <p class="text-lg">When you create an order, it would appear here.</p>
     </section>
 </x-layouts.app>
-

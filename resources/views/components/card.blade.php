@@ -6,10 +6,10 @@
 @php
     $styles = [
         'flex flex-col justify-between',
-        'bg-'. $color .'-500',
+        'bg-secondary',
         'hover:opacity-75',
         'p-8 h-72',
-        'text-white text-4xl font-bold',
+        'text-secondary-content text-4xl font-bold',
         'rounded-xl shadow-lg',
         'border-b-8 border-black/10',
         'transition-opacity',
