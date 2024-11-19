@@ -16,22 +16,22 @@
 @endphp
 
 <div class="form-control">
-    <div class="label">
-        @isset($top_label)
+    @isset($top_label)
+        <div class="label">
             {{ $top_label }}
-        @endisset
-    </div>
+        </div>
+    @endisset
     <label for="{{ $name }}" class="input input-bordered flex items-center gap-2">
         @isset($icon)
             <i class="ph ph-{{ $icon }} text-xl opacity-70"></i>
         @endisset
         <input {{ $attributes($defaults) }} />
     </label>
-    <div class="label">
-        @isset($bottom_label)
-            {{ $bottom_label }}
-        @endisset
-        <div></div>
-        <x-forms.error :messages="$errors->get($name)" />
-    </div>
+    @if (isset($bottom_label) || isset($errors))
+        <div class="label">
+            {{ $bottom_label ?? '' }}
+            <div></div>
+            <x-forms.error :messages="$errors->get($name)" />
+        </div>
+    @endif
 </div>
