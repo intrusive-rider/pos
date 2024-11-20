@@ -5,7 +5,7 @@
 ])
 
 <div class="card lg:card-side card-compact bg-base-100 shadow-xl" x-data="{ count: 0, stock: {{ $stock }} }">
-    <figure>x
+    <figure>
         <img src="https://placehold.co/400" />
     </figure>
     <div class="card-body justify-between w-72">
