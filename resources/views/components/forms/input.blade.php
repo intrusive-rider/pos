@@ -15,7 +15,7 @@
     ];
 @endphp
 
-<div class="form-control">
+<div class="form-control my-3">
     @isset($top_label)
         <div class="label">
             {{ $top_label }}
@@ -27,7 +27,7 @@
         @endisset
         <input {{ $attributes($defaults) }} />
     </label>
-    @if (isset($bottom_label) || isset($errors))
+    @if (isset($bottom_label) || $errors->isNotEmpty())
         <div class="label">
             {{ $bottom_label ?? '' }}
             <div></div>
