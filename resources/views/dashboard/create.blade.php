@@ -6,16 +6,16 @@
         </x-layouts.form>
         <div>
             <a href="/" class="btn btn-ghost">Cancel</a>
-            <a href="/" class="btn btn-primary">Check out</a>
+            <button type="submit" form="checkout" class="btn btn-primary">Check out</button>
         </div>
     </section>
-    <section class="space-y-6 pb-12">
+    <x-layouts.form method="POST" action="/create" id="checkout" class="pb-12 max-w-none">
         <div class="grid grid-cols-3 gap-6">
             @foreach ($products as $product)
-                <x-product title="{{ $product->name }}" 
+                <x-product title="{{ $product->name }}"
                     price="{{ number_format($product->price, 2, ',', '.') }}"
-                    stock="{{ $product->stock }}" />
+                    stock="{{ $product->stock }}" id="{{ $product->id }}" />
             @endforeach
         </div>
-    </section>
+    </x-layouts.form>
 </x-layouts.app>

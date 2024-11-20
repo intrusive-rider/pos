@@ -10,9 +10,11 @@ class Product extends Model
 {
     use HasFactory;
 
+    protected $guarded = [];
+
     public function transactions(): BelongsToMany
     {
-        return $this->belongsToMany(Transaction::class, 'transaction_items')
+        return $this->belongsToMany(Transaction::class, 'transaction_product')
                     ->withPivot('quantity', 'price')
                     ->withTimestamps();
     }

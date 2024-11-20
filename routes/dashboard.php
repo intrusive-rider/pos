@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CheckoutController;
 use App\Models\Product;
 use Illuminate\Support\Facades\Route;
 
@@ -9,4 +10,5 @@ Route::middleware('auth')->group(function () {
         $products = Product::all();
         return view('dashboard.create', ['products' => $products]);
     });
+    Route::post('/create', [CheckoutController::class, 'checkout']);
 });

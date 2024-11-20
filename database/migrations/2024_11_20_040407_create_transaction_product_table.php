@@ -15,10 +15,9 @@ return new class extends Migration
     {
         Schema::create('transaction_product', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(Transaction::class);
-            $table->foreignIdFor(Product::class);
+            $table->foreignIdFor(Transaction::class)->constrained()->onDelete('cascade');
+            $table->foreignIdFor(Product::class)->constrained()->onDelete('cascade');
             $table->smallInteger('quantity');
-            $table->integer('price');
             $table->timestamps();
         });
     }
