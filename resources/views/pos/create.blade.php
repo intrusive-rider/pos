@@ -9,7 +9,7 @@
             <button type="submit" form="checkout" class="btn btn-primary">Check out</button>
         </div>
     </section>
-    <x-layouts.form method="POST" action="/create" id="checkout" class="pb-12 max-w-none">
+    <x-layouts.form method="POST" action="/new" id="checkout" class="pb-12 max-w-none">
         <div class="grid grid-cols-3 gap-6">
             @foreach ($products as $product)
                 <x-product title="{{ $product->name }}"

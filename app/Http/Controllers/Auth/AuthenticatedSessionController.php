@@ -27,7 +27,7 @@ class AuthenticatedSessionController extends Controller
         $request->authenticate();
         $request->session()->regenerate();
 
-        return redirect('/');
+        return redirect(route('home'));
     }
 
     /**
@@ -40,6 +40,6 @@ class AuthenticatedSessionController extends Controller
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
-        return redirect('/');
+        return redirect(route('login'));
     }
 }

@@ -5,7 +5,7 @@
             <p class="text-4xl">What would you like to do?</p>
         </section>
         <section class="grid grid-cols-3 gap-6">
-            <x-card href="/create" icon="shopping-cart" color="green">New order</x-card>
+            <x-card href="/new" icon="shopping-cart" color="green">New order</x-card>
             <x-card href="/" icon="package">Update stocks</x-card>
             <x-card href="/" icon="seal-percent" color="pink">20% off</x-card>
             <x-card href="https://example.com" icon="link" color="amber">

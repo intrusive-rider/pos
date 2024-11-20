@@ -7,11 +7,17 @@ use App\Models\Transaction;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class CheckoutController extends Controller
+class PosController extends Controller
 {
+    public function index()
+    {
+        $products = Product::all();
+        return view('pos.create', ['products' => $products]);
+    }
+    
     public function checkout(Request $request)
     {
-        $buyer = 'Safira'; // Assuming you have a field for the buyer's name
+        $buyer = 'Safira';
         $quantities = $request->input('quantity'); // Get the array of product quantities
 
         // Step 1: Create the Transaction record
@@ -37,7 +43,6 @@ class CheckoutController extends Controller
         return redirect('/');
     }
 
-    // Helper method to calculate the total price for the transaction
     protected function calculateTotal($quantities)
     {
         $total = 0;
