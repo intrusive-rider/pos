@@ -29,6 +29,9 @@ class CheckoutController extends Controller
                 // Create an entry in the pivot table linking the transaction and product with quantity
                 $transaction->products()->attach($prod_id, ['quantity' => $quantity]);
             }
+
+            // Reduce the stock of the product by the quantity purchased
+            $product->decrement('stock', $quantity);  // Decrease stock by the quantity
         }
 
         return redirect('/');
