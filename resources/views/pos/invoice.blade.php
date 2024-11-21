@@ -2,7 +2,7 @@
     <div class="flex justify-between w-full">
         <div class="space-y-3">
             <h1 class="text-5xl font-bold">{{ $transaction->buyer }}</h1>
-            <p class="text-2xl pb-3">has just bought these three items:</p>
+            <p class="text-2xl pb-3">bought these three items:</p>
             <a href="{{ route('home') }}" class="btn btn-ghost">Go back</a>
         </div>
         <div>

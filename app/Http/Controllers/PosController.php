@@ -75,7 +75,7 @@ class PosController extends Controller
             $product->decrement('stock', $product->pivot->quantity);
         }
 
-        return redirect(route('view-receipt', $transaction->id));
+        return redirect(route('view-invoice', $transaction->id));
     }
 
     public function invoice(Transaction $transaction)
