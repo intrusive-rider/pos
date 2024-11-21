@@ -17,7 +17,7 @@ class PosController extends Controller
 
     public function store(Request $request)
     {
-        $buyer = 'Test';
+        $buyer = 'Buyer';
         $quantities = $request->input('quantity');
         $validation = empty($quantities) || array_sum($quantities) === 0;
 
@@ -29,6 +29,7 @@ class PosController extends Controller
             'seller_id' => Auth::user()->id,
             'buyer' => $buyer,
             'total' => $this->calculateTotal($quantities),
+            'payment_amount' => 0,
         ]);
 
         foreach ($quantities as $prod_id => $quantity) {
@@ -51,6 +52,7 @@ class PosController extends Controller
     public function pay(Request $request, Transaction $transaction)
     {
         $request->validate([
+            'buyer' => ['required'],
             'amount' => [
                 'required',
                 'numeric',
@@ -64,8 +66,10 @@ class PosController extends Controller
             ],
         ]);
 
-        $transaction->payment_amount = $request->input('amount');
-        $transaction->save();
+        $transaction->update([
+            'buyer' => $request->input('buyer'),
+            'payment_amount' => $request->input('amount'),
+        ]);
 
         foreach ($transaction->products as $product) {
             $product->decrement('stock', $product->pivot->quantity);
