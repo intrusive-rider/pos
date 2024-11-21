@@ -7,6 +7,7 @@
                     class="grow border-none focus:ring-0 text-5xl font-bold placeholder:opacity-70 p-0"
                     placeholder="Buyer" value="{{ old('buyer') }}" required />
             </label>
+            <x-forms.error :messages="$errors->get('buyer')" />
             <div class="divider"></div>
             <div class="flex gap-x-3">
                 <div>

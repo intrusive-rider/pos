@@ -6,7 +6,7 @@
 
     <!-- Fonts -->
     <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
-    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    {{-- <script src="https://unpkg.com/@phosphor-icons/web"></script> --}}
 
     <!-- Styles / Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
