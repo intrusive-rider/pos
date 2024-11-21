@@ -78,10 +78,10 @@ class PosController extends Controller
         return redirect(route('view-receipt', $transaction->id));
     }
 
-    public function receipt(Transaction $transaction)
+    public function invoice(Transaction $transaction)
     {
         $transaction->load('products');
-        return view('pos.receipt', compact('transaction'));
+        return view('pos.invoice', compact('transaction'));
     }
 
     public function destroy(Transaction $transaction)

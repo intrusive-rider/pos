@@ -15,5 +15,5 @@ Route::middleware('auth')->group(function () {
     Route::post('checkout/{transaction}', [PosController::class, 'pay'])->name('pay-transaction');
     Route::delete('checkout/{transaction}', [PosController::class, 'destroy'])->name('delete-transaction');
 
-    Route::get('receipt/{transaction}', [PosController::class, 'receipt'])->name('view-receipt');
+    Route::get('invoice/{transaction}', [PosController::class, 'invoice'])->name('view-invoice');
 });
