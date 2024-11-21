@@ -9,37 +9,80 @@ use Illuminate\Support\Facades\Auth;
 
 class PosController extends Controller
 {
-    public function index()
+    public function create()
     {
         $products = Product::all();
         return view('pos.create', ['products' => $products]);
     }
-    
-    public function checkout(Request $request)
-    {
-        $buyer = 'Safira';
-        $quantities = $request->input('quantity'); // Get the array of product quantities
 
-        // Step 1: Create the Transaction record
+    public function store(Request $request)
+    {
+        $buyer = 'Test';
+        $quantities = $request->input('quantity');
+        $validation = empty($quantities) || array_sum($quantities) === 0;
+
+        if ($validation) {
+            return redirect()->back()->with('error', 'You must add at least one product to proceed.');
+        }
+
         $transaction = Transaction::create([
             'seller_id' => Auth::user()->id,
-            'buyer' => $buyer,    // Store the buyer's name
-            'total' => $this->calculateTotal($quantities),  // Calculate the total based on products
+            'buyer' => $buyer,
+            'total' => $this->calculateTotal($quantities),
         ]);
 
-        // Step 2: Create entries in the pivot table (transaction_product)
         foreach ($quantities as $prod_id => $quantity) {
             $product = Product::find($prod_id);
 
             if ($product && $quantity > 0) {
-                // Create an entry in the pivot table linking the transaction and product with quantity
                 $transaction->products()->attach($prod_id, ['quantity' => $quantity]);
             }
-
-            // Reduce the stock of the product by the quantity purchased
-            $product->decrement('stock', $quantity);  // Decrease stock by the quantity
         }
 
+        return redirect()->route('checkout', $transaction->id);
+    }
+
+    public function show(Transaction $transaction)
+    {
+        $transaction->load('products');
+        return view('pos.show', compact('transaction'));
+    }
+
+    public function pay(Request $request, Transaction $transaction)
+    {
+        $request->validate([
+            'amount' => [
+                'required',
+                'numeric',
+                function ($attribute, $value, $fail) use ($transaction) {
+                    $maxAmount = $transaction->total;
+
+                    if ($value < $maxAmount) {
+                        $fail('The ' . $attribute . ' cannot be less than Rp' . number_format($maxAmount, 2, ',', '.') . '.');
+                    }
+                },
+            ],
+        ]);
+
+        $transaction->payment_amount = $request->input('amount');
+        $transaction->save();
+
+        foreach ($transaction->products as $product) {
+            $product->increment('stock', $product->pivot->quantity);
+        }
+
+        return redirect(route('receipt', $transaction->id));
+    }
+
+    public function receipt(Transaction $transaction)
+    {
+        $transaction->load('products');
+        return view('pos.receipt', compact('transaction'));
+    }
+
+    public function destroy(Transaction $transaction)
+    {
+        $transaction->delete();
         return redirect('/');
     }
 

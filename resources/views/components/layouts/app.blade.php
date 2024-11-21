@@ -3,9 +3,9 @@
 
 <x-layouts.import />
 
-<body class="antialiased flex flex-col min-h-screen bg-base-100 px-48 space-y-6">
+<body class="antialiased flex flex-col min-h-screen bg-base-100 px-48">
     <x-layouts.header />
-    <main {{ $attributes }}>
+    <main {{ $attributes(['class' => 'space-y-6']) }}>
         {{ $slot }}
     </main>
 </body>

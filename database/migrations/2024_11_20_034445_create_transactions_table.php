@@ -16,6 +16,7 @@ return new class extends Migration
             $table->foreignId('seller_id')->constrained('users');
             $table->string('buyer');
             $table->integer('total');
+            $table->integer('payment_amount')->nullable();
             $table->timestamps();
         });
     }
