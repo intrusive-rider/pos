@@ -1,12 +1,10 @@
 @props([
     'icon' => 'square',
-    'color' => 'blue',
 ])
 
 @php
     $styles = [
         'flex flex-col justify-between',
-        'bg-'.$color.'-500',
         'hover:opacity-75',
         'p-8 h-64',
         'text-white text-4xl font-bold',
