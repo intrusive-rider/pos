@@ -9,7 +9,7 @@
     @endslot
 
     @slot('right')
-        <x-layouts.form method="POST" action="/register">
+        <x-layouts.form method="POST" action="{{ route('register-user') }}">
             <x-forms.input name="name" icon="user" :placeholder="__('Your name')" />
             <x-forms.input name="email" type="email" icon="envelope" :placeholder="__('Email')" />
             <x-forms.input name="password" type="password" icon="key" :placeholder="__('Password')" />

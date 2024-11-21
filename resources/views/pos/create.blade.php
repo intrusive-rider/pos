@@ -15,10 +15,10 @@
             <span>{{ session('error') }}</span>
         </div>
     @endif
-    <x-layouts.form method="POST" action="/new" id="checkout" class="pb-12 max-w-none">
+    <x-layouts.form method="POST" action="{{ route('save-transaction') }}" id="checkout" class="pb-12 max-w-none">
         <div class="grid grid-cols-3 gap-6">
             @foreach ($products as $product)
-                <x-product title="{{ $product->name }}" price="{{ number_format($product->price, 2, ',', '.') }}"
+                <x-cards.product-select title="{{ $product->name }}" price="{{ $product->price }}"
                     stock="{{ $product->stock }}" id="{{ $product->id }}" />
             @endforeach
         </div>

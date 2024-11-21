@@ -40,7 +40,7 @@ class PosController extends Controller
             }
         }
 
-        return redirect()->route('checkout', $transaction->id);
+        return redirect()->route('checkout-transaction', $transaction->id);
     }
 
     public function show(Transaction $transaction)
@@ -75,7 +75,7 @@ class PosController extends Controller
             $product->decrement('stock', $product->pivot->quantity);
         }
 
-        return redirect(route('receipt', $transaction->id));
+        return redirect(route('view-receipt', $transaction->id));
     }
 
     public function receipt(Transaction $transaction)

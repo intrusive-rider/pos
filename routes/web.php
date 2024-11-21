@@ -8,12 +8,12 @@ require __DIR__ . '/auth.php';
 Route::middleware('auth')->group(function () {
     Route::view('/', 'pos.home')->name('home');
 
-    Route::get('new', [PosController::class, 'create']);
-    Route::post('new', [PosController::class, 'store']);
+    Route::get('new', [PosController::class, 'create'])->name('new-transaction');
+    Route::post('new', [PosController::class, 'store'])->name('save-transaction');
 
-    Route::get('checkout/{transaction}', [PosController::class, 'show'])->name('checkout');
-    Route::post('checkout/{transaction}', [PosController::class, 'pay']);
-    Route::delete('checkout/{transaction}', [PosController::class, 'destroy']);
+    Route::get('checkout/{transaction}', [PosController::class, 'show'])->name('checkout-transaction');
+    Route::post('checkout/{transaction}', [PosController::class, 'pay'])->name('pay-transaction');
+    Route::delete('checkout/{transaction}', [PosController::class, 'destroy'])->name('delete-transaction');
 
-    Route::get('receipt/{transaction}', [PosController::class, 'receipt'])->name('receipt');
+    Route::get('receipt/{transaction}', [PosController::class, 'receipt'])->name('view-receipt');
 });

@@ -1,5 +1,5 @@
 @props([
-    'title' => 'Lorem',
+    'title' => 'lorem',
     'price' => '10.000,00',
     'stock' => '1',
     'id' => 1,
@@ -10,11 +10,13 @@
         <img src="https://placehold.co/400" />
     </figure>
     <div class="card-body justify-between w-full">
-        <h2 class="card-title text-2xl">{{ $title }}</h2>
-        <p>
-            Rp{{ $price }} <br />
-            <span x-text="stock">0</span> left
-        </p>
+        <div class="space-y-3">
+            <h2 class="card-title text-2xl">{{ $title }}</h2>
+            <p>
+                <span x-text="stock">0</span> items left <br />
+                Rp{{ $price }}
+            </p>
+        </div>
         <div class="flex items-center join h-8">
             <div x-on:click="if (count > 0) { count--; stock++; }" class="btn btn-sm join-item" :disabled="count <= 0">
                 <i class="ph-bold ph-minus"></i>
