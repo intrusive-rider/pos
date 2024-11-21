@@ -68,7 +68,7 @@ class PosController extends Controller
         $transaction->save();
 
         foreach ($transaction->products as $product) {
-            $product->increment('stock', $product->pivot->quantity);
+            $product->decrement('stock', $product->pivot->quantity);
         }
 
         return redirect(route('receipt', $transaction->id));

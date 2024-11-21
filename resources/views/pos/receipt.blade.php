@@ -2,7 +2,8 @@
     <div class="flex justify-between w-full">
         <div class="space-y-3">
             <h1 class="text-5xl font-bold">Thank you, {{ $transaction->buyer }}</h1>
-            <p class="text-2xl">You just bought these three items:</p>
+            <p class="text-2xl pb-3">You just bought these three items:</p>
+            <a href="/" class="btn btn-ghost">Go back</a>
         </div>
         <div>
             <div class="space-y-3">
@@ -40,5 +41,4 @@
             </div>
         </div>
     </div>
-    <x-layouts.form class="hidden" method="DELETE" id="delete-transaction" action="/checkout/{{ $transaction->id }}" />
 </x-layouts.app>
