@@ -17,6 +17,6 @@
 @endphp
 
 <a {{ $attributes(['class' => $styles]) }}>
-    <i class="ph-fill ph-{{ $icon }} text-5xl opacity-75"></i>
+    @svg('phosphor-' . $icon . '-fill', 'w-12 h-12 opacity-70')
     <div class="space-y-3">{{ $slot }}</div>
 </a>

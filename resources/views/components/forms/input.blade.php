@@ -23,7 +23,7 @@
     @endisset
     <label for="{{ $name }}" class="input input-bordered flex items-center gap-2">
         @isset($icon)
-            <i class="ph ph-{{ $icon }} text-xl opacity-70"></i>
+            @svg('phosphor-' . $icon, 'w-6 h-6 opacity-70')
         @endisset
         <input {{ $attributes($defaults) }} />
     </label>

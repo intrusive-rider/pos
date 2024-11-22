@@ -8,8 +8,9 @@
                 <div class="divider"></div>
                 <span class="text-lg uppercase tracking-wider opacity-70 block">Info</span>
                 <p class="text-lg">
-                    <b>Seller:</b> {{ $transaction->user->name }} <br />
-                    <b>Created at:</b> {{ $transaction->created_at->format('d F Y') }} <br />
+                    <span class="flex items-center gap-x-3"> @svg('phosphor-cash-register-fill', 'w-6 h-6') {{ $transaction->user->name }}</span>
+                    <span class="flex items-center gap-x-3"> @svg('phosphor-calendar-check-fill', 'w-6 h-6')
+                        {{ $transaction->created_at->format('d F Y') }} </span>
                 </p>
             </div>
         </div>
@@ -23,13 +24,11 @@
             <div class="divider"></div>
             <div class="flex justify-between">
                 <h1 class="text-lg">Grand total:</h1>
-                <span
-                    class="font-bold text-2xl text-neutral tabular-nums">{{ $transaction->total_fmt }}</span>
+                <span class="font-bold text-2xl text-neutral tabular-nums">{{ $transaction->total_fmt }}</span>
             </div>
             <div class="flex justify-between">
                 <h1 class="text-lg">Payment amount:</h1>
-                <span
-                    class="font-bold text-2xl text-neutral tabular-nums">{{ $transaction->payment_amount_fmt }}</span>
+                <span class="font-bold text-2xl text-neutral tabular-nums">{{ $transaction->payment_amount_fmt }}</span>
             </div>
             <div class="divider"></div>
             <div class="flex justify-between">
