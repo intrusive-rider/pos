@@ -14,4 +14,18 @@ class Transaction extends Model
             ->withPivot('quantity')
             ->withTimestamps();
     }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'seller_id');
+    }
+
+    public function getTotalFmtAttribute()
+    {
+        return 'Rp' . number_format($this->total, 2, ',', '.');
+    }
+    public function getPaymentAmountFmtAttribute()
+    {
+        return 'Rp' . number_format($this->payment_amount, 2, ',', '.');
+    }
 }

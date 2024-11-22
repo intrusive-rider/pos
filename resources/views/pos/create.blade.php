@@ -18,7 +18,7 @@
     <x-layouts.form method="POST" action="{{ route('save-transaction') }}" id="checkout" class="pb-12 max-w-none">
         <div class="grid grid-cols-3 gap-6">
             @foreach ($products as $product)
-                <x-cards.product-select title="{{ $product->name }}" price="{{ $product->price }}"
+                <x-cards.product-select title="{{ $product->name }}" price="{{ $product->price_fmt }}"
                     stock="{{ $product->stock }}" id="{{ $product->id }}" />
             @endforeach
         </div>

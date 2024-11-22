@@ -18,4 +18,9 @@ class Product extends Model
             ->withPivot('quantity', 'price')
             ->withTimestamps();
     }
+
+    public function getPriceFmtAttribute()
+    {
+        return 'Rp' . number_format($this->price, 2, ',', '.');
+    }
 }

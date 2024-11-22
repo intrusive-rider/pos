@@ -14,7 +14,7 @@
             <h2 class="card-title text-2xl">{{ $title }}</h2>
             <p>
                 <span x-text="stock">0</span> items left <br />
-                Rp{{ $price }}
+                {{ $price }}
             </p>
         </div>
         <div class="flex items-center join h-8">
