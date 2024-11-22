@@ -9,7 +9,7 @@
     $qty_price = $price * $qty
 @endphp
 
-<div class="card card-compact lg:card-side bg-base-100 shadow-xl ring-2 ring-black/10 w-[35rem]">
+<div class="card card-compact lg:card-side bg-base-100 shadow-xl ring-2 ring-base-200 w-[35rem]">
     <figure>
         <img src="https://placehold.co/100" />
     </figure>

@@ -1,16 +1,22 @@
 <x-layouts.app class="flex items-center grow space-y-0">
     <div class="flex justify-between w-full">
-        <div class="space-y-6">
+        <div class="space-y-6 w-80">
             <a href="{{ route('home') }}" class="link link-hover text-lg">&larr; Go back</a>
             <div class="space-y-3">
                 <span class="text-lg uppercase tracking-wider opacity-70 block">Invoice</span>
                 <h1 class="text-5xl font-bold">{{ $transaction->buyer }}</h1>
                 <div class="divider"></div>
-                <span class="text-lg uppercase tracking-wider opacity-70 block">Info</span>
-                <p class="text-lg">
-                    <span class="flex items-center gap-x-3"> @svg('phosphor-cash-register-fill', 'w-6 h-6') {{ $transaction->user->name }}</span>
-                    <span class="flex items-center gap-x-3"> @svg('phosphor-calendar-check-fill', 'w-6 h-6')
-                        {{ $transaction->created_at->format('d F Y') }} </span>
+                <div tabindex="0" class="collapse collapse-arrow border-2 border-base-200">
+                    <div class="collapse-title text-lg uppercase tracking-wider opacity-70 block">Info</div>
+                    <div class="collapse-content">
+                        <p class="text-lg">
+                            <span class="flex items-center gap-x-3"> @svg('phosphor-hash-bold', 'w-6 h-6') {{ $transaction->id }}</span>
+                            <span class="flex items-center gap-x-3"> @svg('phosphor-cash-register-fill', 'w-6 h-6')
+                                {{ $transaction->user->name }}</span>
+                            <span class="flex items-center gap-x-3"> @svg('phosphor-calendar-check-fill', 'w-6 h-6')
+                                {{ $transaction->created_at->format('d F Y') }} </span>
+                    </div>
+                </div>
                 </p>
             </div>
         </div>

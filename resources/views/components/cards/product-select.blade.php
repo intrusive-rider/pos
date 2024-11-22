@@ -5,7 +5,7 @@
     'id' => 1,
 ])
 
-<div class="card lg:card-side card-compact bg-base-100 shadow-xl ring-2 ring-black/10" x-data="{ count: 0, stock: {{ $stock }} }">
+<div class="card lg:card-side card-compact bg-base-100 shadow-xl ring-2 ring-base-200" x-data="{ count: 0, stock: {{ $stock }} }">
     <figure>
         <img src="https://placehold.co/400" />
     </figure>
