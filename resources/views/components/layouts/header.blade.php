@@ -4,6 +4,9 @@
         <h1 class="text-3xl font-bold">POS</h1>
     </div>
     <div class="navbar-end">
+        <a href="{{ route('lang.switch', 'en') }}">English</a>
+        <a href="{{ route('lang.switch', 'id') }}">Indonesia</a>
+
         <button type="submit" form="logout" class="btn btn-ghost">{{ __('form.logout') }}</button>
         <x-layouts.form method="DELETE" action="{{ route('logout-user') }}" id="logout" class="hidden" />
     </div>

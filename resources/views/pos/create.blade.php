@@ -1,5 +1,5 @@
 <x-layouts.app class="mt-6 pb-16">
-    <h1 class="text-5xl font-bold">New order</h1>
+    <h1 class="text-5xl font-bold">{{ __('title.create') }}</h1>
     <section class="flex items-center justify-between sticky top-0 z-10 backdrop-blur-sm">
         <x-layouts.form method="POST" action="/search">
             <x-forms.input name="q" icon="magnifying-glass" placeholder="{{ __('product.search') }}" />

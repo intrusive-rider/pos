@@ -7,4 +7,5 @@ return [
     'reg_sub' => "Senang berkenalan dengan Anda.\nUntuk memulai, silakan daftarkan akun Andan dengan mengisi formulir berikut.",
     'home' => 'Halo, :name!',
     'home_sub' => 'Apa yang ingin Anda lakukan hari ini?',
+    'create' => 'Pesanan baru',
 ];

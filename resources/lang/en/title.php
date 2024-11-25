@@ -7,4 +7,5 @@ return [
     'reg_sub' => "Nice to meet you! To get started with your job, please register a new account.",
     'home' => 'Hello, :name!',
     'home_sub' => 'What do you want to do today?',
+    'create' => 'New order',
 ];
