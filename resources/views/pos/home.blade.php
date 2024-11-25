@@ -12,6 +12,6 @@
             <p class="font-normal text-xl">example.com</p>
         </x-cards.action>
         <x-cards.action href="/" icon="truck" class="bg-blue-500">Send to customer</x-cards.action>
-        <x-cards.action href="/" icon="scroll" class="bg-blue-500">Report sales</x-cards.action>
+        <x-cards.action href="/invoice" icon="scroll" class="bg-blue-500">Invoices</x-cards.action>
     </section>
 </x-layouts.app>
