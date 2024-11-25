@@ -4,7 +4,7 @@
         <h1 class="text-3xl font-bold">POS</h1>
     </div>
     <div class="navbar-end">
-        <button type="submit" form="logout" class="btn btn-ghost">Log out</button>
+        <button type="submit" form="logout" class="btn btn-ghost">{{ __('form.logout') }}</button>
         <x-layouts.form method="DELETE" action="{{ route('logout-user') }}" id="logout" class="hidden" />
     </div>
 </nav>

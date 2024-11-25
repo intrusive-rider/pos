@@ -1,9 +1,9 @@
 <x-layouts.app class="flex items-center grow space-y-0">
     <div class="flex justify-between w-full">
         <div class="space-y-6 w-80">
-            <a href="{{ route('home') }}" class="link link-hover text-lg">&larr; Go back</a>
+            <a href="{{ route('home') }}" class="link link-hover text-lg">&larr; {{ __('link.go_back') }}</a>
             <div class="space-y-3">
-                <span class="text-lg uppercase tracking-wider opacity-70 block">Invoice</span>
+                <span class="text-lg uppercase tracking-wider opacity-70 block">{{ __('product.invoice') }}</span>
                 <h1 class="text-5xl font-bold">{{ $transaction->buyer }}</h1>
                 <div class="divider"></div>
                 <div tabindex="0" class="collapse collapse-arrow border-2 border-base-200">
@@ -29,16 +29,16 @@
             </div>
             <div class="divider"></div>
             <div class="flex justify-between">
-                <h1 class="text-lg">Grand total:</h1>
+                <h1 class="text-lg">{{ __('product.total') }}:</h1>
                 <span class="font-bold text-2xl text-neutral tabular-nums">{{ $transaction->total_fmt }}</span>
             </div>
             <div class="flex justify-between">
-                <h1 class="text-lg">Payment amount:</h1>
+                <h1 class="text-lg">{{ __('product.payment_amount') }}:</h1>
                 <span class="font-bold text-2xl text-neutral tabular-nums">{{ $transaction->payment_amount_fmt }}</span>
             </div>
             <div class="divider"></div>
             <div class="flex justify-between">
-                <h1 class="text-lg">Change:</h1>
+                <h1 class="text-lg">{{ __('product.change') }}:</h1>
                 <span
                     class="font-bold text-3xl text-primary tabular-nums">Rp{{ number_format($transaction->payment_amount - $transaction->total, 2, ',', '.') }}</span>
             </div>

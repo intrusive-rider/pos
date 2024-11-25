@@ -13,7 +13,7 @@
         <div class="space-y-3">
             <h2 class="card-title text-2xl">{{ $title }}</h2>
             <p>
-                <span x-text="stock">0</span> items left <br />
+                <span x-text="stock">0</span> {{ __('product.stock_left') }} <br />
                 {{ $price }}
             </p>
         </div>

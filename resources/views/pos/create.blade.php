@@ -2,19 +2,21 @@
     <h1 class="text-5xl font-bold">New order</h1>
     <section class="flex items-center justify-between sticky top-0 z-10 backdrop-blur-sm">
         <x-layouts.form method="POST" action="/search">
-            <x-forms.input name="q" icon="magnifying-glass" :placeholder="__('Search product')" />
+            <x-forms.input name="q" icon="magnifying-glass" placeholder="{{ __('product.search') }}" />
         </x-layouts.form>
         <div>
-            <a href="/" class="btn btn-ghost">Cancel</a>
-            <button type="submit" form="checkout" class="btn btn-primary">Check out</button>
+            <a href="/" class="btn btn-ghost">{{ __('form.cancel') }}</a>
+            <button type="submit" form="checkout" class="btn btn-primary">{{ __('product.checkout') }}</button>
         </div>
     </section>
+
     @if (session('error'))
         <div role="alert" class="alert alert-error">
-            <i class="ph ph-x-circle text-2xl"></i>
+            @svg('phosphor-x-circle', 'w-6 h-6')
             <span>{{ session('error') }}</span>
         </div>
     @endif
+
     <x-layouts.form method="POST" action="{{ route('save-transaction') }}" id="checkout" class="pb-12 max-w-none">
         <div class="grid grid-cols-3 gap-6">
             @foreach ($products as $product)

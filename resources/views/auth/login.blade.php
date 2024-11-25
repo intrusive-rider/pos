@@ -2,19 +2,18 @@
     <x-forms.auth-session-status class="mb-4" :status="session('status')" />
 
     @slot('left')
-        <h1 class="text-5xl font-bold">Welcome!</h1>
+        <h1 class="text-5xl font-bold">{{ __('title.login') }}</h1>
         <p class="text-xl">
-            It appears that you're not logged in. <br />
-            Please log into your account to get started. <br/><br/>
-            <a href="/register" class="link">New employee?</a>
+            {!! nl2br(__('title.login_sub')) !!} <br /><br />
+            <a href="/register" class="link">{{ __('link.to_register') }}</a>
         </p>
     @endslot
 
     @slot('right')
         <x-layouts.form method="POST" action="{{ route('login-user') }}">
-            <x-forms.input name="email" type="email" icon="envelope" :placeholder="__('Email')" />
-            <x-forms.input name="password" type="password" icon="key" :placeholder="__('Password')" />
-            <button type="submit" class="mt-6 btn btn-primary btn-block">{{ __('Log in') }}</button>
+            <x-forms.input name="email" type="email" icon="envelope" :placeholder="__('form.email')" />
+            <x-forms.input name="password" type="password" icon="key" :placeholder="__('form.password')" />
+            <button type="submit" class="mt-6 btn btn-primary btn-block">{{ __('form.login') }}</button>
         </x-layouts.form>
     @endslot
 </x-layouts.guest>
