@@ -7,12 +7,12 @@ use App\Models\Transaction;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class PosController extends Controller
+class TransactionController extends Controller
 {
     public function create()
     {
         $products = Product::all();
-        return view('pos.create', ['products' => $products]);
+        return view('transaction.create', ['products' => $products]);
     }
 
     public function store(Request $request)
@@ -46,7 +46,7 @@ class PosController extends Controller
     public function show(Transaction $transaction)
     {
         $transaction->load('products');
-        return view('pos.show', compact('transaction'));
+        return view('transaction.show', compact('transaction'));
     }
 
     public function pay(Request $request, Transaction $transaction)
@@ -75,19 +75,13 @@ class PosController extends Controller
             $product->decrement('stock', $product->pivot->quantity);
         }
 
-        return redirect(route('view-invoice', $transaction->id));
-    }
-
-    public function invoice(Transaction $transaction)
-    {
-        $transaction->load('products');
-        return view('pos.invoice', compact('transaction'));
+        return redirect(route('show-invoice', $transaction->id));
     }
 
     public function destroy(Transaction $transaction)
     {
         $transaction->delete();
-        return redirect('/');
+        return redirect(route('home'));
     }
 
     protected function calculateTotal($quantities)

@@ -1,7 +1,7 @@
 <x-layouts.app class="flex items-center grow space-y-0">
     <div class="flex justify-between w-full">
         <div class="space-y-6 w-80">
-            <a href="{{ route('home') }}" class="link link-hover text-lg">&larr; {{ __('link.go_back') }}</a>
+            <a href="{{ route('index-invoice') }}" class="link link-hover text-lg">&larr; {{ __('link.go_back') }}</a>
             <div class="space-y-3">
                 <span class="text-lg uppercase tracking-wider opacity-70 block">{{ __('product.invoice') }}</span>
                 <h1 class="text-5xl font-bold">{{ $transaction->buyer }}</h1>
@@ -14,7 +14,7 @@
                             <span class="flex items-center gap-x-3"> @svg('phosphor-cash-register-fill', 'w-6 h-6')
                                 {{ $transaction->user->name }}</span>
                             <span class="flex items-center gap-x-3"> @svg('phosphor-calendar-check-fill', 'w-6 h-6')
-                                {{ $transaction->created_at->format('d F Y') }} </span>
+                                {{ $transaction->created_at->format('d F Y, H.i') }} </span>
                     </div>
                 </div>
                 </p>
