@@ -24,6 +24,7 @@ class Transaction extends Model
     {
         return 'Rp' . number_format($this->total, 2, ',', '.');
     }
+    
     public function getPaymentAmountFmtAttribute()
     {
         return 'Rp' . number_format($this->payment_amount, 2, ',', '.');
