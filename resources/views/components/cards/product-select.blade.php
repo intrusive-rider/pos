@@ -28,7 +28,8 @@
 
             <input type="number" name="quantity[{{ $id }}]" x-model="count"
                 x-on:input="stock = {{ $stock }} - count"
-                class="border-none focus:ring-0 h-full join-item w-16 bg-base-200 tabular-nums slashed-zero flex items-center justify-center text-center no-spinner" :disabled="{{ $stockIsEmpty }}" />
+                class="border-none focus:ring-0 h-full join-item w-16 bg-base-200 tabular-nums slashed-zero flex items-center justify-center text-center no-spinner"
+                :disabled="{{ $stockIsEmpty }}" />
 
             <div x-on:click="if (count < {{ $stock }}) { count++; stock--; }" class="btn btn-sm join-item"
                 :disabled="count >= {{ $stock }}">
