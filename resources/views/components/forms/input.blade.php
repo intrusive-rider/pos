@@ -2,6 +2,7 @@
     'name' => '',
     'label' => null,
     'icon',
+    'required' => true, 
 ])
 
 @php
@@ -11,7 +12,7 @@
         'name' => $name,
         'class' => 'grow border-none focus:ring-0',
         'value' => old($name),
-        'required' => 'required',
+        'required' => $required,
     ];
 @endphp
 

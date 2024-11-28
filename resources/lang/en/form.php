@@ -6,7 +6,7 @@ return [
     'password' => 'Password',
     'confirm_password' => 'Confirm password',
     'login' => 'Log in',
-    'login' => 'Log out',
+    'logout' => 'Log out',
     'register' => 'Register',
     'cancel' => 'Cancel',
 ];

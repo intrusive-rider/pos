@@ -1,6 +1,10 @@
+@php
+    $count = 1;
+@endphp
+
 <div>
     <div class="max-w-lg w-full">
-        <x-forms.input name="search" icon="magnifying-glass" placeholder="Search invoice" wire:model.live="search" />
+        <x-forms.input name="search" icon="magnifying-glass" placeholder="Search invoice" wire:model.live="search" :required="false" />
     </div>
 
     <section class="overflow-x-auto mt-4">
@@ -16,7 +20,7 @@
             <tbody>
                 @forelse ($this->invoices as $invoice)
                     <tr class="hover">
-                        <td class="opacity-70 tabular-nums">{{ $invoice->id }}</td>
+                        <td class="opacity-70 tabular-nums">{{ $count++ }}</td>
                         <td>
                             <a href="{{ route('show-invoice', $invoice->id) }}"
                                 class="link link-hover">{{ $invoice->buyer }}</a>
