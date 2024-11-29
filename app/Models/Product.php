@@ -9,8 +9,16 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 class Product extends Model
 {
     use HasFactory;
-
-    protected $guarded = [];
+    protected $fillable = [
+        'name',
+        'price',
+        'stock',
+        'category',
+        'image',
+    ];
+    protected $guarded = [
+        
+    ];
 
     public function transactions(): BelongsToMany
     {

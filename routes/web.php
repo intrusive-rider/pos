@@ -1,8 +1,11 @@
 <?php
 
-use App\Http\Controllers\InvoiceController;
-use App\Http\Controllers\TransactionController;
+
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\StockController;
+use App\Http\Controllers\InvoiceController;
+use App\Http\Controllers\DataProductController;
+use App\Http\Controllers\TransactionController;
 
 require __DIR__ . '/auth.php';
 
@@ -18,4 +21,9 @@ Route::middleware('auth')->group(function () {
 
     Route::get('invoice', [InvoiceController::class, 'index'])->name('index-invoice');
     Route::get('invoice/{transaction}', [InvoiceController::class, 'show'])->name('show-invoice');
+
+    Route::get('update-stock', [StockController::class, 'UpdateStocks'])->name('new-product');
+    Route::post('update-stock/store', [StockController::class, 'store'])->name('save-product');
+
+    Route::get('data-product', [DataProductController::class, 'DataProduct'])->name('new-data');
 });
