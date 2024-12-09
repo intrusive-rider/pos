@@ -25,5 +25,9 @@ Route::middleware('auth')->group(function () {
     Route::get('update-stock', [StockController::class, 'UpdateStocks'])->name('new-product');
     Route::post('update-stock/store', [StockController::class, 'store'])->name('save-product');
 
+    
     Route::get('data-product', [DataProductController::class, 'DataProduct'])->name('new-data');
+    Route::get('edit-product/{id}', [DataProductController::class, 'EditProduct'])->name('new-edit');
+    Route::post('update-product/{id}', [DataProductController::class, 'update'])->name('save-update');
+    Route::get('delete-product/{id}', [DataProductController::class, 'delete'])->name('delete-product');
 });
