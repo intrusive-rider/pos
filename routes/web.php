@@ -1,9 +1,10 @@
 <?php
 
-use App\Http\Middleware\CleanupTransactions;
+
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\StockController;
 use App\Http\Controllers\InvoiceController;
+use App\Http\Middleware\CleanupTransactions;
 use App\Http\Controllers\DataProductController;
 use App\Http\Controllers\TransactionController;
 
@@ -12,7 +13,9 @@ require __DIR__ . '/auth.php';
 Route::middleware('auth')->group(function () {
     Route::middleware([CleanupTransactions::class])->group(function () {
         Route::view('/', 'home')->name('home');
-    
+        
+        Route::get('new/search', [TransactionController::class, 'create'])->name('transaction.create');
+
         Route::get('new', [TransactionController::class, 'create'])->name('new-transaction');
         Route::post('new', [TransactionController::class, 'store'])->name('save-transaction');
 
@@ -32,5 +35,4 @@ Route::middleware('auth')->group(function () {
         Route::post('update-product/{id}', [DataProductController::class, 'update'])->name('save-update');
         Route::get('delete-product/{id}', [DataProductController::class, 'delete'])->name('delete-product');
     });
-    
 });
