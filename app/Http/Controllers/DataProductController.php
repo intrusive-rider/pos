@@ -11,7 +11,7 @@ class DataProductController extends Controller
 {
     public function DataProduct()
     {
-        $products = Product::paginate(10); // Menampilkan 10 produk per halaman
+        $products = Product::paginate(10); 
         return view('data.table-product', compact('products'));
     }
 
@@ -29,18 +29,18 @@ class DataProductController extends Controller
             'price' => 'required|numeric|min:0',
             'stock' => 'required|integer|min:0',
             'category' => 'required|string',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', // Gambar opsional saat edit
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', 
         ]);
 
         $product = Product::findOrFail($id);
 
         if ($request->hasFile('image')) {
-            // Hapus gambar lama jika ada
+            
             if ($product->image && file_exists(public_path($product->image))) {
                 unlink(public_path($product->image));
             }
 
-            // Simpan gambar baru
+            
             $image = $request->file('image');
             $imageName = time() . '_' . $image->getClientOriginalName();
             $image->move(public_path('postimages'), $imageName);
