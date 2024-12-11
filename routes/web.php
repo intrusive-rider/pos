@@ -13,7 +13,9 @@ require __DIR__ . '/auth.php';
 Route::middleware('auth')->group(function () {
     Route::middleware([CleanupTransactions::class])->group(function () {
         Route::view('/', 'home')->name('home');
-    
+        
+        Route::get('new/search', [TransactionController::class, 'create'])->name('transaction.create');
+
         Route::get('new', [TransactionController::class, 'create'])->name('new-transaction');
         Route::post('new', [TransactionController::class, 'store'])->name('save-transaction');
 

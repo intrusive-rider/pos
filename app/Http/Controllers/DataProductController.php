@@ -49,7 +49,7 @@ class DataProductController extends Controller
 
         $product->update($validatedData);
 
-        return redirect()->route('new-data')->with('success', 'Product has been updated successfully!');
+        return redirect()->route('new-data')->with('message', 'Product has been updated successfully!');
     }
 
     public function delete($id)
@@ -58,12 +58,7 @@ class DataProductController extends Controller
 
         $product->delete();
 
-        return redirect()->back()->with('message', 'Data Barang berhasil di hapus');
+        return redirect()->back()->with('message', 'Product has been successfully deleted');
     }
-
-
-
-
-    
 
 }

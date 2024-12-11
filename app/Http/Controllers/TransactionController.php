@@ -9,10 +9,20 @@ use Illuminate\Support\Facades\Auth;
 
 class TransactionController extends Controller
 {
-    public function create()
+
+    public function create(Request $request)
     {
-        $products = Product::all();
-        return view('transaction.create', ['products' => $products]);
+        $search = $request->input('search');
+
+        // Jika ada query pencarian, filter produk berdasarkan nama
+        $products = Product::when($search, function ($query, $search) {
+            return $query->where('name', 'like', '%' . $search . '%');
+        })->get();
+
+        return view('transaction.create', [
+            'products' => $products,
+            'search' => $search,
+        ]);
     }
 
     public function store(Request $request)

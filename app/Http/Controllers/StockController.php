@@ -37,7 +37,7 @@ class StockController extends Controller
         
         Product::create($validatedData);
 
-        return redirect()->back()->with('success', 'Product has been saved successfully!');
+        return redirect()->route('new-data')->with('message', 'Product has been saved successfully!');
     }
 
 }

@@ -9,6 +9,12 @@
         </div>
     @endif
 
+    @if(session()->has('message'))
+      <div role="alert" class="alert alert-success">
+        <span>{{ session('message') }}</span>
+      </div>
+    @endif
+
     <div class="card bg-base-100 shadow-xl p-6 max-w-4xl mx-auto mt-10">
         <div class="card-body">
             <x-layouts.form method="POST" action="{{ route('new-data') }}" class="pb-12 max-w-none" enctype="multipart/form-data">
