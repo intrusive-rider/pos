@@ -21,6 +21,7 @@ class ProductFactory extends Factory
             'price' => fake()->numberBetween(1, 10) * 1000,
             'stock' => fake()->numberBetween(5, 20),
             'category' => fake()->randomElement(['Food', 'Drinks', 'Dessert']),
+            'image' => 'https://picsum.photos/seed/' . rand(0, 100_000) . '/90',
         ];
     }
 }

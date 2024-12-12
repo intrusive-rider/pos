@@ -48,7 +48,8 @@
                         <td class="tabular-nums">{{ $product->stock }}</td>
                         <td>{{ $product->price_fmt }}</td>
                         <td>{{ $product->category }}</td>
-                        <td><img src="{{ asset($product->image) }}" alt="{{ $product->name }}" width="90"></td>
+                        <td>
+                            <img class="mask mask-squircle size-12 object-cover" src="{{ asset($product->image) }}" alt="{{ $product->name }}"></td>
                         <td>
                             <a href="{{ route('edit-product', $product->id) }}" type="button"
                                 class="btn btn-sm btn-primary">Edit</a>

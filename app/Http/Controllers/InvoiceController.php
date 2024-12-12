@@ -12,9 +12,9 @@ class InvoiceController extends Controller
         return view('invoice.index', compact('transactions'));
     }
 
-    public function show(Transaction $transaction)
+    public function show(Transaction $invoice)
     {
-        $transaction->load('products');
+        $invoice->load('products');
         return view('invoice.show', compact('transaction'));
     }
 }

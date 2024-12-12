@@ -1,24 +1,19 @@
-@props([
-    'title' => 'lorem',
-    'price' => '10.000,00',
-    'stock' => '1',
-    'id' => 1,
-])
+@props(['product'])
 
 @php
-    $stockIsEmpty = $stock <= 0;
+    $stockIsEmpty = $product->stock <= 0;
 @endphp
 
-<div class="card lg:card-side card-compact bg-base-100 shadow-xl ring-2 ring-base-200" x-data="{ count: 0, stock: {{ $stock }} }">
+<div class="card lg:card-side card-compact bg-base-100 shadow-xl ring-2 ring-base-200" x-data="{ count: 0, stock: {{ $product->stock }} }">
     <figure>
-        <img src="https://placehold.co/400" />
+        <img src="{{ $product->image }}" class="w-96 object-cover" />
     </figure>
     <div class="card-body justify-between w-full">
         <div class="space-y-3">
-            <h2 class="card-title text-2xl {{ $stockIsEmpty ? 'line-through' : '' }}">{{ $title }}</h2>
+            <h2 class="card-title text-2xl {{ $stockIsEmpty ? 'line-through' : '' }}">{{ $product->name }}</h2>
             <p>
                 <span x-text="stock">0</span> {{ __('product.stock_left') }} <br />
-                {{ $price }}
+                {{ $product->price_fmt }}
             </p>
         </div>
         <div class="flex items-center join h-8">
@@ -26,12 +21,13 @@
                 @svg('phosphor-minus', 'w-4 h-4')
             </div>
 
-            <input type="number" name="quantity[{{ $id }}]" x-model="count"
-                x-on:input="stock = {{ $stock }} - count"
-                class="border-none focus:ring-0 h-full join-item w-16 bg-base-200 tabular-nums slashed-zero flex items-center justify-center text-center no-spinner" :disabled="{{ $stockIsEmpty }}" />
+            <input type="number" name="quantity[{{ $product->id }}]" x-model="count"
+                x-on:input="stock = {{ $product->stock }} - count"
+                class="border-none focus:ring-0 h-full join-item w-16 bg-base-200 tabular-nums slashed-zero flex items-center justify-center text-center no-spinner"
+                :disabled="{{ $stockIsEmpty }}" />
 
-            <div x-on:click="if (count < {{ $stock }}) { count++; stock--; }" class="btn btn-sm join-item"
-                :disabled="count >= {{ $stock }}">
+            <div x-on:click="if (count < {{ $product->stock }}) { count++; stock--; }" class="btn btn-sm join-item"
+                :disabled="count >= {{ $product->stock }}">
                 @svg('phosphor-plus', 'w-4 h-4')
             </div>
         </div>

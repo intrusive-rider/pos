@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class ProductController extends Controller
 {
@@ -20,36 +21,30 @@ class ProductController extends Controller
 
     public function store(Request $request)
     {
-        $validatedData = $request->validate([
+        $attr = $request->validate([
             'name' => 'required|string|max:255',
             'price' => 'required|numeric|min:0',
-            'stock' => 'required|integer|min:0',
+            'stock' => 'required|numeric|min:0',
             'category' => 'required|string',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
-
         if ($request->hasFile('image')) {
-            $image = $request->file('image');
-            $imageName = time() . '_' . $image->getClientOriginalName();
-            $image->move(public_path('postimages'), $imageName);
-            $validatedData['image'] = 'postimages/' . $imageName;
+            $attr['image'] = 'storage/' . $request->image->store('product_img', 'public');
         }
-
-        Product::create($validatedData);
-
+        
+        Product::create($attr);
         return redirect()->route('index-product');
     }
 
-    public function edit($id)
+    public function edit(Product $product)
     {
-        $product = Product::findOrFail($id);
         return view('product.edit', compact('product'));
     }
 
-    public function update(Request $request, $id)
+    public function update(Request $request, Product $product)
     {
-        $validatedData = $request->validate([
+        $attr = $request->validate([
             'name' => 'required|string|max:255',
             'price' => 'required|numeric|min:0',
             'stock' => 'required|integer|min:0',
@@ -57,31 +52,21 @@ class ProductController extends Controller
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
-        $product = Product::findOrFail($id);
-
         if ($request->hasFile('image')) {
-
-            if ($product->image && file_exists(public_path($product->image))) {
-                unlink(public_path($product->image));
+            if ($product->image && Storage::exists($product->image)) {
+                Storage::delete($product->image);
             }
-
-
-            $image = $request->file('image');
-            $imageName = time() . '_' . $image->getClientOriginalName();
-            $image->move(public_path('postimages'), $imageName);
-            $validatedData['image'] = 'postimages/' . $imageName;
+            
+            $attr['image'] = 'storage/' . $request->image->store('product_img', 'public');
         }
 
-        $product->update($validatedData);
-
+        $product->update($attr);
         return redirect()->route('index-product');
     }
 
-    public function destroy($id)
+    public function destroy(Product $product)
     {
-        $product = Product::findOrFail($id);
         $product->delete();
-
         return redirect()->back();
     }
 }

@@ -28,7 +28,7 @@
         <div>
             <div class="space-y-3">
                 @foreach ($transaction->products as $product)
-                    <x-cards.product-list title="{{ $product->name }}" price="{{ $product->price }}" price_fmt="{{ $product->price_fmt }}" qty="{{ $product->pivot->quantity }}" />
+                    <x-cards.product-list :$product />
                 @endforeach
             </div>
             <div class="divider"></div>
