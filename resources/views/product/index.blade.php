@@ -50,10 +50,14 @@
                         <td>{{ $product->category }}</td>
                         <td><img src="{{ asset($product->image) }}" alt="{{ $product->name }}" width="90"></td>
                         <td>
-                            <a href="{{ route('new-edit', $product->id) }}" type="button"
+                            <a href="{{ route('edit-product', $product->id) }}" type="button"
                                 class="btn btn-sm btn-primary">Edit</a>
-                            <a href="{{ route('delete-product', $product->id) }}" type="button"
-                                class="btn btn-sm btn-error">Delete</a>
+                            <span>
+                                <button type="submit" form="delete-product-{{ $product->id }}"
+                                    class="btn btn-sm btn-error">{{ __('Delete') }}</button>
+                                <x-layouts.form method="DELETE" action="{{ route('delete-product', $product->id) }}"
+                                    id="delete-product-{{ $product->id }}" class="hidden" />
+                            </span>
                         </td>
                     </tr>
                 @endforeach
