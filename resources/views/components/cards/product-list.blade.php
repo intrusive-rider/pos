@@ -11,7 +11,7 @@
 
 <div class="card card-compact lg:card-side bg-base-100 shadow-xl ring-2 ring-base-200 w-[35rem]">
     <figure>
-        <img src="https://placehold.co/400" />
+        <img src="https://placehold.co/100" />
     </figure>
     <div class="card-body flex-row items-center justify-between">
         <h2 class="card-title text-3xl">{{ $title }}</h2>

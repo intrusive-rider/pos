@@ -5,12 +5,7 @@
             <a href="/" class="btn btn-ghost">{{ __('form.cancel') }}</a>
             <button type="submit" form="checkout" class="btn btn-primary">{{ __('product.checkout') }}</button>
         </div>
-       
     </section>
-
-    <form method="GET" action="{{ route('transaction.create') }}" class="inline">
-        <input type="text" name="search" value="{{ request('search') }}" placeholder="{{ __('Search...') }}" class="input input-bordered ml-2 w-48" />
-    </form>
 
     @if (session('error'))
         <div role="alert" class="alert alert-error">

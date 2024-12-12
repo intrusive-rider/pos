@@ -7,4 +7,5 @@ return [
     'website' => 'Visit website',
     'send' => 'Send to customer',
     'invoices' => 'See invoices',
+    'listings' => 'Product listings',
 ];

@@ -26,7 +26,7 @@
                                 class="link link-hover">{{ $invoice->buyer }}</a>
                         </td>
                         <td class="tabular-nums">{{ $invoice->total_fmt }}</td>
-                        <td>{{ $invoice->created_at->format('d F Y, H.i') }}</td>
+                        <td>{{ $invoice->created_at->format('d F Y, H:i') }}</td>
                     </tr>
                 @empty
                     <tr>

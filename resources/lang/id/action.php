@@ -7,4 +7,5 @@ return [
     'website' => 'Kunjungi situs web',
     'send' => 'Kirim ke pemesan',
     'invoices' => 'Lihat invois',
+    'listings' => 'Daftar produk',
 ];
