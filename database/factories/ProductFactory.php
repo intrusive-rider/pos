@@ -20,6 +20,7 @@ class ProductFactory extends Factory
             'name' => fake()->word(),
             'price' => fake()->numberBetween(1, 10) * 1000,
             'stock' => fake()->numberBetween(5, 20),
+            'category' => fake()->randomElement(['Food', 'Drinks', 'Dessert']),
         ];
     }
 }

@@ -17,7 +17,7 @@ return new class extends Migration
             $table->integer('price');
             $table->smallInteger('stock');
             $table->string('category');
-            $table->string('image')->nullable(); // Menyimpan path gambar
+            $table->string('image')->nullable();
             $table->timestamps();
         });
     }
