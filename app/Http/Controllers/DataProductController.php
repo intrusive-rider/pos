@@ -5,13 +5,11 @@ namespace App\Http\Controllers;
 use App\Models\Product;
 use Illuminate\Http\Request;
 
-
-
 class DataProductController extends Controller
 {
     public function DataProduct()
     {
-        $products = Product::paginate(10); 
+        $products = Product::all(); 
         return view('data.table-product', compact('products'));
     }
 
@@ -23,7 +21,6 @@ class DataProductController extends Controller
 
     public function update(Request $request, $id)
     {
-        
         $validatedData = $request->validate([
             'name' => 'required|string|max:255',
             'price' => 'required|numeric|min:0',

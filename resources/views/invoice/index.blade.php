@@ -4,7 +4,7 @@
             <a href="{{ route('home') }}" class="link link-hover text-lg">&larr; {{ __('link.go_back') }}</a>
             <h1 class="text-5xl font-bold">{{ __('action.invoices') }}</h1>
         </div>
-        <div class="stats">
+        <div class="stats text-right">
             <div class="stat text-primary">
                 <div class="stat-title">Total</div>
                 <div class="stat-value">Rp{{ number_format($transactions->sum('total'), 2, ',', '.') }}</div>

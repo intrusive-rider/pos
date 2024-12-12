@@ -11,7 +11,9 @@ use App\Http\Controllers\TransactionController;
 require __DIR__ . '/auth.php';
 
 Route::middleware('auth')->group(function () {
+
     Route::middleware([CleanupTransactions::class])->group(function () {
+
         Route::view('/', 'home')->name('home');
 
         Route::get('new', [TransactionController::class, 'create'])->name('new-transaction');
@@ -22,7 +24,6 @@ Route::middleware('auth')->group(function () {
 
         Route::get('update-stock', [StockController::class, 'UpdateStocks'])->name('new-product');
         Route::post('update-stock/store', [StockController::class, 'store'])->name('save-product');
-
 
         Route::get('data-product', [DataProductController::class, 'DataProduct'])->name('new-data');
         Route::get('edit-product/{id}', [DataProductController::class, 'EditProduct'])->name('new-edit');
