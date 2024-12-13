@@ -1,4 +1,4 @@
-<x-layouts.app class="mt-6 pb-16">
+<x-layouts.app class="mt-6">
     <section class="flex items-center justify-between sticky top-0 z-10 backdrop-blur-sm">
         <h1 class="text-5xl font-bold">{{ __('title.create') }}</h1>
         <div>
@@ -14,11 +14,17 @@
         </div>
     @endif
 
-    <x-layouts.form method="POST" action="{{ route('create-transaction') }}" id="checkout" class="pb-12 max-w-none">
-        <div class="grid grid-cols-3 gap-6">
-            @foreach ($products as $product)
-                <x-cards.product-select :$product />
-            @endforeach
-        </div>
+    <x-layouts.form method="POST" action="{{ route('create-transaction') }}" id="checkout"
+        class="pb-12 max-w-none space-y-8">
+        @foreach ($products->groupBy('category') as $category => $products)
+            <div class="space-y-3">
+                <h2 class="text-lg font-semibold opacity-70 tracking-wider uppercase">{{ $category }}</h2>
+                <div class="grid grid-cols-3 gap-6">
+                    @foreach ($products as $product)
+                        <x-cards.product-select :product="$product" />
+                    @endforeach
+                </div>
+            </div>
+        @endforeach
     </x-layouts.form>
 </x-layouts.app>
