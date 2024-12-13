@@ -31,34 +31,37 @@
         <table class="table text-base">
             <thead class="text-sm">
                 <tr class="uppercase">
-                    <th>#</th>
+                    <th class="text-center">#</th>
                     <th>Name</th>
                     <th>Qty.</th>
                     <th>Price</th>
                     <th>Category</th>
                     <th>Image</th>
-                    <th>Actions</th>
                 </tr>
             </thead>
             <tbody>
                 @foreach ($products as $index => $product)
-                    <tr class="hover">
-                        <td class="opacity-70 tabular-nums">{{ $count++ }}</td>
-                        <td>{{ $product->name }}</td>
+                    <tr class="group hover align-baseline">
+                        <td class="w-16 text-center">
+                            <span class="opacity-70 tabular-nums group-hover:hidden">{{ $count++ }}</span>
+                            <span class="hidden group-hover:inline">
+                                <button type="submit" form="delete-product-{{ $product->id }}">@svg('phosphor-x-bold', 'w-6 h-6')</button>
+                                <x-layouts.form method="DELETE" action="{{ route('delete-product', $product->id) }}"
+                                    id="delete-product-{{ $product->id }}" class="hidden" />
+                            </span>
+                        </td>
+                        <td class="w-56">
+                            <a href="{{ route('edit-product', $product->id) }}" class="link-hover">
+                                <span class="group-hover:hidden">{{ $product->name }}</span>
+                                <span class="hidden group-hover:inline font-bold">Edit</span>
+                            </a>
+                        </td>
                         <td class="tabular-nums">{{ $product->stock }}</td>
                         <td>{{ $product->price_fmt }}</td>
                         <td>{{ $product->category }}</td>
                         <td>
-                            <img class="mask mask-squircle size-12 object-cover" src="{{ asset($product->image) }}" alt="{{ $product->name }}"></td>
-                        <td>
-                            <a href="{{ route('edit-product', $product->id) }}" type="button"
-                                class="btn btn-sm btn-primary">Edit</a>
-                            <span>
-                                <button type="submit" form="delete-product-{{ $product->id }}"
-                                    class="btn btn-sm btn-error">{{ __('Delete') }}</button>
-                                <x-layouts.form method="DELETE" action="{{ route('delete-product', $product->id) }}"
-                                    id="delete-product-{{ $product->id }}" class="hidden" />
-                            </span>
+                            <img class="mask mask-squircle size-12 object-cover" src="{{ asset($product->image) }}"
+                                alt="{{ $product->name }}">
                         </td>
                     </tr>
                 @endforeach
