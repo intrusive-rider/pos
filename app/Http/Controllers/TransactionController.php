@@ -12,7 +12,7 @@ class TransactionController extends Controller
     public function create()
     {
         $products = Product::all();
-        return view('transaction.create', ['products' => $products]);
+        return view('transaction.create', compact('products'));
     }
 
     public function store(Request $request)
@@ -66,6 +66,7 @@ class TransactionController extends Controller
             ],
         ]);
 
+
         $transaction->update([
             'buyer' => $request->input('buyer'),
             'payment_amount' => $request->input('amount'),
@@ -75,7 +76,8 @@ class TransactionController extends Controller
             $product->decrement('stock', $product->pivot->quantity);
         }
 
-        return redirect(route('show-invoice', $transaction->id));
+        $invoice = $transaction->id;
+        return redirect(route('show-invoice', $invoice));
     }
 
     public function destroy(Transaction $transaction)

@@ -3,10 +3,10 @@
 
 <x-layouts.import />
 
-<body class="antialiased flex flex-col min-h-screen bg-base-100 px-48">
-    @livewireScripts
+<body class="antialiased flex flex-col bg-base-100 min-h-screen mx-auto max-w-5xl">
     <x-layouts.header />
-    <main {{ $attributes(['class' => 'space-y-8']) }}>
+    @livewireScripts
+    <main {{ $attributes(['class' => 'space-y-8 w-full']) }}>
         {{ $slot }}
     </main>
 </body>

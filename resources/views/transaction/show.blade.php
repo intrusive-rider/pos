@@ -1,6 +1,6 @@
 <x-layouts.app class="flex items-center grow space-y-0">
     <div class="flex justify-between w-full">
-        <x-layouts.form method="POST" action="{{ route('pay-transaction', $transaction->id) }}" class="space-y-3">
+        <x-layouts.form method="POST" action="{{ route('pay-transaction', $transaction->id) }}" class="space-y-3" style="width: 22rem">
             <span class="text-lg uppercase tracking-wider opacity-70">{{ __('product.transaction') . ' #' . $transaction->id }}</span>
             <label class="input input-lg flex items-center gap-2 p-0">
                 <input type="text" name="buyer" id="buyer"
@@ -15,7 +15,7 @@
                         <label for="amount" class="input input-bordered flex items-center gap-2 join-item">
                             <span class="opacity-70">Rp</span>
                             <input type="number" name="amount" id="amount"
-                                class="grow border-none focus:ring-0 no-spinner" placeholder="{{ __('product.amount') }}"
+                                class="grow border-none focus:ring-0 no-spinner w-32" placeholder="{{ __('product.amount') }}"
                                 :value="{{ old('amount') }}" required />
                         </label>
                         <button type="submit" class="btn btn-primary join-item">{{ __('product.pay') }}</button>

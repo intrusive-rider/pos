@@ -1,4 +1,4 @@
-<nav class="navbar px-2 py-6 bg-base-100">
+<nav class="navbar pt-20 bg-base-100">
     <div class="navbar-start space-x-3">
         <x-app-icon size="40" />
         <h1 class="text-3xl font-bold">POS</h1>
