@@ -6,6 +6,6 @@ return [
     'discount' => ':disc' . '% off',
     'website' => 'Visit website',
     'send' => 'Send to customer',
-    'invoices' => 'See invoices',
+    'invoices' => 'Invoices',
     'listings' => 'Product listings',
 ];

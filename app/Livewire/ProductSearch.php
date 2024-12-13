@@ -21,6 +21,7 @@ class ProductSearch extends Component
                 $this->search,
                 fn($query) =>
                 $query->where('name', 'like', '%' . $this->search . '%')
+                ->orWhere('category', 'like', '%' . $this->search . '%')
             )
             ->get();
     }

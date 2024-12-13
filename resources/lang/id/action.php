@@ -6,6 +6,6 @@ return [
     'discount' => 'Diskon :disc' . '%',
     'website' => 'Kunjungi situs web',
     'send' => 'Kirim ke pemesan',
-    'invoices' => 'Lihat invois',
+    'invoices' => 'Invois',
     'listings' => 'Daftar produk',
 ];
