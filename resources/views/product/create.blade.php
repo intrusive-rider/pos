@@ -6,9 +6,9 @@
         <x-forms.input name="price" type="number" icon="tag" :placeholder="__('Price')" class="no-spinner" />
         <x-forms.input name="stock" type="number" icon="hash-straight" :placeholder="__('Stock')" class="no-spinner" />
         <x-forms.select name="category" icon="square" :placeholder="__('Category')">
-            <option>Food</option>
-            <option>Drink</option>
-            <option>Dessert</option>
+            @foreach ($categories as $category)
+                <option value="{{ $category->id }}" {{ old('category') ===  $category->name ? 'selected' : ''}}>{{ $category->name }}</option>
+            @endforeach
         </x-forms.select>
 
         <x-forms.file-input name="image" accept="image/*" :required="false">

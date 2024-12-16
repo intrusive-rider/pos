@@ -13,6 +13,7 @@
     </aside>
 
     <main class="w-full flex flex-col justify-center p-24 gap-12">
+        <div></div>
         {{ $right }}
     </main>
 </body>

@@ -20,8 +20,13 @@ class ProductSearch extends Component
             ->when(
                 $this->search,
                 fn($query) =>
-                $query->where('name', 'like', '%' . $this->search . '%')
-                ->orWhere('category', 'like', '%' . $this->search . '%')
+                $query
+                    ->where('products.name', 'like', '%' . $this->search . '%')
+                    ->orWhereHas(
+                        'category',
+                        fn($q) =>
+                        $q->where('categories.name', 'like', '%' . $this->search . '%')
+                    )
             )
             ->get();
     }

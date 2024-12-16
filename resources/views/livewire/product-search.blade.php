@@ -24,7 +24,7 @@
                 </tr>
             </thead>
             <tbody>
-                @forelse ($this->products as $index => $product)
+                @forelse ($this->products as $product)
                     <tr class="group hover align-baseline">
                         <td class="w-16 text-center">
                             <span class="opacity-70 tabular-nums group-hover:hidden">{{ $count++ }}</span>
@@ -43,7 +43,7 @@
                         </td>
                         <td class="tabular-nums">{{ $product->stock }}</td>
                         <td>{{ $product->price_fmt }}</td>
-                        <td>{{ $product->category }}</td>
+                        <td>{{ $product->category->name }}</td>
                         <td>
                             <img class="mask mask-squircle size-12 object-cover" src="{{ asset($product->image) }}"
                                 alt="{{ $product->name }}">

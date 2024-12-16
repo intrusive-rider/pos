@@ -11,7 +11,12 @@ class TransactionController extends Controller
 {
     public function create()
     {
-        $products = Product::all();
+        $products = Product::with('category')
+            ->get()
+            ->groupBy(function ($product) {
+                return $product->category->name;
+            });
+
         return view('transaction.create', compact('products'));
     }
 

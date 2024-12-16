@@ -3,13 +3,15 @@
 
     <x-layouts.form method="PATCH" action="{{ route('update-product', $product->id) }}" enctype="multipart/form-data">
         <x-forms.input name="name" icon="package" :placeholder="__('Name')" value="{{ $product->name }}" />
-        <x-forms.input name="price" type="number" icon="tag" :placeholder="__('Price')" value="{{ $product->price }}" class="no-spinner" />
-        <x-forms.input name="stock" type="number" icon="hash-straight" :placeholder="__('Stock')" value="{{ $product->stock }}" class="no-spinner" />
+        <x-forms.input name="price" type="number" icon="tag" :placeholder="__('Price')" value="{{ $product->price }}"
+            class="no-spinner" />
+        <x-forms.input name="stock" type="number" icon="hash-straight" :placeholder="__('Stock')"
+            value="{{ $product->stock }}" class="no-spinner" />
 
         <x-forms.select name="category" icon="square" :placeholder="__('Category')">
-            <option {{ $product->category === 'Food' ? 'selected' : '' }} >Food</option>
-            <option {{ $product->category === 'Drink' ? 'selected' : '' }} >Drink</option>
-            <option {{ $product->category === 'Dessert' ? 'selected' : '' }} >Dessert</option>
+            @foreach ($categories as $category)
+                <option value="{{ $category->id }}" {{ $product->category->name === $category->name ? 'selected' : '' }}>{{ $category->name }}</option>
+            @endforeach
         </x-forms.select>
 
         <x-forms.file-input name="image" accept="image/*" :required="false">
