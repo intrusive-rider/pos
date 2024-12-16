@@ -29,8 +29,15 @@ class ProductController extends Controller
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
+        // if ($request->hasFile('image')) {
+        //     $attr['image'] = 'storage/' . $request->image->store('product_img', 'public');
+        // }
+
         if ($request->hasFile('image')) {
-            $attr['image'] = 'storage/' . $request->image->store('product_img', 'public');
+            $image = $request->file('image');
+            $imageName = time() . '_' . $image->getClientOriginalName(); 
+            $image->move(public_path('product_img'), $imageName); 
+            $attr['image'] = 'product_img/' . $imageName; 
         }
         
         Product::create($attr);
@@ -52,12 +59,24 @@ class ProductController extends Controller
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
-        if ($request->hasFile('image')) {
-            if ($product->image && Storage::exists($product->image)) {
-                Storage::delete($product->image);
-            }
+        // if ($request->hasFile('image')) {
+        //     if ($product->image && Storage::exists($product->image)) {
+        //         Storage::delete($product->image);
+        //     }
             
-            $attr['image'] = 'storage/' . $request->image->store('product_img', 'public');
+        //     $attr['image'] = 'storage/' . $request->image->store('product_img', 'public');
+        // }
+
+        if ($request->hasFile('image')) {
+            // Hapus gambar lama jika ada
+            if ($product->image && file_exists(public_path($product->image))) {
+                unlink(public_path($product->image));
+            }
+            // Simpan gambar baru
+            $image = $request->file('image');
+            $imageName = time() . '_' . $image->getClientOriginalName();
+            $image->move(public_path('product_img'), $imageName);
+            $attr['image'] = 'product_img/' . $imageName;
         }
 
         $product->update($attr);
