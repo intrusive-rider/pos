@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Category;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -18,9 +19,9 @@ class ProductFactory extends Factory
     {
         return [
             'name' => fake()->word(),
-            'price' => fake()->numberBetween(1, 10) * 1000,
+            'category_id' => Category::factory(),
+            'price' => fake()->numberBetween(1, 20) * 1000,
             'stock' => fake()->numberBetween(5, 20),
-            'category' => fake()->randomElement(['Food', 'Drinks', 'Dessert']),
             'image' => 'https://picsum.photos/seed/' . rand(0, 100_000) . '/90',
         ];
     }

@@ -21,6 +21,6 @@ class DatabaseSeeder extends Seeder
             'password' => Hash::make('rahasia123'),
         ]);
 
-        Product::factory(6)->create();
+        Product::factory(5)->create();
     }
 }

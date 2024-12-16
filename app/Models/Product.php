@@ -18,6 +18,11 @@ class Product extends Model
             ->withTimestamps();
     }
 
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
+    }
+
     public function getPriceFmtAttribute()
     {
         return 'Rp' . number_format($this->price, 2, ',', '.');
