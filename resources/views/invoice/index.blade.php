@@ -1,4 +1,4 @@
-<x-layouts.app class="mt-6">
+<x-layouts.app>
     <section class="flex justify-between">
         <div class="space-y-3 max-w-prose">
             <a href="{{ route('home') }}" class="link link-hover text-lg">&larr; {{ __('link.go_back') }}</a>

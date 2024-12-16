@@ -1,4 +1,4 @@
-<x-layouts.app class="mt-6 pb-16">
+<x-layouts.app class="space-y-8">
     <h1 class="text-5xl font-bold">{{ __('New product') }}</h1>
 
     <x-layouts.form method="POST" action="{{ route('save-product') }}" enctype="multipart/form-data">

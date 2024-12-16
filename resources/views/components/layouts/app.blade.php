@@ -6,7 +6,7 @@
 <body class="antialiased flex flex-col bg-base-100 min-h-screen mx-auto max-w-5xl px-10">
     <x-layouts.header />
     @livewireScripts
-    <main {{ $attributes(['class' => 'space-y-8 w-full']) }}>
+    <main {{ $attributes(['class' => 'w-full pb-14 mt-6']) }}>
         {{ $slot }}
     </main>
 </body>

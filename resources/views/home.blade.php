@@ -1,4 +1,4 @@
-<x-layouts.app class="mt-6">
+<x-layouts.app class="space-y-8">
     <section class="space-y-4 max-w-prose">
         <h1 class="text-5xl font-bold">{{ __('title.home', ['name' => Auth::user()->name]) }}</h1>
         <p class="text-2xl">{{ __('title.home_sub') }}</p>
