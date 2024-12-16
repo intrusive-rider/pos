@@ -22,7 +22,7 @@
             {{ $top_label }}
         </div>
     @endisset
-    <label for="{{ $name }}" class="input input-bordered flex items-center gap-2">
+    <label for="{{ $name }}" class="input input-bordered flex items-center gap-4">
         @isset($icon)
             @svg('phosphor-' . $icon, 'w-6 h-6 opacity-70')
         @endisset
