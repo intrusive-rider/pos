@@ -1,11 +1,18 @@
 <x-layouts.app class="mt-6">
     <section class="flex items-center justify-between sticky top-0 z-10 backdrop-blur-sm">
         <h1 class="text-5xl font-bold">{{ __('title.create') }}</h1>
+        
         <div>
             <a href="/" class="btn btn-ghost">{{ __('form.cancel') }}</a>
             <button type="submit" form="checkout" class="btn btn-primary">{{ __('product.checkout') }}</button>
         </div>
+
     </section>
+
+    <div class="max-w-lg w-full">
+        <x-forms.input name="search" icon="magnifying-glass" placeholder="Search product" wire:model.live="search"
+            :required="false" />
+    </div>
 
     @if (session('error'))
         <div role="alert" class="alert alert-error">
