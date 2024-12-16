@@ -1,4 +1,4 @@
-<x-layouts.app class="mt-6 pb-16">
+<x-layouts.app class="space-y-8">
     <h1 class="text-5xl font-bold">{{ __('Edit product') }}</h1>
 
     <x-layouts.form method="PATCH" action="{{ route('update-product', $product->id) }}" enctype="multipart/form-data">

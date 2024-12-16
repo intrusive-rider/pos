@@ -3,9 +3,11 @@
 @endphp
 
 <div>
-    <div class="max-w-lg w-full">
-        <x-forms.input name="search" icon="magnifying-glass" placeholder="Search invoice" wire:model.live="search" :required="false" />
-    </div>
+    <section class="w-full sticky py-3 top-0 z-10 backdrop-blur-sm">
+        <div class="max-w-lg">
+            <x-forms.input name="search" icon="magnifying-glass" placeholder="Search invoice" wire:model.live="search" :required="false" />
+        </div>
+    </section>
 
     <section class="overflow-x-auto mt-4">
         <table class="table text-base">

@@ -3,7 +3,7 @@
 @endphp
 
 <div>
-    <section class="flex items-center justify-between">
+    <section class="flex items-center justify-between sticky py-3 top-0 z-10 backdrop-blur-sm">
         <div class="max-w-lg w-full">
             <x-forms.input name="search" icon="magnifying-glass" placeholder="Search product" wire:model.live="search"
                 :required="false" />
