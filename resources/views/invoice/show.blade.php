@@ -10,14 +10,14 @@
                     <div class="collapse-title text-lg uppercase tracking-wider opacity-70 block">Info</div>
                     <div class="collapse-content">
                         <p class="text-lg">
-                            <span class="flex items-center gap-x-3"> @svg('phosphor-hash-bold', 'w-6 h-6') {{ $invoice->id }}</span>
+                            <span class="flex items-center gap-x-3 tabular-nums"> @svg('phosphor-hash-bold', 'w-6 h-6')
+                                {{ $invoice->id }}</span>
                             <span class="flex items-center gap-x-3"> @svg('phosphor-cash-register-fill', 'w-6 h-6')
                                 {{ $invoice->user->name }}</span>
                             <span class="flex items-center gap-x-3"> @svg('phosphor-calendar-check-fill', 'w-6 h-6')
-                                {{ $invoice->created_at->format('d F Y, H.i') }} </span>
+                                {{ $invoice->created_at->format('d M Y, H:i') }} </span>
                     </div>
                 </div>
-                </p>
             </div>
         </div>
         <div>
@@ -41,6 +41,32 @@
                 <span
                     class="font-bold text-3xl text-primary tabular-nums">Rp{{ number_format($invoice->payment_amount - $invoice->total, 2, ',', '.') }}</span>
             </div>
+            <button class="btn btn-primary btn-block mt-8" onclick="print_invoice()">Print</button>
+
+            <div id="printed-content" class="hidden">
+                <x-layouts.printed-invoice :$invoice />
+            </div>
         </div>
     </div>
+    <script>
+        function print_invoice() {
+            var content = document.getElementById("printed-content").innerHTML;
+
+            var iframe = document.createElement("iframe");
+            iframe.style.position = "absolute";
+            iframe.style.width = "0px";
+            iframe.style.height = "0px";
+            iframe.style.border = "none";
+            document.body.appendChild(iframe);
+
+            var doc = iframe.contentDocument || iframe.contentWindow.document;
+
+            doc.open();
+            doc.write("<html><body>" + content + "</body></html>");
+            doc.close();
+
+            iframe.contentWindow.print();
+            document.body.removeChild(iframe);
+        }
+    </script>
 </x-layouts.app>

@@ -15,7 +15,12 @@ export default {
     theme: {
         extend: {
             fontFamily: {
-                sans: ["InterVariable", ...defaultTheme.fontFamily.sans],
+                sans: [
+                    '"Inter Variable", sans-serif',
+                    {
+                        fontFeatureSettings: '"calt", "liga", "cv08", "cv10", "cv01"'
+                    },
+                ],
             },
         },
     },
