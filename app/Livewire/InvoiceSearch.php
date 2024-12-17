@@ -7,7 +7,13 @@ use App\Models\Transaction;
 
 class InvoiceSearch extends Component
 {
+    public $invoices;
     public $search = '';
+
+    public function mount($invoices)
+    {
+        $this->invoices = $invoices;
+    }
 
     public function render()
     {
@@ -16,12 +22,13 @@ class InvoiceSearch extends Component
 
     public function getInvoicesProperty()
     {
-        return Transaction::query()
-            ->when(
-                $this->search,
-                fn($query) =>
-                $query->where('buyer', 'like', '%' . $this->search . '%')
+        return collect($this->transactions)->when(
+            $this->search,
+            fn($invoices) =>
+            $invoices->filter(
+                fn($invoice) =>
+                str_contains(strtolower($invoice->buyer), strtolower($this->search))
             )
-            ->get();
+        );
     }
 }

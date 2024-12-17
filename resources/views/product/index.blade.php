@@ -16,5 +16,5 @@
         </div>
     </section>
 
-    @livewire('product-search')
+    @livewire('product-search', ['products' => $products])
 </x-layouts.app>

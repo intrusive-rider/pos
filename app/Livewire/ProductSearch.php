@@ -2,12 +2,17 @@
 
 namespace App\Livewire;
 
-use App\Models\Product;
 use Livewire\Component;
 
 class ProductSearch extends Component
 {
+    public $products;
     public $search = '';
+
+    public function mount($products)
+    {
+        $this->products = $products;
+    }
 
     public function render()
     {
@@ -16,18 +21,14 @@ class ProductSearch extends Component
 
     public function getProductsProperty()
     {
-        return Product::query()
-            ->when(
-                $this->search,
-                fn($query) =>
-                $query
-                    ->where('products.name', 'like', '%' . $this->search . '%')
-                    ->orWhereHas(
-                        'category',
-                        fn($q) =>
-                        $q->where('categories.name', 'like', '%' . $this->search . '%')
-                    )
+        return collect($this->products)->when(
+            $this->search,
+            fn($products) =>
+            $products->filter(
+                fn($product) =>
+                str_contains(strtolower($product->name), strtolower($this->search)) ||
+                    str_contains(strtolower($product->category->name ?? ''), strtolower($this->search))
             )
-            ->get();
+        );
     }
 }

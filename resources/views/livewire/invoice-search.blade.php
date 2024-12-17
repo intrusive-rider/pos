@@ -20,7 +20,7 @@
                 </tr>
             </thead>
             <tbody>
-                @forelse ($this->invoices as $invoice)
+                @forelse ($invoices as $invoice)
                     <tr class="hover">
                         <td class="opacity-70 tabular-nums">{{ $count++ }}</td>
                         <td>

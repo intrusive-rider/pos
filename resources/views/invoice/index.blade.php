@@ -17,5 +17,5 @@
         </div>
     </section>
 
-    @livewire('invoice-search')
+    @livewire('invoice-search', ['invoices' => $invoices])
 </x-layouts.app>

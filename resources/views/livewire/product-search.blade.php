@@ -24,7 +24,7 @@
                 </tr>
             </thead>
             <tbody>
-                @forelse ($this->products as $product)
+                @forelse ($products as $product)
                     <tr class="group hover align-baseline">
                         <td class="w-16 text-center">
                             <span class="opacity-70 tabular-nums group-hover:hidden">{{ $count++ }}</span>
