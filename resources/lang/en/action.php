@@ -8,4 +8,5 @@ return [
     'send' => 'Send to customer',
     'invoices' => 'Invoices',
     'listings' => 'Product listings',
+    'category' => 'Categories',
 ];

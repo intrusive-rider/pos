@@ -1,9 +1,10 @@
 <x-layouts.app class="mt-6">
     <h1 class="text-5xl font-bold">{{ __('title.create') }}</h1>
-    <section class="flex items-center justify-between sticky top-0 z-10 py-3 backdrop-blur-sm">
+    <section
+        class="flex items-center justify-between sticky top-0 z-10 py-3 bg-gradient-to-b from-base-100 to-transparent from-90%">
         <p>
             @foreach ($products->keys() as $category)
-                <a href="#{{ $category }}">{{ $category }}</a> | 
+                <a href="#{{ $category }}">{{ $category }}</a> |
             @endforeach
         </p>
         <div>
