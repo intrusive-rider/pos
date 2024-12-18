@@ -20,13 +20,27 @@
                 </div>
             </div>
         </div>
-        <div>
-            <div class="space-y-3">
-                @foreach ($invoice->products as $product)
-                    <x-cards.product-list :$product />
-                @endforeach
-            </div>
-            <div class="divider"></div>
+        <div class="min-w-[30rem]">
+            <button class="btn mb-4" onclick="products.showModal()">Details</button>
+            <dialog id="products" class="modal">
+                <div class="modal-box max-w-[40rem] max-h-[50rem] p-0 pb-6">
+                    <div
+                        class="flex items-center justify-between p-6 sticky top-0 z-10 bg-gradient-to-b from-base-100 to-transparent from-90%">
+                        <h2 class="text-xl font-semibold uppercase tracking-wide opacity-70">
+                            {{ $invoice->products->count() }}
+                            {{ \Illuminate\Support\Str::plural('product', $invoice->products->count()) }}
+                        </h2>
+                    </div>
+                    <div class="space-y-3 px-6">
+                        @foreach ($invoice->products as $product)
+                            <x-cards.product-list :$product />
+                        @endforeach
+                    </div>
+                </div>
+                <form method="dialog" class="modal-backdrop">
+                    <button>Close</button>
+                </form>
+            </dialog>
             <div class="flex justify-between">
                 <h1 class="text-lg">{{ __('product.total') }}:</h1>
                 <span class="font-bold text-2xl text-neutral tabular-nums">{{ $invoice->total_fmt }}</span>
@@ -41,6 +55,7 @@
                 <span
                     class="font-bold text-3xl text-primary tabular-nums">Rp{{ number_format($invoice->payment_amount - $invoice->total, 2, ',', '.') }}</span>
             </div>
+
             <button class="btn btn-primary btn-block mt-8" onclick="print_invoice()">Print</button>
 
             <div id="printed-content" class="hidden">
