@@ -41,16 +41,16 @@ class ProductController extends Controller
         $attr['category_id'] = $attr['category'];
         unset($attr['category']);
 
-        if ($request->hasFile('image')) {
-            $attr['image'] = 'storage/' . $request->image->store('product_img', 'public');
-        }
-
         // if ($request->hasFile('image')) {
-        //     $image = $request->file('image');
-        //     $imageName = time() . '_' . $image->getClientOriginalName(); 
-        //     $image->move(public_path('product_img'), $imageName); 
-        //     $attr['image'] = 'product_img/' . $imageName; 
+        //     $attr['image'] = 'storage/' . $request->image->store('product_img', 'public');
         // }
+
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
+            $imageName = time() . '_' . $image->getClientOriginalName(); 
+            $image->move(public_path('product_img'), $imageName); 
+            $attr['image'] = 'product_img/' . $imageName; 
+        }
 
         Product::create($attr);
         return redirect()->route('index-product');
@@ -82,25 +82,23 @@ class ProductController extends Controller
         $attr['category_id'] = $attr['category'];
         unset($attr['category']);
 
-        if ($request->hasFile('image')) {
-            if ($product->image && Storage::exists($product->image)) {
-                Storage::delete($product->image);
-            }
-
-            $attr['image'] = 'storage/' . $request->image->store('product_img', 'public');
-        }
-
         // if ($request->hasFile('image')) {
-        //     // Hapus gambar lama jika ada
-        //     if ($product->image && file_exists(public_path($product->image))) {
-        //         unlink(public_path($product->image));
+        //     if ($product->image && Storage::exists($product->image)) {
+        //         Storage::delete($product->image);
         //     }
-        //     // Simpan gambar baru
-        //     $image = $request->file('image');
-        //     $imageName = time() . '_' . $image->getClientOriginalName();
-        //     $image->move(public_path('product_img'), $imageName);
-        //     $attr['image'] = 'product_img/' . $imageName;
+
+        //     $attr['image'] = 'storage/' . $request->image->store('product_img', 'public');
         // }
+
+        if ($request->hasFile('image')) {
+            if ($product->image && file_exists(public_path($product->image))) {
+                unlink(public_path($product->image));
+            }
+            $image = $request->file('image');
+            $imageName = time() . '_' . $image->getClientOriginalName();
+            $image->move(public_path('product_img'), $imageName);
+            $attr['image'] = 'product_img/' . $imageName;
+        }
 
         $product->update($attr);
         return redirect()->route('index-product');
