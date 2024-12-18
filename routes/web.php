@@ -5,6 +5,7 @@ use App\Http\Controllers\InvoiceController;
 use App\Http\Middleware\CleanupTransactions;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\TransactionController;
+use App\Http\Middleware\BlockMultiCheckout;
 
 require __DIR__ . '/auth.php';
 
@@ -34,7 +35,9 @@ Route::middleware('auth')->group(function () {
     });
 
     // checkout
-    Route::get('checkout/{transaction}', [TransactionController::class, 'show'])->name('checkout-transaction');
-    Route::post('checkout/{transaction}', [TransactionController::class, 'pay'])->name('pay-transaction');
-    Route::delete('checkout/{transaction}', [TransactionController::class, 'destroy'])->name('delete-transaction');
+    Route::middleware([BlockMultiCheckout::class])->group(function () {
+        Route::get('checkout/{transaction}', [TransactionController::class, 'show'])->name('checkout-transaction');
+        Route::post('checkout/{transaction}', [TransactionController::class, 'pay'])->name('pay-transaction');
+        Route::delete('checkout/{transaction}', [TransactionController::class, 'destroy'])->name('delete-transaction');
+    });
 });

@@ -1,10 +1,10 @@
 <x-layouts.app class="flex items-center grow space-y-0">
     <div class="flex justify-between w-full">
         <x-layouts.form method="POST" action="{{ route('pay-transaction', $transaction->id) }}" class="space-y-3" style="width: 22rem">
-            <span class="text-lg uppercase tracking-wider opacity-70">{{ __('product.transaction') . ' #' . $transaction->id }}</span>
+            <span class="text-lg uppercase tracking-wider opacity-70">{{ __('product.transaction') . ' ' . sprintf('%03d', $transaction->id) }}</span>
             <label class="input input-lg flex items-center gap-2 p-0">
                 <input type="text" name="buyer" id="buyer"
-                    class="grow border-none focus:ring-0 text-5xl font-bold placeholder:opacity-70 p-0"
+                    class="grow border-none focus:ring-0 text-5xl tracking-tight font-bold placeholder:opacity-70 p-0"
                     placeholder="{{ __('product.buyer') }}" value="{{ old('buyer') }}" required />
             </label>
             <x-forms.error :messages="$errors->get('buyer')" />
