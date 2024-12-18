@@ -20,9 +20,9 @@ class InvoiceSearch extends Component
         return view('livewire.invoice-search');
     }
 
-    public function getInvoicesProperty()
+    public function getFilteredInvoicesProperty()
     {
-        return collect($this->transactions)->when(
+        return collect($this->invoices)->when(
             $this->search,
             fn($invoices) =>
             $invoices->filter(

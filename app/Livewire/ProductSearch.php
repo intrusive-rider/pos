@@ -19,9 +19,9 @@ class ProductSearch extends Component
         return view('livewire.product-search');
     }
 
-    public function getProductsProperty()
+    public function getFilteredProductsProperty()
     {
-        return collect($this->products)->when(
+        return collect($this->products->load('category'))->when(
             $this->search,
             fn($products) =>
             $products->filter(

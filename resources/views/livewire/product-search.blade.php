@@ -5,7 +5,7 @@
 <div>
     <section class="flex items-center justify-between sticky py-3 top-0 z-10 backdrop-blur-sm">
         <div class="max-w-lg w-full">
-            <x-forms.input name="search" icon="magnifying-glass" placeholder="Search product" wire:model.live="search"
+            <x-forms.input name="search" icon="magnifying-glass" placeholder="Search product" wire:model.live.debounce.250ms="search"
                 :required="false" />
         </div>
         <a href="{{ route('new-product') }}" class="btn btn-primary">New product</a>
@@ -24,7 +24,7 @@
                 </tr>
             </thead>
             <tbody>
-                @forelse ($products as $product)
+                @forelse ($this->filtered_products as $product)
                     <tr class="group hover align-baseline">
                         <td class="w-16 text-center">
                             <span class="opacity-70 tabular-nums group-hover:hidden">{{ $count++ }}</span>

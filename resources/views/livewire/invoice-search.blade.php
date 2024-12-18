@@ -5,7 +5,7 @@
 <div>
     <section class="w-full sticky py-3 top-0 z-10 backdrop-blur-sm">
         <div class="max-w-lg">
-            <x-forms.input name="search" icon="magnifying-glass" placeholder="Search invoice" wire:model.live="search" :required="false" />
+            <x-forms.input name="search" icon="magnifying-glass" placeholder="Search invoice" wire:model.live.debounce.250ms="search" :required="false" />
         </div>
     </section>
 
@@ -20,7 +20,7 @@
                 </tr>
             </thead>
             <tbody>
-                @forelse ($invoices as $invoice)
+                @forelse ($this->filtered_invoices as $invoice)
                     <tr class="hover">
                         <td class="opacity-70 tabular-nums">{{ $count++ }}</td>
                         <td>
