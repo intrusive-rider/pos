@@ -1,7 +1,7 @@
 @props(['product'])
 
 @php
-    $stockIsEmpty = $product->stock <= 0;
+    $stock_is_empty = $product->stock <= 0;
 @endphp
 
 <div class="card lg:card-side card-compact bg-base-100 shadow-xl ring-2 ring-base-200" x-data="{ count: 0, stock: {{ $product->stock }} }">
@@ -10,7 +10,7 @@
     </figure>
     <div class="card-body justify-between w-full">
         <div class="space-y-3">
-            <h2 class="card-title text-2xl {{ $stockIsEmpty ? 'line-through' : '' }}">{{ $product->name }}</h2>
+            <h2 class="card-title text-2xl {{ $stock_is_empty ? 'line-through' : '' }}">{{ $product->name }}</h2>
             <p>
                 <span x-text="stock">0</span> {{ __('product.stock_left') }} <br />
                 {{ $product->price_fmt }}
@@ -24,7 +24,7 @@
             <input type="number" name="quantity[{{ $product->id }}]" x-model="count"
                 x-on:input="stock = {{ $product->stock }} - count"
                 class="border-none focus:ring-0 h-full join-item w-16 bg-base-200 tabular-nums slashed-zero flex items-center justify-center text-center no-spinner"
-                :disabled="{{ $stockIsEmpty }}" />
+                :disabled="{{ $stock_is_empty }}" />
 
             <div x-on:click="if (count < {{ $product->stock }}) { count++; stock--; }" class="btn btn-sm join-item"
                 :disabled="count >= {{ $product->stock }}">

@@ -13,7 +13,7 @@
         <table class="table text-base">
             <thead class="text-sm">
                 <tr class="uppercase">
-                    <th>#</th>
+                    <th class="text-center">#</th>
                     <th>{{ __('product.buyer') }}</th>
                     <th>Payment total</th>
                     <th>Created at</th>
@@ -22,7 +22,7 @@
             <tbody>
                 @forelse ($this->filtered_invoices as $invoice)
                     <tr class="hover">
-                        <td class="opacity-70 tabular-nums">{{ $count++ }}</td>
+                        <td class="opacity-70 tabular-nums text-center">{{ $count++ }}</td>
                         <td>
                             <a href="{{ route('show-invoice', $invoice->id) }}"
                                 class="link link-hover">{{ $invoice->buyer }}</a>

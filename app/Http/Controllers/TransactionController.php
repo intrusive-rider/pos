@@ -59,7 +59,8 @@ class TransactionController extends Controller
         $request->validate([
             'buyer' => 'required',
             'amount' => [
-                'required|numeric',
+                'required',
+                'numeric',
                 function ($attribute, $value, $fail) use ($transaction) {
                     $max_amount = $transaction->total;
 

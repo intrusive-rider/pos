@@ -1,7 +1,7 @@
 @props(['invoice'])
 
 <div id="wrapper">
-    <x-app-icon size="60" />
+    <x-app-icon size="50" />
     <div id="content">
         <section id="header">
             <h1>Receipt</h1>
@@ -50,7 +50,7 @@
     #wrapper {
         width: 28rem;
         font-family: monospace;
-        font-size: 1.5rem;
+        font-size: 1.25rem;
         text-transform: uppercase;
         margin: 3rem;
     }

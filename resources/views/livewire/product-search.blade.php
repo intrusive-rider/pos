@@ -5,8 +5,8 @@
 <div>
     <section class="flex items-center justify-between sticky py-3 top-0 z-10 backdrop-blur-sm">
         <div class="max-w-lg w-full">
-            <x-forms.input name="search" icon="magnifying-glass" placeholder="Search product" wire:model.live.debounce.250ms="search"
-                :required="false" />
+            <x-forms.input name="search" icon="magnifying-glass" placeholder="Search product"
+                wire:model.live.debounce.250ms="search" :required="false" />
         </div>
         <a href="{{ route('new-product') }}" class="btn btn-primary">New product</a>
     </section>
@@ -26,11 +26,12 @@
             <tbody>
                 @forelse ($this->filtered_products as $product)
                     <tr class="group hover align-baseline">
-                        <td class="w-16 text-center">
+                        <td class="w-20 text-center">
                             <span class="opacity-70 tabular-nums group-hover:hidden">{{ $count++ }}</span>
                             <span class="hidden group-hover:inline">
-                                <button type="submit"
-                                    form="delete-product-{{ $product->id }}">@svg('phosphor-x-bold', 'w-6 h-6')</button>
+                                <button class="btn btn-sm btn-ghost" type="submit"
+                                    form="delete-product-{{ $product->id }}">
+                                    @svg('phosphor-x-bold', 'w-5 h-5')</button>
                                 <x-layouts.form method="DELETE" action="{{ route('delete-product', $product->id) }}"
                                     id="delete-product-{{ $product->id }}" class="hidden" />
                             </span>
@@ -43,7 +44,7 @@
                         </td>
                         <td class="tabular-nums">{{ $product->stock }}</td>
                         <td>{{ $product->price_fmt }}</td>
-                        <td>{{ $product->category ? $product->category->name : 'No Category'  }}</td>
+                        <td>{{ $product->category->name }}</td>
                         <td>
                             <img class="mask mask-squircle size-12 object-cover" src="{{ asset($product->image) }}"
                                 alt="{{ $product->name }}">

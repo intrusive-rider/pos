@@ -1,16 +1,23 @@
 <x-layouts.app class="mt-6">
-    <h1 class="text-5xl font-bold">{{ __('title.create') }}</h1>
+    <section class="space-y-3 max-w-prose mb-3">
+        <a href="{{ route('home') }}" class="link link-hover text-lg">&larr; {{ __('link.go_back') }}</a>
+        <h1 class="text-5xl font-bold">{{ __('title.create') }}</h1>
+    </section>
     <section
         class="flex items-center justify-between sticky top-0 z-10 py-3 bg-gradient-to-b from-base-100 to-transparent from-90%">
-        <p>
-            @foreach ($products->keys() as $category)
-                <a href="#{{ $category }}">{{ $category }}</a> |
-            @endforeach
-        </p>
-        <div>
-            <a href="/" class="btn btn-ghost">{{ __('form.cancel') }}</a>
-            <button type="submit" form="checkout" class="btn btn-primary">{{ __('product.checkout') }}</button>
+        <div class="dropdown">
+            <div tabindex="0" role="button" class="btn btn-outline">Categories</div>
+            <ul tabindex="0" class="dropdown-content menu bg-base-100 rounded-box z-[1] w-52 p-2 shadow">
+                @forelse ($products->keys() as $category)
+                    <li><a href="#{{ $category }}">{{ $category }}</a></li>
+                @empty
+                    <li class="opacity-70">No product found.</li>
+                @endforelse
+            </ul>
         </div>
+        <button type="submit" form="checkout" class="btn btn-primary" {{ $products->isEmpty() ? 'disabled' : '' }}>
+            {{ __('product.checkout') }}
+        </button>
     </section>
 
     @if (session('error'))
@@ -22,7 +29,7 @@
 
     <x-layouts.form method="POST" action="{{ route('create-transaction') }}" id="checkout"
         class="max-w-none space-y-6">
-        @foreach ($products as $category => $products)
+        @forelse ($products as $category => $products)
             <div class="space-y-3">
                 <h2 class="text-lg font-semibold opacity-70 tracking-wider uppercase" id="{{ $category }}">
                     {{ $category }}</h2>
@@ -32,6 +39,8 @@
                     @endforeach
                 </div>
             </div>
-        @endforeach
+        @empty
+            <p class="opacity-70">No product found.</p>
+        @endforelse
     </x-layouts.form>
 </x-layouts.app>
