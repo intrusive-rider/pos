@@ -6,7 +6,7 @@
 
 <div class="card lg:card-side card-compact bg-base-100 shadow-xl ring-2 ring-base-200" x-data="{ count: 0, stock: {{ $product->stock }} }">
     <figure>
-        <img src="{{ $product->image }}" class="w-96 object-cover" />
+        <img src="{{ asset($product->image) }}" class="w-96 h-40 object-cover" />
     </figure>
     <div class="card-body justify-between w-full">
         <div class="space-y-3">

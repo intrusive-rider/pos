@@ -6,7 +6,7 @@
 
 <div class="card card-compact lg:card-side bg-base-100 shadow-xl ring-2 ring-base-200 min-w-[30rem]">
     <figure>
-        <img src="{{ $product->image }}" class="w-24 object-cover" />
+        <img src="{{ asset($product->image) }}" class="size-24 object-cover" />
     </figure>
     <div class="card-body flex-row items-center justify-between">
         <h2 class="card-title text-3xl">{{ $product->name }}</h2>
