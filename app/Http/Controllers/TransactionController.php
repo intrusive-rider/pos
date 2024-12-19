@@ -33,7 +33,7 @@ class TransactionController extends Controller
         $transaction = Transaction::create([
             'seller_id' => Auth::user()->id,
             'buyer' => $buyer,
-            'total' => $this->calculateTotal($quantities),
+            'total' => $this->calculate_total($quantities),
             'payment_amount' => 0,
         ]);
 
@@ -57,20 +57,18 @@ class TransactionController extends Controller
     public function pay(Request $request, Transaction $transaction)
     {
         $request->validate([
-            'buyer' => ['required'],
+            'buyer' => 'required',
             'amount' => [
-                'required',
-                'numeric',
+                'required|numeric',
                 function ($attribute, $value, $fail) use ($transaction) {
-                    $maxAmount = $transaction->total;
+                    $max_amount = $transaction->total;
 
-                    if ($value < $maxAmount) {
-                        $fail('The ' . $attribute . ' cannot be less than Rp' . number_format($maxAmount, 2, ',', '.') . '.');
+                    if ($value < $max_amount) {
+                        $fail('The ' . $attribute . ' cannot be less than Rp' . number_format($max_amount, 2, ',', '.') . '.');
                     }
                 },
             ],
         ]);
-
 
         $transaction->update([
             'buyer' => $request->input('buyer'),
@@ -91,7 +89,7 @@ class TransactionController extends Controller
         return redirect(route('home'));
     }
 
-    protected function calculateTotal($quantities)
+    protected function calculate_total($quantities)
     {
         $total = 0;
 

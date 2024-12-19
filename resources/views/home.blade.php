@@ -8,12 +8,8 @@
             class="bg-green-500">{{ __('action.create') }}</x-cards.action>
         <x-cards.action href="{{ route('index-product') }}" icon="package"
             class="bg-amber-500">{{ __('action.listings') }}</x-cards.action>
-        <x-cards.action href="{{ route('index-category') }}" icon="hard-drives"
-            class="bg-green-500">{{ __('action.category') }}</x-cards.action>
-        <x-cards.action href="https://example.com" icon="link" class="bg-pink-500">
-            {{ __('action.website') }}
-            <p class="font-normal text-xl">example.com</p>
-        </x-cards.action>
+        <x-cards.action href="#" icon="hard-drives"
+            class="bg-pink-500">{{ __('Discounts') }}</x-cards.action>
         <x-cards.action href="{{ route('index-invoice') }}" icon="scroll" class="bg-blue-500">{{ __('action.invoices') }}</x-cards.action>
     </section>
 </x-layouts.app>

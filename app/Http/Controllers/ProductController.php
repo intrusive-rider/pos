@@ -24,33 +24,28 @@ class ProductController extends Controller
     public function store(Request $request)
     {
         $attr = $request->validate([
-            'name' => 'required|string|max:255',
+            'name' => 'required|max:255|unique:products,name',
             'price' => 'required|numeric|min:0',
             'stock' => 'required|numeric|min:0',
-            'category' => [
-                'required',
-                function ($attribute, $value, $fail) {
-                    if (!Category::find($value)) {
-                        $fail('The selected category is invalid.');
-                    }
-                },
-            ],
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'category' => 'required|max:255',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp,bmp|max:2048',
         ]);
 
-        $attr['category_id'] = $attr['category'];
+        $category = $this->check_category($attr['category']);
+
+        $attr['category_id'] = $category->id;
         unset($attr['category']);
 
-        // if ($request->hasFile('image')) {
-        //     $attr['image'] = 'storage/' . $request->image->store('product_img', 'public');
-        // }
-
         if ($request->hasFile('image')) {
-            $image = $request->file('image');
-            $imageName = time() . '_' . $image->getClientOriginalName(); 
-            $image->move(public_path('product_img'), $imageName); 
-            $attr['image'] = 'product_img/' . $imageName; 
+            $attr['image'] = 'storage/' . $request->image->store('product_img', 'public');
         }
+
+        // if ($request->hasFile('image')) {
+        //     $image = $request->file('image');
+        //     $imageName = time() . '_' . $image->getClientOriginalName();
+        //     $image->move(public_path('product_img'), $imageName);
+        //     $attr['image'] = 'product_img/' . $imageName;
+        // }
 
         Product::create($attr);
         return redirect()->route('index-product');
@@ -65,40 +60,35 @@ class ProductController extends Controller
     public function update(Request $request, Product $product)
     {
         $attr = $request->validate([
-            'name' => 'required|string|max:255',
+            'name' => 'required|max:255|unique:products,name',
             'price' => 'required|numeric|min:0',
             'stock' => 'required|integer|min:0',
-            'category' => [
-                'required',
-                function ($attribute, $value, $fail) {
-                    if (!Category::find($value)) {
-                        $fail('The selected category is invalid.');
-                    }
-                },
-            ],
+            'category' => 'required|max:255',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
-        $attr['category_id'] = $attr['category'];
+        $category = $this->check_category($attr['category']);
+
+        $attr['category_id'] = $category->id;
         unset($attr['category']);
 
-        // if ($request->hasFile('image')) {
-        //     if ($product->image && Storage::exists($product->image)) {
-        //         Storage::delete($product->image);
-        //     }
-
-        //     $attr['image'] = 'storage/' . $request->image->store('product_img', 'public');
-        // }
-
         if ($request->hasFile('image')) {
-            if ($product->image && file_exists(public_path($product->image))) {
-                unlink(public_path($product->image));
+            if ($product->image && Storage::exists($product->image)) {
+                Storage::delete($product->image);
             }
-            $image = $request->file('image');
-            $imageName = time() . '_' . $image->getClientOriginalName();
-            $image->move(public_path('product_img'), $imageName);
-            $attr['image'] = 'product_img/' . $imageName;
+
+            $attr['image'] = 'storage/' . $request->image->store('product_img', 'public');
         }
+
+        // if ($request->hasFile('image')) {
+        //     if ($product->image && file_exists(public_path($product->image))) {
+        //         unlink(public_path($product->image));
+        //     }
+        //     $image = $request->file('image');
+        //     $imageName = time() . '_' . $image->getClientOriginalName();
+        //     $image->move(public_path('product_img'), $imageName);
+        //     $attr['image'] = 'product_img/' . $imageName;
+        // }
 
         $product->update($attr);
         return redirect()->route('index-product');
@@ -108,5 +98,18 @@ class ProductController extends Controller
     {
         $product->delete();
         return redirect()->back();
+    }
+
+    protected function check_category($category_name)
+    {
+        $category = Category::where('name', $category_name)->first();
+
+        if (is_null($category)) {
+            $category = Category::create([
+                'name' => $category_name
+            ]);
+        }
+
+        return $category;
     }
 }

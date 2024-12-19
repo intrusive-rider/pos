@@ -6,10 +6,10 @@
         <x-forms.input name="price" type="number" icon="tag" :placeholder="__('Price')" class="no-spinner" />
         <x-forms.input name="stock" type="number" icon="hash-straight" :placeholder="__('Stock')" class="no-spinner" />
 
-        <x-forms.select class="select2" name="category" icon="square" :placeholder="__('Category')">
+        <x-forms.select class="select" name="category" icon="square" :placeholder="__('Category')">
             @foreach ($categories as $category)
-                <option value="{{ $category->id }}" 
-                    {{ old('category') == $category->id ? 'selected' : '' }}>
+                <option value="{{ $category->name }}" 
+                    {{ old('category') === $category->name ? 'selected' : '' }}>
                     {{ $category->name }}
                 </option>
             @endforeach

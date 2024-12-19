@@ -8,16 +8,12 @@
         <x-forms.input name="stock" type="number" icon="hash-straight" :placeholder="__('Stock')"
             value="{{ $product->stock }}" class="no-spinner" />
 
-        <x-forms.select class="select2" name="category" icon="square" :placeholder="__('Category')">
+        <x-forms.select class="select" name="category" icon="square" :placeholder="__('Category')">
             @foreach ($categories as $category)
-                @if ($category)
-                    <option value="{{ $category->id }}" 
-                        {{ old('category', $product->category_id) == $category->id ? 'selected' : '' }}>
-                        {{ $category->name }}
-                    </option>
-                @else
-                    <option disabled>{{ __('No categories available') }}</option>
-                @endif
+                <option value="{{ $category->name }}"
+                    {{ old('category', $product->category->name) === $category->name ? 'selected' : '' }}>
+                    {{ $category->name }}
+                </option>
             @endforeach
         </x-forms.select>
 
