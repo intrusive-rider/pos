@@ -9,8 +9,7 @@
     $defaults = [
         'id' => $name,
         'name' => $name,
-        'class' => 'grow border-none focus:ring-0',
-        'value' => old($name),
+        'class' => 'grow',
         'required' => $required,
     ];
 @endphp

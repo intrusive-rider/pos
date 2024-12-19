@@ -10,10 +10,27 @@ h2 {
 .no-spinner::-webkit-inner-spin-button,
 .no-spinner::-webkit-outer-spin-button {
     -webkit-appearance: none;
-    margin: 0;
+    @apply m-0;
 }
-
-/* For Firefox */
 .no-spinner {
     -moz-appearance: textfield;
+}
+
+.select2-container--default .select2-selection--single {
+    @apply border-none;
+}
+.select2-container--open .select2-dropdown--below {
+    @apply rounded-lg border-base-300 p-2 space-y-2;
+}
+.select2-search--dropdown {
+    @apply p-0;
+}
+.select2-container--default .select2-search--dropdown .select2-search__field {
+    @apply rounded-md border border-base-300 outline-none px-2;
+}
+.select2-results__options {
+    @apply space-y-1;
+}
+.select2-results__option {
+    @apply rounded px-2;
 }
