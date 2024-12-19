@@ -1,4 +1,4 @@
-<x-layouts.app class="mt-6">
+<x-layouts.app class="mt-6" x-data="{ cartTotal: 0 }">
     <section class="space-y-3 max-w-prose mb-3">
         <a href="{{ route('home') }}" class="link link-hover text-lg">&larr; {{ __('link.go_back') }}</a>
         <h1 class="text-5xl font-bold">{{ __('title.create') }}</h1>
@@ -15,9 +15,15 @@
                 @endforelse
             </ul>
         </div>
-        <button type="submit" form="checkout" class="btn btn-primary" {{ $products->isEmpty() ? 'disabled' : '' }}>
-            {{ __('product.checkout') }}
-        </button>
+        <div class="flex items-center gap-x-6">
+            <div class="flex items-center gap-x-2">
+                <div class="badge badge-lg" x-text="cartTotal / {{ $products->map(fn($products) => $products->count())->sum(); }}">0</div>
+                @svg('phosphor-shopping-bag-open', 'w-8 h-8')
+            </div>
+            <button type="submit" form="checkout" class="btn btn-primary" {{ $products->isEmpty() ? 'disabled' : '' }}>
+                {{ __('product.checkout') }}
+            </button>
+        </div>
     </section>
 
     @if (session('error'))
