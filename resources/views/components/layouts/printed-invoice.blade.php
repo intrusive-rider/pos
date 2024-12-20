@@ -5,7 +5,7 @@
     <div id="content">
         <section id="header">
             <h1>Receipt</h1>
-            <h1>{{ sprintf('%03d', $invoice->id) }}</h1>
+            <h1>TRS-{{ sprintf('%03d', $invoice->id) }}</h1>
         </section>
         <section>
             <p id="left">

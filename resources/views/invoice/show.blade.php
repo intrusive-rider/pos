@@ -10,8 +10,8 @@
                     <div class="collapse-title text-lg uppercase tracking-wider opacity-70 block">Info</div>
                     <div class="collapse-content">
                         <p class="text-lg">
-                            <span class="flex items-center gap-x-3 tabular-nums"> @svg('phosphor-hash-bold', 'w-6 h-6')
-                                {{ $invoice->id }}</span>
+                            <span class="flex items-center gap-x-3 tabular-nums slashed-zero"> @svg('phosphor-hash-bold', 'w-6 h-6')
+                                TRS-{{ sprintf('%03d', $invoice->id) }}</span>
                             <span class="flex items-center gap-x-3"> @svg('phosphor-cash-register-fill', 'w-6 h-6')
                                 {{ $invoice->user->name }}</span>
                             <span class="flex items-center gap-x-3"> @svg('phosphor-calendar-check-fill', 'w-6 h-6')
