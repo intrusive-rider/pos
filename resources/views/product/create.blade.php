@@ -6,14 +6,18 @@
         <x-forms.input name="price" type="number" icon="tag" :placeholder="__('Price')" class="no-spinner" />
         <x-forms.input name="stock" type="number" icon="hash-straight" :placeholder="__('Stock')" class="no-spinner" />
 
-        <x-forms.select class="select" name="category" icon="square" :placeholder="__('Category')">
-            @foreach ($categories as $category)
-                <option value="{{ $category->name }}" 
-                    {{ old('category') === $category->name ? 'selected' : '' }}>
-                    {{ $category->name }}
-                </option>
-            @endforeach
-        </x-forms.select>        
+        <div class="flex items-center gap-4">
+            <div class="w-full">
+                <x-forms.select class="select" name="category" icon="square">
+                    @foreach ($categories as $category)
+                        <option value="{{ $category->name }}"
+                            {{ old('category') === $category->name ? 'selected' : '' }}>
+                            {{ $category->name }}
+                        </option>
+                    @endforeach
+                </x-forms.select>
+            </div>
+        </div>
 
         <x-forms.file-input name="image" accept="image/*" :required="false">
             @slot('top_label')
@@ -26,4 +30,11 @@
             <a href="{{ route('index-product') }}" class="btn btn-ghost">{{ __('form.cancel') }}</a>
         </div>
     </x-layouts.form>
+
+    <script>
+        function clearSelection() {
+            // Ensure Select2 is initialized before clearing
+            $('.select').val(null).trigger('change');
+        }
+    </script>
 </x-layouts.app>

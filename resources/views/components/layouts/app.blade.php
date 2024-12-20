@@ -16,7 +16,9 @@
 
 <script>
     $(".select").select2({
-        tags: true
+        tags: true,
+        allowClear: true,
+        placeholder: 'Select or add option'
     });
 </script>
 
