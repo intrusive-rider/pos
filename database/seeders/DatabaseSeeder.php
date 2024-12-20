@@ -22,5 +22,6 @@ class DatabaseSeeder extends Seeder
         ]);
 
         Product::factory(5)->create();
+        $this->call(DiscountTypeSeeder::class);
     }
 }

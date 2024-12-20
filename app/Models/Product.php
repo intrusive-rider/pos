@@ -23,6 +23,11 @@ class Product extends Model
         return $this->belongsTo(Category::class, 'category_id');
     }
 
+    public function discounts()
+    {
+        return $this->belongsToMany(Discount::class, 'product_discount');
+    }
+
     public function getPriceFmtAttribute()
     {
         return 'Rp' . number_format($this->price, 2, ',', '.');
