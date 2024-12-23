@@ -23,13 +23,14 @@ class ProductSearch extends Component
 
     public function getFilteredProductsProperty()
     {
-        return collect($this->products->load('category'))->when(
-            $this->search,
-            fn($products) =>
-            $products->filter(
-                fn($product) =>
-                str_contains(strtolower($product->name), strtolower($this->search)) ||
-                    str_contains(strtolower($product->category->name ?? ''), strtolower($this->search))
+        return $this->products
+            ->filter(fn($product) =>
+            ! $this->search || 
+            str_contains(
+                strtolower($product->name), strtolower($this->search)
+            ) ||
+            str_contains(
+                strtolower($product->category->name), strtolower($this->search)
             )
         );
     }

@@ -22,13 +22,11 @@ class InvoiceSearch extends Component
 
     public function getFilteredInvoicesProperty()
     {
-        return collect($this->invoices)->when(
-            $this->search,
-            fn($invoices) =>
-            $invoices->filter(
-                fn($invoice) =>
-                str_contains(strtolower($invoice->buyer), strtolower($this->search))
-            )
-        );
+        return $this->invoices
+            ->filter(fn($invoice) =>
+            ! $this->search || 
+            str_contains(
+                strtolower($invoice->buyer), strtolower($this->search)
+            ));
     }
 }
