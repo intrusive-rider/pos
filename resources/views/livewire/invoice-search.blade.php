@@ -1,7 +1,3 @@
-@php
-    $count = 1;
-@endphp
-
 <div>
     <section class="w-full sticky py-3 top-0 z-10 backdrop-blur-sm">
         <div class="max-w-lg">
@@ -22,7 +18,7 @@
             <tbody>
                 @forelse ($this->filtered_invoices as $invoice)
                     <tr class="hover">
-                        <td class="opacity-70 tabular-nums text-center">{{ $count++ }}</td>
+                        <td class="opacity-70 tabular-nums text-center">{{ $loop->iteration }}</td>
                         <td>
                             <a href="{{ route('show-invoice', $invoice->id) }}"
                                 class="link link-hover">{{ $invoice->buyer }}</a>

@@ -7,11 +7,13 @@ use Livewire\Component;
 class ProductSearch extends Component
 {
     public $products;
+    public $categories;
     public $search = '';
 
-    public function mount($products)
+    public function mount($products, $categories)
     {
         $this->products = $products;
+        $this->categories = $categories;
     }
 
     public function render()
