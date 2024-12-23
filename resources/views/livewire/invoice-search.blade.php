@@ -18,8 +18,8 @@
             <tbody>
                 @forelse ($this->filtered_invoices as $invoice)
                     <tr class="hover">
-                        <td class="opacity-70 tabular-nums text-center">{{ $loop->iteration }}</td>
-                        <td>
+                        <td class="w-20 opacity-70 tabular-nums text-center">{{ $loop->iteration }}</td>
+                        <td class="w-56 h-16">
                             <a href="{{ route('show-invoice', $invoice->id) }}"
                                 class="link link-hover">{{ $invoice->buyer }}</a>
                         </td>
