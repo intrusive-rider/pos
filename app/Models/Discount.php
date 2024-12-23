@@ -2,19 +2,34 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Discount extends Model
 {
+    use HasFactory;
     protected $guarded = [];
+    protected $casts = [
+        'start_date' => 'date',
+        'end_date' => 'date',
+    ];
 
-    public function type()
+    public function transactions()
     {
-        return $this->belongsTo(DiscountType::class, 'discount_types');
+        return $this->belongsToMany(Transaction::class, 'transaction_discount');
     }
 
-    public function products()
+    public function getValueFmtAttribute()
     {
-        return $this->belongsToMany(Product::class, 'product_discount');
+        if ($this->type === 'perc') {
+            return $this->value . '%';
+        }
+
+        return 'Rp' . number_format($this->value, 2, ',', '.');
+    }
+
+    public function getMaxValueFmtAttribute()
+    {
+        return 'Rp' . number_format($this->max_value, 2, ',', '.');
     }
 }

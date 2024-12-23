@@ -1,26 +1,31 @@
 <x-layouts.app class="space-y-8">
-    <h1 class="text-5xl font-bold">{{ __('New Discount') }}</h1>
+    <h1 class="text-5xl font-bold">{{ __('New discount') }}</h1>
+    <x-layouts.form method="POST" action="{{ route('save-discount') }}">
+        <x-forms.input name="name" icon="percent" :placeholder="__('Name')" />
 
-    <x-layouts.form method="POST" action="/" enctype="multipart/form-data">
-        <!-- Diskon Name -->
-        <x-forms.input name="name" icon="percent" :placeholder="__('Discount Name')" />
+        <div class="flex items-center gap-4">
+            <div class="w-full">
+                <x-forms.select name="type" icon="square" class="select">
+                    @slot('top_label')
+                        Type
+                    @endslot
+                    <option value="perc" {{ old('type') === 'perc' ? 'selected' : '' }}>
+                        {{ __('Percentage') }}
+                    </option>
+                    <option value="fixed" {{ old('type') === 'fixed' ? 'selected' : '' }}>
+                        {{ __('Fixed') }}
+                    </option>
+                </x-forms.select>
+            </div>
+        </div>
 
-        <!-- Diskon Type -->
-        <x-forms.select name="type" icon="list" :placeholder="__('Discount Type')">
-            <option value="percentage">{{ __('Percentage (%)') }}</option>
-            <option value="amount">{{ __('Fixed Amount') }}</option>
-        </x-forms.select>
+        <x-forms.input name="value" type="number" icon="hash-straight" :placeholder="__('Value')" class="no-spinner" />
+        <x-forms.input name="max_value" type="number" icon="arrow-line-up" :placeholder="__('Max. value (if in perc.)')" :required="false"
+            class="no-spinner" />
 
-        <!-- Diskon Amount -->
-        <x-forms.input name="value" type="number" icon="tag" :placeholder="__('Discount Value')" class="no-spinner" />
+        <x-forms.input name="start_date" type="date" icon="calendar-check" :placeholder="__('Start date')" />
+        <x-forms.input name="end_date" type="date" icon="calendar-x" :placeholder="__('End date')" />
 
-        <!-- Valid From -->
-        <x-forms.input name="valid_from" type="date" icon="calendar" :placeholder="__('Valid From')" />
-
-        <!-- Valid To -->
-        <x-forms.input name="valid_to" type="date" icon="calendar" :placeholder="__('Valid To')" />
-
-        <!-- Submit Button -->
         <div class="mt-6">
             <button type="submit" class="btn btn-primary">{{ __('Add') }}</button>
             <a href="{{ route('index-discount') }}" class="btn btn-ghost">{{ __('form.cancel') }}</a>

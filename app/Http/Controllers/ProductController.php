@@ -26,8 +26,8 @@ class ProductController extends Controller
     {
         $attr = $request->validate([
             'name' => 'required|max:255|unique:products,name',
-            'price' => 'required|numeric|min:0',
-            'stock' => 'required|numeric|min:0',
+            'price' => 'required|numeric|min:1',
+            'stock' => 'required|numeric|min:1',
             'category' => 'required|max:255',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp,bmp|max:2048',
         ]);

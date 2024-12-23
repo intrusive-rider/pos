@@ -14,11 +14,12 @@ return new class extends Migration
     {
         Schema::create('discounts', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(DiscountType::class)
-            ->constrained()->cascadeOnDelete();
             $table->string('name');
-            $table->decimal('value');
-            $table->decimal('max_value')->nullable();
+            $table->string('type');
+            $table->integer('value');
+            $table->integer('max_value')->nullable();
+            $table->date('start_date');
+            $table->date('end_date');
             $table->timestamps();
         });
     }

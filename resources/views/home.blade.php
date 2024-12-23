@@ -6,12 +6,14 @@
     <section class="grid grid-cols-2 gap-6">
         <x-cards.action href="{{ route('create-transaction') }}" icon="shopping-cart"
             class="bg-green-500">{{ __('action.create') }}</x-cards.action>
+            
         <x-cards.action href="{{ route('index-product') }}" icon="package"
             class="bg-amber-500">{{ __('action.listings') }}</x-cards.action>
-        
+
         <x-cards.action href="{{ route('index-discount') }}" icon="hard-drives"
             class="bg-pink-500">{{ __('Discounts') }}</x-cards.action>
 
-        <x-cards.action href="{{ route('index-invoice') }}" icon="scroll" class="bg-blue-500">{{ __('action.invoices') }}</x-cards.action>
+        <x-cards.action href="{{ route('index-invoice') }}" icon="scroll"
+            class="bg-blue-500">{{ __('action.invoices') }}</x-cards.action>
     </section>
 </x-layouts.app>

@@ -8,7 +8,10 @@
 
         <div class="flex items-center gap-4">
             <div class="w-full">
-                <x-forms.select class="select" name="category" icon="square">
+                <x-forms.select class="select-create" name="category" icon="square">
+                    @slot('top_label')
+                        Category
+                    @endslot
                     @foreach ($categories as $category)
                         <option value="{{ $category->name }}"
                             {{ old('category') === $category->name ? 'selected' : '' }}>
@@ -30,11 +33,4 @@
             <a href="{{ route('index-product') }}" class="btn btn-ghost">{{ __('form.cancel') }}</a>
         </div>
     </x-layouts.form>
-
-    <script>
-        function clearSelection() {
-            // Ensure Select2 is initialized before clearing
-            $('.select').val(null).trigger('change');
-        }
-    </script>
 </x-layouts.app>

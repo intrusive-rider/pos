@@ -15,6 +15,11 @@ class Transaction extends Model
             ->withTimestamps();
     }
 
+    public function discounts()
+    {
+        return $this->belongsToMany(Discount::class, 'transaction_discount');
+    }
+
     public function user()
     {
         return $this->belongsTo(User::class, 'seller_id');

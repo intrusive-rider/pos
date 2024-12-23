@@ -16,6 +16,11 @@
 
 <script>
     $(".select").select2({
+        allowClear: true,
+        placeholder: 'Select or add option'
+    });
+
+    $(".select-create").select2({
         tags: true,
         allowClear: true,
         placeholder: 'Select or add option'

@@ -1,7 +1,3 @@
-@php
-    $count = 1;
-@endphp
-
 <div>
     <section class="flex items-center justify-between sticky py-3 top-0 z-10 backdrop-blur-sm">
         <div class="max-w-lg w-full">
@@ -11,51 +7,28 @@
         <a href="{{ route('new-discount') }}" class="btn btn-primary">New discount</a>
     </section>
 
-    <section class="overflow-x-auto mt-4">
-        <table class="table text-base">
-            <thead class="text-sm">
-                <tr class="uppercase">
-                    <th class="text-center">#</th>
-                    <th>Name</th>
-                    <th>Qty.</th>
-                    <th>Price</th>
-                    <th>Category</th>
-                    <th>Image</th>
-                </tr>
-            </thead>
-            <tbody>
-                    <tr class="group hover align-baseline">
-                        <td class="w-20 text-center">
-                            <span class="opacity-70 tabular-nums group-hover:hidden">{{ $count++ }}</span>
-                            <span class="hidden group-hover:inline">
-                                <button class="btn btn-sm btn-ghost" type="submit"
-                                    form="delete-product-">
-                                    @svg('phosphor-x-bold', 'w-5 h-5')</button>
-                                <x-layouts.form method="DELETE" action="/"
-                                    id="delete-product-" class="hidden" />
-                            </span>
-                        </td>
-                        <td class="w-56">
-                            <a href="/" class="link-hover">
-                                <span class="group-hover:hidden">sjfjshd</span>
-                                <span class="hidden group-hover:inline font-bold">Edit</span>
-                            </a>
-                        </td>
-                        <td class="tabular-nums">jkjie</td>
-                        <td>jjeihf</td>
-                        <td>jshfjhsd</td>
-                        <td>
-                            {{-- <img class="mask mask-squircle size-12 object-cover" src="{{ asset($product->image) }}"
-                                alt="{{ $product->name }}"> --}}
-                            image
-                        </td>
-                    </tr>
-                {{-- @empty
-                    <tr>
-                        <td colspan="6" class="text-center opacity-70">No products found.</td>
-                    </tr>
-                @endforelse --}}
-            </tbody>
-        </table>
+    <section class="grid grid-cols-3 gap-4 mt-1">
+        @forelse ($this->filtered_discounts as $discount)
+            <a href="{{ route('edit-discount', $discount->id) }}"
+                class="card card-compact bg-base-100 shadow-xl ring-2 ring-base-200 hover:bg-base-200 transition-colors">
+                <div class="card-body justify-center">
+                    <div class="flex items-baseline justify-between">
+                        <h2 class="card-title text-2xl">{{ $discount->name }}</h2>
+                        <span class="text-red-500 font-medium text-lg">-{{ $discount->value_fmt }}</span>
+                    </div>
+                    <div class="font-medium tracking-wide opacity-70 text-sm flex justify-between">
+                        <p>{{ $discount->start_date->format('d M') }}&mdash;{{ $discount->end_date->format('d M') }}</p>
+                        @if ($discount->max_value)
+                            <p class="flex items-center justify-end gap-x-1">
+                                @svg('phosphor-arrow-line-up', 'w-4 h-4')
+                                {{ $discount->max_value_fmt }}
+                            </p>
+                        @endif
+                    </div>
+                </div>
+            </a>
+        @empty
+            <p class="opacity-70">No discount found.</p>
+        @endforelse
     </section>
 </div>

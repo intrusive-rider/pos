@@ -8,24 +8,31 @@
         <x-forms.input name="stock" type="number" icon="hash-straight" :placeholder="__('Stock')"
             value="{{ $product->stock }}" class="no-spinner" />
 
-        <x-forms.select class="select" name="category" icon="square" :placeholder="__('Category')">
-            @foreach ($categories as $category)
-                <option value="{{ $category->name }}"
-                    {{ old('category', $product->category->name) === $category->name ? 'selected' : '' }}>
-                    {{ $category->name }}
-                </option>
-            @endforeach
-        </x-forms.select>
+        <div class="flex items-center gap-4">
+            <div class="w-full">
+                <x-forms.select class="select-create" name="category" icon="square">
+                    @slot('top_label')
+                        Category
+                    @endslot
+                    @foreach ($categories as $category)
+                        <option value="{{ $category->name }}"
+                            {{ old('category', $product->category->name) === $category->name ? 'selected' : '' }}>
+                            {{ $category->name }}
+                        </option>
+                    @endforeach
+                </x-forms.select>
 
-        <x-forms.file-input name="image" accept="image/*" :required="false">
-            @slot('top_label')
-                Product image
-            @endslot
-        </x-forms.file-input>
+                <x-forms.file-input name="image" accept="image/*" :required="false">
+                    @slot('top_label')
+                        Product image
+                    @endslot
+                </x-forms.file-input>
 
-        <div class="mt-6">
-            <button type="submit" class="btn btn-primary">{{ __('Update') }}</button>
-            <a href="{{ route('index-product') }}" class="btn btn-ghost">{{ __('form.cancel') }}</a>
+                <div class="mt-6">
+                    <button type="submit" class="btn btn-primary">{{ __('Update') }}</button>
+                    <a href="{{ route('index-product') }}" class="btn btn-ghost">{{ __('form.cancel') }}</a>
+                </div>
+            </div>
         </div>
     </x-layouts.form>
 </x-layouts.app>

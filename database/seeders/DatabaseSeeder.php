@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Discount;
 use App\Models\Product;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -22,6 +23,6 @@ class DatabaseSeeder extends Seeder
         ]);
 
         Product::factory(5)->create();
-        $this->call(DiscountTypeSeeder::class);
+        Discount::factory(3)->create();
     }
 }
