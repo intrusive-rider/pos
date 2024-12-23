@@ -22,9 +22,20 @@
         </div>
         <div class="min-w-[30rem]">
             <button class="btn mb-4" onclick="products.showModal()">Details</button>
+            @if ($invoice->discount)
+                <div class="flex justify-between">
+                    <h1 class="text-lg">{{ __('Subtotal') }}:</h1>
+                    <span class="font-bold text-2xl text-neutral tabular-nums">{{ $invoice->total_before_fmt }}</span>
+                </div>
+                <div class="flex justify-between">
+                    <h1 class="text-lg">{{ __('Discount') }}:</h1>
+                    <span
+                        class="font-bold text-2xl text-neutral tabular-nums">{{ $invoice->discount->value_fmt }}</span>
+                </div>
+            @endif
             <div class="flex justify-between">
                 <h1 class="text-lg">{{ __('product.total') }}:</h1>
-                <span class="font-bold text-2xl text-neutral tabular-nums">{{ $invoice->total_fmt }}</span>
+                <span class="font-bold text-2xl text-neutral tabular-nums">{{ $invoice->total_after_fmt }}</span>
             </div>
             <div class="flex justify-between">
                 <h1 class="text-lg">{{ __('product.payment_amount') }}:</h1>
@@ -34,7 +45,7 @@
             <div class="flex justify-between">
                 <h1 class="text-lg">{{ __('product.change') }}:</h1>
                 <span
-                    class="font-bold text-3xl text-primary tabular-nums">Rp{{ number_format($invoice->payment_amount - $invoice->total, 2, ',', '.') }}</span>
+                    class="font-bold text-3xl text-primary tabular-nums">Rp{{ number_format($invoice->payment_amount - $invoice->total_after, 2, ',', '.') }}</span>
             </div>
 
             <button class="btn btn-primary btn-block mt-8" onclick="print_invoice()">Print</button>
@@ -47,8 +58,7 @@
 
     <dialog id="products" class="modal">
         <div class="modal-box max-w-[40rem] max-h-[50rem] p-0 pb-6">
-            <div
-                class="p-6 sticky top-0 z-10 bg-gradient-to-b from-base-100 to-transparent from-90%">
+            <div class="p-6 sticky top-0 z-10 bg-gradient-to-b from-base-100 to-transparent from-90%">
                 <h2 class="text-xl font-semibold uppercase tracking-wide opacity-70">
                     {{ $invoice->products->count() }}
                     {{ \Illuminate\Support\Str::plural('product', $invoice->products->count()) }}

@@ -20,7 +20,8 @@
                                 class="grow border-none focus:ring-0 no-spinner w-32"
                                 placeholder="{{ __('product.amount') }}" :value="{{ old('amount') }}" required />
                         </label>
-                        <button type="submit" form="pay-transaction" class="btn btn-primary join-item">{{ __('product.pay') }}</button>
+                        <button type="submit" form="pay-transaction"
+                            class="btn btn-primary join-item">{{ __('product.pay') }}</button>
                     </div>
                     <x-forms.error :messages="$errors->get('amount')" />
                 </div>
@@ -36,8 +37,18 @@
             </div>
             <div class="divider"></div>
             <div class="flex justify-between">
+                <h1 class="text-lg">{{ __('Subtotal') }}:</h1>
+                <span class="font-bold text-lg tabular-nums">{{ $transaction->total_before_fmt }}</span>
+            </div>
+            @if ($transaction->discount)
+                <div class="flex justify-between">
+                    <h1 class="text-lg">{{ __('Discount') }}:</h1>
+                    <span class="font-bold text-lg tabular-nums">{{ $transaction->discount->value_fmt }}</span>
+                </div>
+            @endif
+            <div class="flex justify-between">
                 <h1 class="text-lg">{{ __('product.total') }}:</h1>
-                <span class="font-bold text-3xl text-primary">{{ $transaction->total_fmt }}</span>
+                <span class="font-bold text-3xl text-primary">{{ $transaction->total_after_fmt }}</span>
             </div>
         </div>
     </div>

@@ -15,9 +15,9 @@ class Transaction extends Model
             ->withTimestamps();
     }
 
-    public function discounts()
+    public function discount()
     {
-        return $this->belongsToMany(Discount::class, 'transaction_discount');
+        return $this->belongsTo(Discount::class, 'discount_id');
     }
 
     public function user()
@@ -25,9 +25,14 @@ class Transaction extends Model
         return $this->belongsTo(User::class, 'seller_id');
     }
 
-    public function getTotalFmtAttribute()
+    public function getTotalBeforeFmtAttribute()
     {
-        return 'Rp' . number_format($this->total, 2, ',', '.');
+        return 'Rp' . number_format($this->total_before, 2, ',', '.');
+    }
+
+    public function getTotalAfterFmtAttribute()
+    {
+        return 'Rp' . number_format($this->total_after, 2, ',', '.');
     }
     
     public function getPaymentAmountFmtAttribute()
