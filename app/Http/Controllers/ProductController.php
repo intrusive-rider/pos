@@ -54,7 +54,7 @@ class ProductController extends Controller
     public function update(Request $request, Product $product)
     {
         $attr = $request->validate([
-            'name' => 'required|max:255|unique:products,name',
+            'name' => 'required|max:255|unique:products,name,' . $product->id,
             'price' => 'required|numeric|min:0',
             'stock' => 'required|integer|min:0',
             'category' => 'required|max:255',

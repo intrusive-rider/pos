@@ -38,6 +38,9 @@ Route::middleware(['auth', ExpireDiscount::class])->group(function () {
         Route::delete('products/{product}', [ProductController::class, 'destroy'])->name('delete-product');
 
         // categories
+        Route::get('categories/create', [CategoryController::class, 'create'])->name('new-category');
+        Route::patch('categories/create', [CategoryController::class, 'store'])->name('save-category');
+        
         Route::get('categories/edit/{category}', [CategoryController::class, 'edit'])->name('edit-category');
         Route::patch('categories/edit/{category}', [CategoryController::class, 'update'])->name('update-category');
         Route::delete('categories/{category}', [CategoryController::class, 'destroy'])->name('delete-category');

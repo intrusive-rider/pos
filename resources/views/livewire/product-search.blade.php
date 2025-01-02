@@ -12,13 +12,17 @@
 
     <dialog id="categories" class="modal">
         <div class="modal-box max-w-[40rem] max-h-[50rem] p-0 pb-6">
-            <div class="p-6 sticky top-0 z-10 bg-gradient-to-b from-base-100 to-transparent from-90%">
+            <div class="flex items-center justify-between p-6 sticky top-0 z-10 bg-gradient-to-b from-base-100 to-transparent from-90%">
                 <h2 class="text-xl font-semibold uppercase tracking-wide opacity-70">
                     {{ $categories->count() }}
                     {{ \Illuminate\Support\Str::plural('category', $categories->count()) }}
                 </h2>
+                <div class="items-center gap-x-2">
+                    <a href="{{ route('new-category') }}" class="btn btn-ghost">New Categories</a>
+                </div>
             </div>
             <div class="overflow-x-auto px-6">
+                
                 <table class="table text-base">
                     <thead class="text-sm">
                         <tr class="uppercase">
@@ -95,7 +99,7 @@
                         </td>
                         <td class="tabular-nums">{{ $product->stock }}</td>
                         <td>{{ $product->price_fmt }}</td>
-                        <td>{{ $product->category->name }}</td>
+                        <td>{{ $product->category ? $product->category->name : 'No Category' }}</td>
                         <td>
                             <img class="mask mask-squircle size-12 object-cover" src="{{ asset($product->image) }}"
                                 alt="{{ $product->name }}">
