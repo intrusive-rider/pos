@@ -38,17 +38,22 @@
             <div class="divider"></div>
             <div class="flex justify-between">
                 <h1 class="text-lg">{{ __('Subtotal') }}:</h1>
-                <span class="font-bold text-lg tabular-nums">{{ $transaction->total_before_fmt }}</span>
+                <span class="font-bold text-lg tabular-nums opacity-70">{{ $transaction->sub_total_fmt }}</span>
             </div>
             @if ($transaction->discount)
                 <div class="flex justify-between">
-                    <h1 class="text-lg">{{ __('Discount') }}:</h1>
-                    <span class="font-bold text-lg tabular-nums">{{ $transaction->discount->value_fmt }}</span>
+                    <h1 class="text-lg">{{ $transaction->discount->name }}:</h1>
+                    <span class="font-bold text-lg tabular-nums text-error">
+                        -{{ $transaction->discount->value_fmt }}
+                        @isset($transaction->discount->max_value)
+                            <span class="text-sm">(max. {{ $transaction->discount->max_value_fmt }})</span>
+                        @endisset
+                    </span>                    
                 </div>
             @endif
-            <div class="flex justify-between">
+            <div class="flex justify-between my-4">
                 <h1 class="text-lg">{{ __('product.total') }}:</h1>
-                <span class="font-bold text-3xl text-primary">{{ $transaction->total_after_fmt }}</span>
+                <span class="font-bold text-3xl text-primary">{{ $transaction->grand_total_fmt }}</span>
             </div>
         </div>
     </div>

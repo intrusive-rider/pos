@@ -33,7 +33,7 @@
             <p id="right">
                 {{ $invoice->total_before_fmt }} <br />
                 @if ($invoice->discount)
-                    {{ $invoice->discount->value_fmt }} <br />
+                    -{{ $invoice->discount->value_fmt }} <br />
                 @endif
                 {{ $invoice->total_after_fmt }} <br />
                 {{ $invoice->payment_amount_fmt }} <br />

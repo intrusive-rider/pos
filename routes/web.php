@@ -8,14 +8,16 @@ use App\Http\Middleware\BlockMultiCheckout;
 use App\Http\Controllers\DiscountController;
 use App\Http\Middleware\CleanupTransactions;
 use App\Http\Controllers\TransactionController;
+use App\Http\Middleware\BlockMultiActiveDiscount;
+use App\Http\Middleware\ExpireDiscount;
 
 require __DIR__ . '/auth.php';
 
-Route::middleware('auth')->group(function () {
+Route::middleware(['auth', ExpireDiscount::class])->group(function () {
 
     Route::middleware([CleanupTransactions::class])->group(function () {
 
-        Route::view('/', 'home')->name('home');
+        Route::get('/', [DiscountController::class, 'get'])->name('home');
 
         // transactions
         Route::get('new', [TransactionController::class, 'create'])->name('create-transaction');
@@ -43,8 +45,10 @@ Route::middleware('auth')->group(function () {
         // discount
         Route::get('discounts', [DiscountController::class, 'index'])->name('index-discount');
 
-        Route::get('discounts/create', [DiscountController::class, 'create'])->name('new-discount');
-        Route::post('discounts/create', [DiscountController::class, 'store'])->name('save-discount');
+        Route::middleware([BlockMultiActiveDiscount::class])->group(function () {
+            Route::get('discounts/create', [DiscountController::class, 'create'])->name('new-discount');
+            Route::post('discounts/create', [DiscountController::class, 'store'])->name('save-discount');
+        });
 
         Route::get('discounts/edit/{discount}', [DiscountController::class, 'edit'])->name('edit-discount');
         Route::patch('discounts/edit/{discount}', [DiscountController::class, 'update'])->name('update-discount');

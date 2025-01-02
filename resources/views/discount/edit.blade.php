@@ -32,7 +32,7 @@
         <div class="mt-6 flex justify-between">
             <div class="flex gap-x-2">
                 <button type="submit" form="update-discount" class="btn btn-primary">{{ __('Update') }}</button>
-                <a href="{{ route('index-discount') }}" class="btn btn-ghost">{{ __('form.cancel') }}</a>
+                <a href="{{ route('home') }}" class="btn btn-ghost">{{ __('form.cancel') }}</a>
             </div>
             <button type="submit" form="delete-discount"
                 class="btn btn-outline btn-error">{{ __('Delete') }}</button>

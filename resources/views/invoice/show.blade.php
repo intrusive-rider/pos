@@ -22,24 +22,24 @@
         </div>
         <div class="min-w-[30rem]">
             <button class="btn mb-4" onclick="products.showModal()">Details</button>
+            <div class="flex justify-between">
+                <h1 class="text-lg">{{ __('Subtotal') }}:</h1>
+                <span class="font-bold text-2xl text-neutral tabular-nums opacity-70">{{ $invoice->sub_total_fmt }}</span>
+            </div>
             @if ($invoice->discount)
-                <div class="flex justify-between">
-                    <h1 class="text-lg">{{ __('Subtotal') }}:</h1>
-                    <span class="font-bold text-2xl text-neutral tabular-nums">{{ $invoice->total_before_fmt }}</span>
-                </div>
                 <div class="flex justify-between">
                     <h1 class="text-lg">{{ __('Discount') }}:</h1>
                     <span
-                        class="font-bold text-2xl text-neutral tabular-nums">{{ $invoice->discount->value_fmt }}</span>
+                        class="font-bold text-2xl text-error tabular-nums">-{{ $invoice->discount->value_fmt }}</span>
                 </div>
             @endif
-            <div class="flex justify-between">
+            <div class="flex justify-between mt-4">
                 <h1 class="text-lg">{{ __('product.total') }}:</h1>
-                <span class="font-bold text-2xl text-neutral tabular-nums">{{ $invoice->total_after_fmt }}</span>
+                <span class="font-bold text-2xl text-secondary tabular-nums opacity-85">{{ $invoice->grand_total_fmt }}</span>
             </div>
             <div class="flex justify-between">
                 <h1 class="text-lg">{{ __('product.payment_amount') }}:</h1>
-                <span class="font-bold text-2xl text-neutral tabular-nums">{{ $invoice->payment_amount_fmt }}</span>
+                <span class="font-bold text-2xl text-secondary tabular-nums opacity-85">{{ $invoice->payment_amount_fmt }}</span>
             </div>
             <div class="divider"></div>
             <div class="flex justify-between">

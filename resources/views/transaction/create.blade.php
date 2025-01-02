@@ -18,13 +18,6 @@
                     </ul>
                 </div>
             </div>
-            <div class="navbar-center">
-                <div class="flex items-center gap-x-2">
-                    <div class="badge badge-lg"
-                        x-text="cartTotal / {{ $products->map(fn($products) => $products->count())->sum() }}">0</div>
-                    @svg('phosphor-shopping-bag-open', 'w-8 h-8')
-                </div>
-            </div>
             <div class="navbar-end">
                 <button type="submit" form="checkout" class="btn btn-primary"
                     {{ $products->isEmpty() ? 'disabled' : '' }}>
@@ -51,7 +44,7 @@
                 </div>
             </div>
         @empty
-            <p class="opacity-70">No product found.</p>
+            <p class="opacity-70">No product found. Add them here.</p>
         @endforelse
     </x-layouts.form>
 </x-layouts.app>

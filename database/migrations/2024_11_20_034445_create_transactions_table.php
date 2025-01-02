@@ -17,8 +17,8 @@ return new class extends Migration
             $table->foreignId('seller_id')->constrained('users');
             $table->foreignIdFor(Discount::class)->nullable();
             $table->string('buyer');
-            $table->integer('total_before');
-            $table->integer('total_after');
+            $table->integer('sub_total');
+            $table->integer('grand_total');
             $table->integer('payment_amount');
             $table->timestamps();
         });

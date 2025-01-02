@@ -3,14 +3,21 @@
 namespace App\Http\Controllers;
 
 use App\Models\Discount;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 
 class DiscountController extends Controller
 {
+    public function get()
+    {
+        $discount = Discount::where('active', '=', true)->first();
+        return view('home', compact('discount'));
+    }
+
     public function index()
     {
-        $discounts = Discount::all();
+        $discounts = Discount::where('active', '=', false)->get();
         return view('discount.index', compact('discounts'));
     }
 
@@ -21,6 +28,10 @@ class DiscountController extends Controller
 
     public function store(Request $request)
     {
+        if (Discount::where('active', true)->exists()) {
+            return redirect()->route('home');
+        }
+
         $attr = $request->validate([
             'name' => 'required|max:255|unique:discounts,name',
             'type' => 'required|in:perc,fixed',
@@ -31,12 +42,30 @@ class DiscountController extends Controller
                 Rule::when(request('type') === 'perc', 'between:1,99'),
             ],
             'max_value' => 'nullable|numeric|min:1|prohibited_if:type,fixed',
-            'start_date' => 'required|date',
-            'end_date' => 'required|date',
+            'start_date' => [
+                'required',
+                'date',
+                function ($attribute, $value, $fail) {
+                    if (Carbon::parse($value)->lt(today())) {
+                        $fail('The start date must not be before today.');
+                    }
+                },
+            ],
+            'end_date' => [
+                'required',
+                'date',
+                function ($attribute, $value, $fail) use ($request) {
+                    if (strtotime($value) <= strtotime($request->start_date)) {
+                        $fail('The end date must be after the start date.');
+                    }
+                }
+            ],
         ]);
 
+        $attr['active'] = true;
+
         Discount::create($attr);
-        return redirect()->route('index-discount');
+        return redirect()->route('home');
     }
 
     public function edit(Discount $discount)
@@ -60,17 +89,35 @@ class DiscountController extends Controller
                 Rule::when(request('type') === 'perc', 'between:1,99'),
             ],
             'max_value' => 'nullable|numeric|min:1|prohibited_if:type,fixed',
-            'start_date' => 'required|date',
-            'end_date' => 'required|date',
+            'start_date' => [
+                'required',
+                'date',
+                function ($attribute, $value, $fail) {
+                    if (Carbon::parse($value)->lt(today())) {
+                        $fail('The start date must not be before today.');
+                    }
+                },
+            ],
+            'end_date' => [
+                'required',
+                'date',
+                function ($attribute, $value, $fail) use ($request) {
+                    if (strtotime($value) <= strtotime($request->start_date)) {
+                        $fail('The end date must be after the start date.');
+                    }
+                },
+            ],
         ]);
 
+        $attr['active'] = true;
+
         $discount->update($attr);
-        return redirect()->route('index-discount');
+        return redirect()->route('home');
     }
 
     public function destroy(Discount $discount)
     {
         $discount->delete();
-        return redirect()->route('index-discount');
+        return redirect()->route('home');
     }
 }

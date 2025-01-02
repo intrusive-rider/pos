@@ -28,7 +28,7 @@
 
         <div class="mt-6">
             <button type="submit" class="btn btn-primary">{{ __('Add') }}</button>
-            <a href="{{ route('index-discount') }}" class="btn btn-ghost">{{ __('form.cancel') }}</a>
+            <a href="{{ route('home') }}" class="btn btn-ghost">{{ __('form.cancel') }}</a>
         </div>
     </x-layouts.form>
 </x-layouts.app>

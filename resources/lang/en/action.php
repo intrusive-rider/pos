@@ -3,7 +3,7 @@
 return [
     'create' => 'New order',
     'update' => 'Update stocks',
-    'discount' => ':disc' . '% off',
+    'discount' => 'Add discount',
     'website' => 'Visit website',
     'send' => 'Send to customer',
     'invoices' => 'Invoices',

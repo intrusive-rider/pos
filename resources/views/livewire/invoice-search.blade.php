@@ -11,7 +11,7 @@
                 <tr class="uppercase">
                     <th class="text-center">#</th>
                     <th>{{ __('product.buyer') }}</th>
-                    <th>Payment total</th>
+                    <th>Grand total</th>
                     <th>Created at</th>
                 </tr>
             </thead>
@@ -23,7 +23,7 @@
                             <a href="{{ route('show-invoice', $invoice->id) }}"
                                 class="link link-hover">{{ $invoice->buyer }}</a>
                         </td>
-                        <td class="tabular-nums">{{ $invoice->total_fmt }}</td>
+                        <td class="tabular-nums">{{ $invoice->grand_total_fmt }}</td>
                         <td>{{ $invoice->created_at->format('d M Y, H:i') }}</td>
                     </tr>
                 @empty

@@ -7,7 +7,7 @@
         <div class="stats text-right">
             <div class="stat text-primary">
                 <div class="stat-title">Total</div>
-                <div class="stat-value">Rp{{ number_format($invoices->sum('total'), 2, ',', '.') }}</div>
+                <div class="stat-value">Rp{{ number_format($invoices->sum('grand_total'), 2, ',', '.') }}</div>
             </div>
     
             <div class="stat text-secondary">

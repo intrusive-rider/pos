@@ -25,14 +25,14 @@ class Transaction extends Model
         return $this->belongsTo(User::class, 'seller_id');
     }
 
-    public function getTotalBeforeFmtAttribute()
+    public function getSubTotalFmtAttribute()
     {
-        return 'Rp' . number_format($this->total_before, 2, ',', '.');
+        return 'Rp' . number_format($this->sub_total, 2, ',', '.');
     }
 
-    public function getTotalAfterFmtAttribute()
+    public function getGrandTotalFmtAttribute()
     {
-        return 'Rp' . number_format($this->total_after, 2, ',', '.');
+        return 'Rp' . number_format($this->grand_total, 2, ',', '.');
     }
     
     public function getPaymentAmountFmtAttribute()
