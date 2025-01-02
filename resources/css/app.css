@@ -34,3 +34,6 @@ h2 {
 .select2-results__option {
     @apply rounded px-2;
 }
+.select2-container--default .select2-results__option--highlighted.select2-results__option--selectable {
+    @apply bg-primary text-primary-content;
+}

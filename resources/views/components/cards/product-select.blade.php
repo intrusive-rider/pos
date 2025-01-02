@@ -23,7 +23,7 @@
 
             <input type="number" name="quantity[{{ $product->id }}]" x-model="count"
                 x-on:input="stock = {{ $product->stock }} - count"
-                class="border-none focus:ring-0 h-full join-item w-16 bg-base-200 tabular-nums slashed-zero flex items-center justify-center text-center no-spinner"
+                class="border-none focus:ring-0 h-full join-item w-16 bg-base-200 tabular-nums slashed-zero flex items-center justify-center text-center no-spinner disabled:opacity-70"
                 :disabled="{{ $stock_is_empty }}" />
 
             <div x-on:click="if (count < {{ $product->stock }}) { count++; stock--; }" class="btn btn-sm join-item"
