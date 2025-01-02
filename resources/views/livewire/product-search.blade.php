@@ -37,7 +37,7 @@
                                     <span class="hidden group-hover:inline">
                                         <button class="btn btn-sm btn-ghost" type="submit"
                                             form="delete-category-{{ $category->id }}">
-                                            @svg('phosphor-x-bold', 'w-5 h-5')</button>
+                                            @svg('phosphor-trash-bold', 'w-5 h-5 text-error')</button>
                                         <x-layouts.form method="DELETE"
                                             action="{{ route('delete-category', $category->id) }}"
                                             id="delete-category-{{ $category->id }}" class="hidden" />
@@ -82,7 +82,7 @@
                             <span class="hidden group-hover:inline">
                                 <button class="btn btn-sm btn-ghost" type="submit"
                                     form="delete-product-{{ $product->id }}">
-                                    @svg('phosphor-x-bold', 'w-5 h-5')</button>
+                                    @svg('phosphor-trash-bold', 'w-5 h-5 text-error')</button>
                                 <x-layouts.form method="DELETE" action="{{ route('delete-product', $product->id) }}"
                                     id="delete-product-{{ $product->id }}" class="hidden" />
                             </span>
