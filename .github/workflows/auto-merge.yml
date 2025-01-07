@@ -1,4 +1,4 @@
-name: auto-merge
+name: Dependabot Automerge
 
 on:
   pull_request:
@@ -9,4 +9,5 @@ jobs:
     steps:
       - uses: ahmadnassri/action-dependabot-auto-merge@v2
         with:
+          target: patch
           github-token: ${{ secrets.GITHUB_TOKEN }}
