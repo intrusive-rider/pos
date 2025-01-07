@@ -18,7 +18,7 @@
                     {{ \Illuminate\Support\Str::plural('category', $categories->count()) }}
                 </h2>
                 <div class="items-center gap-x-2">
-                    <a href="{{ route('new-category') }}" class="btn btn-ghost">New Categories</a>
+                    <a href="{{ route('new-category') }}" class="btn btn-ghost">New categories</a>
                 </div>
             </div>
             <div class="overflow-x-auto px-6">
