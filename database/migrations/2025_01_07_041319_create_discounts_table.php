@@ -1,6 +1,5 @@
 <?php
 
-use App\Models\DiscountType;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -20,7 +19,7 @@ return new class extends Migration
             $table->integer('max_value')->nullable();
             $table->date('start_date');
             $table->date('end_date');
-            $table->boolean('active');
+            $table->boolean('active'); 
             $table->timestamps();
         });
     }
