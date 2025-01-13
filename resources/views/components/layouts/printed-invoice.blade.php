@@ -23,21 +23,15 @@
         <section>
             <p id="left">
                 Subtotal <br />
-                @if ($invoice->discount)
-                    Discount <br />
-                @endif
                 Grand total <br />
                 Payment amount <br />
                 Change
             </p>
             <p id="right">
-                {{ $invoice->total_before_fmt }} <br />
-                @if ($invoice->discount)
-                    -{{ $invoice->discount->value_fmt }} <br />
-                @endif
-                {{ $invoice->total_after_fmt }} <br />
+                {{ $invoice->sub_total_fmt }} <br />
+                {{ $invoice->grand_total_fmt }} <br />
                 {{ $invoice->payment_amount_fmt }} <br />
-                Rp{{ number_format($invoice->payment_amount - $invoice->total, 2, ',', '.') }}
+                Rp{{ number_format($invoice->payment_amount - $invoice->grand_total, 2, ',', '.') }}
             </p>
         </section>
         <hr />

@@ -25,9 +25,6 @@
             @svg('phosphor-' . $icon, 'w-6 h-6 opacity-70')
         @endisset
         <select {{ $attributes($defaults) }}>
-            <option disabled selected>
-                {{ $placeholder }}
-            </option>
             {{ $slot }}
         </select>
     </label>

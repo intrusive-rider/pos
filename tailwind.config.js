@@ -7,7 +7,7 @@ export default {
     ],
 
     daisyui: {
-        themes: ["emerald"],
+        themes: ["corporate"],
     },
 
     theme: {

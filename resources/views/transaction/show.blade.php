@@ -40,16 +40,18 @@
                 <h1 class="text-lg">{{ __('Subtotal') }}:</h1>
                 <span class="font-bold text-lg tabular-nums opacity-70">{{ $transaction->sub_total_fmt }}</span>
             </div>
-            @if ($transaction->discount)
-                <div class="flex justify-between">
-                    <h1 class="text-lg">{{ $transaction->discount->name }}:</h1>
-                    <span class="font-bold text-lg tabular-nums text-error">
-                        -{{ $transaction->discount->value_fmt }}
-                        @isset($transaction->discount->max_value)
-                            <span class="text-sm">(max. {{ $transaction->discount->max_value_fmt }})</span>
-                        @endisset
-                    </span>                    
-                </div>
+            @if ($transaction->discounts)
+                @foreach ($transaction->discounts as $discount)
+                    <div class="flex justify-between">
+                        <h1 class="text-lg">{{ $discount->name }}:</h1>
+                        <span class="font-bold text-lg tabular-nums text-error">
+                            -{{ $discount->value_fmt }}
+                            @isset($discount->max_value)
+                                <span class="text-sm">(max. {{ $discount->max_value_fmt }})</span>
+                            @endisset
+                        </span>
+                    </div>
+                @endforeach
             @endif
             <div class="flex justify-between my-4">
                 <h1 class="text-lg">{{ __('product.total') }}:</h1>

@@ -18,7 +18,24 @@
                     </ul>
                 </div>
             </div>
-            <div class="navbar-end">
+            <div class="navbar-end items-center gap-x-4">
+                <div class="dropdown dropdown-end">
+                    <div tabindex="0" role="button" class="btn btn-circle btn-ghost">
+                        @svg('phosphor-seal-percent', 'w-6 h-6')
+                    </div>
+                    <ul tabindex="0" class="dropdown-content menu bg-base-100 rounded-box z-[1] w-52 p-2 shadow">
+                        @forelse ($discounts as $discount)
+                            <div class="menu">
+                                <div class="flex justify-between">
+                                    <span>{{ $discount->name }}</span>
+                                    <input type="checkbox" name="discount[{{ $discount->id }}]" value="{{ $discount->name }}" class="checkbox checkbox-primary" />
+                                </div>
+                            </div>
+                        @empty
+                            <div class="menu opacity-70">No discount found.</div>
+                        @endforelse
+                    </ul>
+                </div>
                 <button type="submit" form="checkout" class="btn btn-primary"
                     {{ $products->isEmpty() ? 'disabled' : '' }}>
                     {{ __('product.checkout') }}

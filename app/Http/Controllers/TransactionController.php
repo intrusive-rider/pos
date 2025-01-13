@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Discount;
 use App\Models\Product;
 use App\Models\Transaction;
 use Illuminate\Http\Request;
@@ -25,20 +26,27 @@ class TransactionController extends Controller
                 return $product->category->name;
             });
 
-        return view('transaction.create', compact('products'));
+        $discounts = Discount::where('active', '=', true)->get();
+        return view('transaction.create', compact('products', 'discounts'));
     }
 
     public function store(Request $request)
     {
         $buyer = 'Buyer';
         $quantities = $request->input('quantity');
+        $discounts = Discount::whereIn(
+            'id',
+            array_keys(
+                $request->input('discount', [])
+            )
+        )->get();
         $validation = empty($quantities) || array_sum($quantities) === 0;
 
         if ($validation) {
             return redirect()->back()->with('error', 'You must add at least one product to proceed.');
         }
 
-        [$sub_total, $grand_total, $discount] = $this->checkout_service->total($quantities);
+        [$sub_total, $grand_total, $discounts] = $this->checkout_service->total($quantities, $discounts);
 
         $transaction = Transaction::with('discount')->create([
             'seller_id' => Auth::user()->id,
@@ -46,11 +54,11 @@ class TransactionController extends Controller
             'sub_total' => $sub_total,
             'grand_total' => $grand_total,
             'payment_amount' => 0,
-        ]);        
+        ]);
 
-        if ($discount) {
-            $transaction->update(['discount_id' => $discount->id]);
-        }        
+        foreach ($discounts as $discount) {
+            $transaction->discounts()->attach($discount);
+        }
 
         foreach ($quantities as $product_id => $quantity) {
             $product = Product::find($product_id);
@@ -65,7 +73,7 @@ class TransactionController extends Controller
 
     public function show(Transaction $transaction)
     {
-        $transaction->load('products');
+        $transaction->load(['products', 'discounts']);
         return view('transaction.show', compact('transaction'));
     }
 

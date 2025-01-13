@@ -17,7 +17,7 @@ Route::middleware(['auth', ExpireDiscount::class])->group(function () {
 
     Route::middleware([CleanupTransactions::class])->group(function () {
 
-        Route::get('/', [DiscountController::class, 'get'])->name('home');
+        Route::view('/', 'home')->name('home');
 
         // transactions
         Route::get('new', [TransactionController::class, 'create'])->name('create-transaction');
@@ -40,7 +40,7 @@ Route::middleware(['auth', ExpireDiscount::class])->group(function () {
         // categories
         Route::get('categories/create', [CategoryController::class, 'create'])->name('new-category');
         Route::patch('categories/create', [CategoryController::class, 'store'])->name('save-category');
-        
+
         Route::get('categories/edit/{category}', [CategoryController::class, 'edit'])->name('edit-category');
         Route::patch('categories/edit/{category}', [CategoryController::class, 'update'])->name('update-category');
         Route::delete('categories/{category}', [CategoryController::class, 'destroy'])->name('delete-category');
@@ -48,10 +48,8 @@ Route::middleware(['auth', ExpireDiscount::class])->group(function () {
         // discount
         Route::get('discounts', [DiscountController::class, 'index'])->name('index-discount');
 
-        Route::middleware([BlockMultiActiveDiscount::class])->group(function () {
-            Route::get('discounts/create', [DiscountController::class, 'create'])->name('new-discount');
-            Route::post('discounts/create', [DiscountController::class, 'store'])->name('save-discount');
-        });
+        Route::get('discounts/create', [DiscountController::class, 'create'])->name('new-discount');
+        Route::post('discounts/create', [DiscountController::class, 'store'])->name('save-discount');
 
         Route::get('discounts/edit/{discount}', [DiscountController::class, 'edit'])->name('edit-discount');
         Route::patch('discounts/edit/{discount}', [DiscountController::class, 'update'])->name('update-discount');

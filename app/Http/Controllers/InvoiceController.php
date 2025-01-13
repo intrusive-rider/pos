@@ -14,7 +14,7 @@ class InvoiceController extends Controller
 
     public function show(Transaction $invoice)
     {
-        $invoice->load('products');
+        $invoice->load(['products', 'discounts']);
         return view('invoice.show', compact('invoice'));
     }
 }

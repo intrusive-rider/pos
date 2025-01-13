@@ -3,18 +3,15 @@
 namespace App\Services;
 
 use App\Models\Product;
-use App\Models\Discount;
 
 class CheckoutService
 {
-    public function total($quantities)
+    public function total($quantities, $discounts)
     {
-        $discount = Discount::where('active', '=', true)->first();
-
         $sub_total = $this->sub_total($quantities);
-        $grand_total = $this->apply($sub_total, $discount);
+        $grand_total = $this->apply($sub_total, $discounts);
 
-        return [$sub_total, $grand_total, $discount];
+        return [$sub_total, $grand_total, $discounts];
     }
 
     private function sub_total($quantities)
@@ -31,23 +28,27 @@ class CheckoutService
         return $sub_total;
     }
 
-    private function apply($sub_total, $discount)
+    private function apply($sub_total, $discounts)
     {
-        // fixed
-        if ($discount->type === 'fixed') {
-            return $sub_total > ($discount->value + 5_000)
-                ? ($sub_total - $discount->value)
-                : $sub_total;
+        foreach ($discounts as $discount) {
+
+            // fixed
+            if ($discount->type === 'fixed') {
+                if ($sub_total > ($discount->value + 5_000)) {
+                    $sub_total -= $discount->value;
+                }
+            }
+        
+            // perc
+            if ($discount->type === 'perc' && $sub_total >= 10_000) {
+                $sub_total -= min(
+                    $sub_total * ($discount->value / 100),
+                    $discount->max_value ?? $sub_total
+                );
+            }
+
         }
-
-        // perc
-        if ($discount->type === 'perc' && $sub_total >= 10_000) {
-            return $sub_total - min(
-                $sub_total * ($discount->value / 100),
-                $discount->max_value ?? $sub_total
-            );
-        }        
-
+        
         return $sub_total;
     }
 }
