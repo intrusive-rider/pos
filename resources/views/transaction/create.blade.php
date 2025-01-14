@@ -27,7 +27,10 @@
                         @forelse ($discounts as $discount)
                             <div class="menu">
                                 <div class="flex justify-between">
-                                    <span>{{ $discount->name }}</span>
+                                    <div>
+                                        <div class="font-bold text-base">{{ $discount->name }}</div>
+                                        <div class="text-error text-xs">-{{ $discount->value_fmt }}</div>
+                                    </div>
                                     <input type="checkbox" name="discount[{{ $discount->id }}]" value="{{ $discount->name }}" class="checkbox checkbox-primary" />
                                 </div>
                             </div>

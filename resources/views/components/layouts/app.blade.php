@@ -19,12 +19,7 @@
         allowClear: true,
         placeholder: 'Select an option'
     });
-
-    $(".select-multi").select2({
-        allowClear: true,
-        placeholder: 'Select one or more option'
-    });
-
+    
     $(".select-create").select2({
         tags: true,
         allowClear: true,
