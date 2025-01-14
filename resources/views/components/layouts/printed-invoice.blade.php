@@ -23,21 +23,25 @@
         <section>
             <p id="left">
                 Subtotal <br />
-                @if ($invoice->discount)
-                    Discount <br />
-                @endif
+                @foreach ($invoice->discounts as $discount)
+                    {{ $discount->name }}
+                    @isset($discount->max_value)
+                        <span style="font-size: 0.875rem; opacity: 70%">(max. {{ $discount->max_value_fmt }})</span>
+                    @endisset
+                    <br />
+                @endforeach
                 Grand total <br />
                 Payment amount <br />
                 Change
             </p>
             <p id="right">
-                {{ $invoice->total_before_fmt }} <br />
-                @if ($invoice->discount)
-                    -{{ $invoice->discount->value_fmt }} <br />
-                @endif
-                {{ $invoice->total_after_fmt }} <br />
+                {{ $invoice->sub_total_fmt }} <br />
+                @foreach ($invoice->discounts as $discount)
+                    -{{ $discount->value_fmt }} <br />
+                @endforeach
+                {{ $invoice->grand_total_fmt }} <br />
                 {{ $invoice->payment_amount_fmt }} <br />
-                Rp{{ number_format($invoice->payment_amount - $invoice->total, 2, ',', '.') }}
+                Rp{{ number_format($invoice->payment_amount - $invoice->grand_total, 2, ',', '.') }}
             </p>
         </section>
         <hr />
@@ -48,7 +52,7 @@
             </p>
             <p id="right">
                 {{ $invoice->buyer }}<br />
-                {{ $invoice->created_at->format('d M Y, H:i') }}
+                {{ $invoice->created_at->format('d M. Y, H:i') }}
             </p>
         </footer>
     </div>

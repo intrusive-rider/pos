@@ -15,7 +15,6 @@ return new class extends Migration
         Schema::create('transactions', function (Blueprint $table) {
             $table->id();
             $table->foreignId('seller_id')->constrained('users');
-            $table->foreignIdFor(Discount::class)->nullable();
             $table->string('buyer');
             $table->integer('sub_total');
             $table->integer('grand_total');

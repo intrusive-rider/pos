@@ -9,15 +9,9 @@ use Illuminate\Validation\Rule;
 
 class DiscountController extends Controller
 {
-    public function get()
-    {
-        $discount = Discount::where('active', '=', true)->first();
-        return view('home', compact('discount'));
-    }
-
     public function index()
     {
-        $discounts = Discount::where('active', '=', false)->get();
+        $discounts = Discount::where('active', '=', true)->get();
         return view('discount.index', compact('discounts'));
     }
 
@@ -28,10 +22,6 @@ class DiscountController extends Controller
 
     public function store(Request $request)
     {
-        if (Discount::where('active', true)->exists()) {
-            return redirect()->route('home');
-        }
-
         $attr = $request->validate([
             'name' => 'required|max:255|unique:discounts,name',
             'type' => 'required|in:perc,fixed',
@@ -65,7 +55,7 @@ class DiscountController extends Controller
         $attr['active'] = true;
 
         Discount::create($attr);
-        return redirect()->route('home');
+        return redirect()->route('index-discount');
     }
 
     public function edit(Discount $discount)
@@ -112,12 +102,12 @@ class DiscountController extends Controller
         $attr['active'] = true;
 
         $discount->update($attr);
-        return redirect()->route('home');
+        return redirect()->route('index-discount');
     }
 
     public function destroy(Discount $discount)
     {
         $discount->delete();
-        return redirect()->route('home');
+        return redirect()->route('index-discount');
     }
 }

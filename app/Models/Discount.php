@@ -16,7 +16,7 @@ class Discount extends Model
 
     public function transactions()
     {
-        return $this->hasMany(Transaction::class, 'discount_id');
+        return $this->belongsToMany(Transaction::class, 'transaction_discount');
     }
 
     public function getValueFmtAttribute()

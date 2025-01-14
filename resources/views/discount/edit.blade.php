@@ -29,15 +29,11 @@
         <x-forms.input name="end_date" type="date" icon="calendar-x" :placeholder="__('End date')"
             value="{{ $discount->end_date ? $discount->end_date->format('Y-m-d') : '' }}" />
 
-        <div class="mt-6 flex justify-between">
+        <div class="mt-6">
             <div class="flex gap-x-2">
                 <button type="submit" form="update-discount" class="btn btn-primary">{{ __('Update') }}</button>
-                <a href="{{ route('home') }}" class="btn btn-ghost">{{ __('form.cancel') }}</a>
+                <a href="{{ route('index-discount') }}" class="btn btn-ghost">{{ __('form.cancel') }}</a>
             </div>
-            <button type="submit" form="delete-discount"
-                class="btn btn-outline btn-error">{{ __('Delete') }}</button>
         </div>
     </x-layouts.form>
-    <x-layouts.form method="DELETE" action="{{ route('delete-discount', $discount->id) }}" id="delete-discount"
-        class="hidden" />
 </x-layouts.app>
