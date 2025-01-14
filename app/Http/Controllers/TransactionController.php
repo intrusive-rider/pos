@@ -33,37 +33,31 @@ class TransactionController extends Controller
     public function store(Request $request)
     {
         $buyer = 'Buyer';
-        $quantities = $request->input('quantity');
-        $discounts = Discount::whereIn(
-            'id',
-            array_keys(
-                $request->input('discount', [])
-            )
-        )->get();
-        $validation = empty($quantities) || array_sum($quantities) === 0;
+        $quantities = $request->input('quantity', []);
+        $discount_id = array_keys($request->input('discount', []));
+        $discounts = Discount::whereIn('id', $discount_id)->get();
 
-        if ($validation) {
+        // validate quantities
+        if (empty($quantities) || array_sum($quantities) === 0) {
             return redirect()->back()->with('error', 'You must add at least one product to proceed.');
         }
 
         [$sub_total, $grand_total, $discounts] = $this->checkout_service->total($quantities, $discounts);
 
         $transaction = Transaction::with('discount')->create([
-            'seller_id' => Auth::user()->id,
+            'seller_id' => Auth::id(),
             'buyer' => $buyer,
             'sub_total' => $sub_total,
             'grand_total' => $grand_total,
             'payment_amount' => 0,
         ]);
 
-        foreach ($discounts as $discount) {
-            $transaction->discounts()->attach($discount);
+        if ($discounts->isNotEmpty()) {
+            $transaction->discounts()->attach($discounts);
         }
 
         foreach ($quantities as $product_id => $quantity) {
-            $product = Product::find($product_id);
-
-            if ($product && $quantity > 0) {
+            if ($quantity > 0) {
                 $transaction->products()->attach($product_id, ['quantity' => $quantity]);
             }
         }
