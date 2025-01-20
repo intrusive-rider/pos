@@ -25,9 +25,23 @@
                     </div>
                     <x-forms.error :messages="$errors->get('amount')" />
                 </div>
-                <button type="submit" form="delete-transaction"
-                    class="btn btn-ghost join-item">{{ __('form.cancel') }}</button>
             </div>
+            {{-- payment gateway midtrans --}}
+            <button id="pay-button"
+                class="btn btn-primary btn-block join-item">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" width="24" height="24" fill="currentColor">
+                    <rect width="256" height="256" fill="none"></rect>
+                    <rect x="40" y="72" width="176" height="112" rx="8" opacity="0.2"></rect>
+                    <rect x="40" y="72" width="176" height="112" rx="8" stroke-width="16" stroke="currentColor" fill="none"></rect>
+                    <line x1="40" y1="104" x2="216" y2="104" stroke-width="16" stroke="currentColor" fill="none"></line>
+                    <line x1="152" y1="148" x2="176" y2="148" stroke-width="16" stroke="currentColor" fill="none"></line>
+                </svg>
+                <span class="ml-2">Pay with Card</span>
+            </button>
+
+            {{-- cancel --}}
+            <button type="submit" form="delete-transaction"
+                    class="btn btn-ghost btn-block join-item">{{ __('form.cancel') }}</button>
         </x-layouts.form>
         <div>
             <div class="space-y-3">

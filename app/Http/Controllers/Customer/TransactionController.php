@@ -73,6 +73,70 @@ class TransactionController extends Controller
 
     public function pay(Request $request, Transaction $transaction)
     {
+        
+        // $request->validate([
+        //     'buyer' => 'required',
+        //     'payment_method' => 'required|in:cash,midtrans',
+        //     'amount' => 'required_if:payment_method,cash|nullable|numeric',
+        // ]);
+    
+        // if ($request->input('payment_method') === 'cash') {
+        //     $request->validate([
+        //         'amount' => [
+        //             'required',
+        //             'numeric',
+        //             function ($attribute, $value, $fail) use ($transaction) {
+        //                 if ($value < $transaction->grand_total) {
+        //                     $fail('The ' . $attribute . ' cannot be less than Rp' . number_format($transaction->grand_total, 2, ',', '.'));
+        //                 }
+        //             },
+        //         ],
+        //     ]);
+    
+        //     $transaction->update([
+        //         'buyer' => $request->input('buyer'),
+        //         'payment_amount' => $request->input('amount'),
+        //         'payment_status' => 'paid',
+        //     ]);
+    
+        //     foreach ($transaction->products as $product) {
+        //         $product->decrement('stock', $product->pivot->quantity);
+        //     }
+            
+    
+        //     return redirect(route('show-invoice', $transaction->id));
+        // }
+
+        // // Proses jika pembayaran menggunakan Midtrans
+        // if ($request->input('payment_method') === 'midtrans') {
+        //     // Konfigurasi Midtrans
+        //     \Midtrans\Config::$serverKey = config('midtrans.server_key');
+        //     \Midtrans\Config::$isProduction = config('midtrans.is_production');
+        //     \Midtrans\Config::$isSanitized = config('midtrans.is_sanitized');
+        //     \Midtrans\Config::$is3ds = config('midtrans.is_3ds');
+
+        //     // Set parameter untuk Midtrans
+        //     $params = [
+        //         'transaction_details' => [
+        //             'order_id' => 'ORDER-' . $transaction->id . '-' . time(),
+        //             'gross_amount' => $transaction->grand_total,
+        //         ],
+        //         'customer_details' => [
+        //             'first_name' => $request->input('buyer'),
+        //             'email' => Auth::user()->email,
+        //         ],
+        //     ];
+
+        //     // Ambil Snap Token
+        //     $snapToken = \Midtrans\Snap::getSnapToken($params);
+
+        //     $transaction->snap_token = $snapToken;
+        //     $transaction->save();
+
+        //     return redirect()->route('show-invoice', $snapToken);
+        // }
+
+
         $request->validate([
             'buyer' => 'required',
             'amount' => [
