@@ -9,6 +9,36 @@
     <main {{ $attributes(['class' => 'w-full pb-14 mt-6']) }}>
         {{ $slot }}
     </main>
+
+    {{-- snap midtrans --}}
+
+    {{-- <script type="text/javascript">
+        document.getElementById('pay-button').addEventListener('click', function (event) {
+            event.preventDefault();
+            // Set payment method to midtrans
+            document.getElementById('payment-method').value = 'midtrans';
+
+            // Call Midtrans payment popup
+            window.snap.pay('{{ $snapToken }}', {
+                onSuccess: function(result) {
+                    // Handle successful payment
+                    console.log(result);
+                    alert('Payment successful!');
+                    document.getElementById('pay-transaction').submit();
+                },
+                onPending: function(result) {
+                    // Handle pending payment
+                    console.log(result);
+                    alert('Payment is pending.');
+                },
+                onError: function(result) {
+                    // Handle failed payment
+                    console.error(result);
+                    alert('Payment failed!');
+                }
+            });
+        });
+    </script> --}}
 </body>
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
