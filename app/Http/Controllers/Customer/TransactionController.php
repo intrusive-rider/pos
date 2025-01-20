@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Customer;
 
+use App\Http\Controllers\Controller;
 use App\Models\Discount;
 use App\Models\Product;
 use App\Models\Transaction;
@@ -27,7 +28,7 @@ class TransactionController extends Controller
             });
 
         $discounts = Discount::where('active', '=', true)->get();
-        return view('transaction.create', compact('products', 'discounts'));
+        return view('customer.transaction.create', compact('products', 'discounts'));
     }
 
     public function store(Request $request)
@@ -37,7 +38,6 @@ class TransactionController extends Controller
         $discount_id = array_keys($request->input('discount', []));
         $discounts = Discount::whereIn('id', $discount_id)->get();
 
-        // validate quantities
         if (empty($quantities) || array_sum($quantities) === 0) {
             return redirect()->back()->with('error', 'You must add at least one product to proceed.');
         }
@@ -68,7 +68,7 @@ class TransactionController extends Controller
     public function show(Transaction $transaction)
     {
         $transaction->load(['products', 'discounts']);
-        return view('transaction.show', compact('transaction'));
+        return view('customer.transaction.show', compact('transaction'));
     }
 
     public function pay(Request $request, Transaction $transaction)

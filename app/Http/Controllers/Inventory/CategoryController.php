@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Inventory;
 
+use App\Http\Controllers\Controller;
 use App\Models\Category;
 use Illuminate\Http\Request;
 
@@ -9,7 +10,7 @@ class CategoryController extends Controller
 {
     public function create()
     {
-        return view('category.create');
+        return view('inventory.category.create');
     }
 
     public function store(Request $request, Category $category)
@@ -24,7 +25,7 @@ class CategoryController extends Controller
 
     public function edit(Category $category)
     {
-        return view('category.edit', compact('category'));
+        return view('inventory.category.edit', compact('category'));
     }
 
     public function update(Request $request, Category $category)

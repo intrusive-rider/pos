@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Inventory;
 
+use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Http\Request;
@@ -13,13 +14,13 @@ class ProductController extends Controller
     {
         $products = Product::all();
         $categories = Category::all();
-        return view('product.index', compact('products', 'categories'));
+        return view('inventory.product.index', compact('products', 'categories'));
     }
 
     public function create()
     {
         $categories = Category::all();
-        return view('product.create', compact('categories'));
+        return view('inventory.product.create', compact('categories'));
     }
 
     public function store(Request $request)
@@ -48,7 +49,7 @@ class ProductController extends Controller
     public function edit(Product $product)
     {
         $categories = Category::all();
-        return view('product.edit', compact('product', 'categories'));
+        return view('inventory.product.edit', compact('product', 'categories'));
     }
 
     public function update(Request $request, Product $product)

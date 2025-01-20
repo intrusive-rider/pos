@@ -1,14 +1,13 @@
 <?php
 
-use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\Inventory\CategoryController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\InvoiceController;
-use App\Http\Controllers\ProductController;
+use App\Http\Controllers\Customer\InvoiceController;
+use App\Http\Controllers\Inventory\ProductController;
 use App\Http\Middleware\BlockMultiCheckout;
-use App\Http\Controllers\DiscountController;
+use App\Http\Controllers\Inventory\DiscountController;
 use App\Http\Middleware\CleanupTransactions;
-use App\Http\Controllers\TransactionController;
-use App\Http\Middleware\BlockMultiActiveDiscount;
+use App\Http\Controllers\Customer\TransactionController;
 use App\Http\Middleware\ExpireDiscount;
 
 require __DIR__ . '/auth.php';
