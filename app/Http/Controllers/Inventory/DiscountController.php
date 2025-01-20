@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Inventory;
 
+use App\Http\Controllers\Controller;
 use App\Models\Discount;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -12,12 +13,12 @@ class DiscountController extends Controller
     public function index()
     {
         $discounts = Discount::where('active', '=', true)->get();
-        return view('discount.index', compact('discounts'));
+        return view('inventory.discount.index', compact('discounts'));
     }
 
     public function create()
     {
-        return view('discount.create');
+        return view('inventory.discount.create');
     }
 
     public function store(Request $request)
@@ -60,7 +61,7 @@ class DiscountController extends Controller
 
     public function edit(Discount $discount)
     {
-        return view('discount.edit', compact('discount'));
+        return view('inventory.discount.edit', compact('discount'));
     }
 
     public function update(Request $request, Discount $discount)

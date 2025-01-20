@@ -13,10 +13,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('transaction_discount', function (Blueprint $table) {
+        Schema::create('discount_transaction', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(Transaction::class)->constrained()->onDelete('cascade');
             $table->foreignIdFor(Discount::class)->constrained()->onDelete('cascade');
+            $table->foreignIdFor(Transaction::class)->constrained()->onDelete('cascade');
             $table->timestamps();
         });
     }
@@ -26,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('transaction_discount');
+        Schema::dropIfExists('discount_transaction');
     }
 };

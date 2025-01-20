@@ -10,14 +10,14 @@ class Transaction extends Model
 
     public function products()
     {
-        return $this->belongsToMany(Product::class, 'transaction_product')
+        return $this->belongsToMany(Product::class)
             ->withPivot('quantity')
             ->withTimestamps();
     }
 
     public function discounts()
     {
-        return $this->belongsToMany(Discount::class, 'transaction_discount');
+        return $this->belongsToMany(Discount::class);
     }
 
     public function user()
