@@ -8,6 +8,11 @@ class Transaction extends Model
 {
     protected $guarded = [];
 
+    public function payments()
+    {
+        return $this->hasMany(Payment::class);
+    }
+
     public function products()
     {
         return $this->belongsToMany(Product::class)
