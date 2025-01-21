@@ -9,6 +9,7 @@ use App\Models\Transaction;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Services\CheckoutService;
+use App\Services\MidtransService;
 
 class TransactionController extends Controller
 {
@@ -71,7 +72,7 @@ class TransactionController extends Controller
         return view('customer.transaction.show', compact('transaction'));
     }
 
-    public function pay(Request $request, Transaction $transaction)
+    public function pay(Request $request, Transaction $transaction, MidtransService $midtrans)
     {
         
         // $request->validate([
@@ -139,30 +140,33 @@ class TransactionController extends Controller
 
         $request->validate([
             'buyer' => 'required',
-            'amount' => [
-                'required',
-                'numeric',
-                function ($attribute, $value, $fail) use ($transaction) {
-                    $max_amount = $transaction->grand_total;
-
-                    if ($value < $max_amount) {
-                        $fail('The ' . $attribute . ' cannot be less than Rp' . number_format($max_amount, 2, ',', '.') . '.');
-                    }
-                },
-            ],
         ]);
 
         $transaction->update([
             'buyer' => $request->input('buyer'),
-            'payment_amount' => $request->input('amount'),
         ]);
 
-        foreach ($transaction->products as $product) {
-            $product->decrement('stock', $product->pivot->quantity);
+        $payment = $transaction->payments->last();
+
+        if ($payment == null || $payment->status == 'EXPIRED') {
+            $snap_token = $midtrans->createSnapToken($transaction);
+
+            $transaction->payments()->create([
+                'snap_token' => $snap_token,
+                'status' => 'PENDING',
+            ]);
+        } else {
+            $snap_token = $payment->snap_token;
         }
 
-        $invoice = $transaction->id;
-        return redirect(route('show-invoice', $invoice));
+        return view('customer.transaction.pay', compact('transaction', 'snap_token'));
+
+        // foreach ($transaction->products as $product) {
+        //     $product->decrement('stock', $product->pivot->quantity);
+        // }
+
+        // $invoice = $transaction->id;
+        // return redirect(route('show-invoice', $invoice));
     }
 
     public function destroy(Transaction $transaction)
