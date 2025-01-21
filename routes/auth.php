@@ -13,5 +13,5 @@ Route::middleware('guest')->group(function () {
 });
 
 Route::delete('logout', [AuthenticatedSessionController::class, 'destroy'])
-    ->middleware('auth')
+    ->middleware('auth:sanctum')
     ->name('logout-user');

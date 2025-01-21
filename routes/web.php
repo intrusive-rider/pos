@@ -12,7 +12,7 @@ use App\Http\Middleware\ExpireDiscount;
 
 require __DIR__ . '/auth.php';
 
-Route::middleware(['auth', ExpireDiscount::class])->group(function () {
+Route::middleware(['auth:sanctum', ExpireDiscount::class])->group(function () {
 
     Route::middleware([CleanupTransactions::class])->group(function () {
 
