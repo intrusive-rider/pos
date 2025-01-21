@@ -11,20 +11,9 @@
             </label>
             <x-forms.error :messages="$errors->get('buyer')" />
             <div class="divider"></div>
-            <div class="flex gap-x-3">
-                <div>
-                    <div class="join mb-3">
-                        <label for="amount" class="input input-bordered flex items-center gap-2 join-item">
-                            <span class="opacity-70">Rp</span>
-                            <input type="number" name="amount" id="amount"
-                                class="grow border-none focus:ring-0 no-spinner w-32"
-                                placeholder="{{ __('product.amount') }}" :value="{{ old('amount') }}" required />
-                        </label>
-                        <button type="submit" form="pay-transaction"
-                            class="btn btn-primary join-item">{{ __('product.pay') }}</button>
-                    </div>
-                    <x-forms.error :messages="$errors->get('amount')" />
-                </div>
+            <div class="flex gap-x-2">
+                <button type="submit" form="pay-transaction"
+                    class="btn btn-primary join-item">{{ __('Confirm payment') }}</button>
                 <button type="submit" form="delete-transaction"
                     class="btn btn-ghost join-item">{{ __('form.cancel') }}</button>
             </div>
