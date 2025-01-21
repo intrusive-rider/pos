@@ -2,7 +2,7 @@
 
 namespace App\Services;
 
-use App\Models\Transaction;
+use App\Models\Order;
 use Exception;
 use Midtrans\Config;
 use Midtrans\Notification;
@@ -28,15 +28,15 @@ class MidtransService
         Config::$is3ds = $this->is3ds;
     }
 
-    public function createSnapToken(Transaction $transaction)
+    public function createSnapToken(Order $order)
     {
         $params = [
             'transaction_details' => [
-                'order_id' => $transaction->id,
-                'gross_amount' => $transaction->grand_total,
+                'order_id' => 'TRS-' . sprintf('%03d', $order->id),
+                'gross_amount' => $order->grand_total,
             ],
-            'item_details' => $this->mapItemsToDetails($transaction),
-            'customer_details' => $this->getCustomerDetails($transaction),
+            'item_details' => $this->mapItemsToDetails($order),
+            'customer_details' => $this->getCustomerDetails($order),
         ];
 
         try {
@@ -59,19 +59,19 @@ class MidtransService
         return $localSignatureKey === $notification->signature_key;
     }
 
-    public function getOrder(): Transaction
+    public function getOrder()
     {
         $notification = new Notification();
-        return Transaction::where('id', $notification->order_id)->first();
+        return Order::where('id', $notification->order_id)->first();
     }
 
     public function getStatus()
     {
         $notification = new Notification();
-        $transaction_status = $notification->transaction_status;
+        $order_status = $notification->transaction_status;
         $fraud_status = $notification->fraud_status;
 
-        return match ($transaction_status) {
+        return match ($order_status) {
             'capture' => ($fraud_status == 'accept') ? 'success' : 'pending',
             'settlement' => 'success',
             'deny' => 'failed',
@@ -82,9 +82,9 @@ class MidtransService
         };
     }
 
-    protected function mapItemsToDetails(Transaction $transaction)
+    protected function mapItemsToDetails(Order $order)
     {
-        return $transaction->products()->get()->map(function ($product) {
+        return $order->products()->get()->map(function ($product) {
             return [
                 'id' => $product->id,
                 'price' => $product->price,
@@ -94,10 +94,10 @@ class MidtransService
         })->toArray();
     }
 
-    protected function getCustomerDetails(Transaction $transaction)
+    protected function getCustomerDetails(Order $order)
     {
         return [
-            'first_name' => $transaction->buyer,
+            'first_name' => $order->buyer,
         ];
     }
 }

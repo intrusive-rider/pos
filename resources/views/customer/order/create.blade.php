@@ -4,7 +4,7 @@
         <h1 class="text-5xl font-bold">{{ __('title.create') }}</h1>
     </section>
 
-    <x-layouts.form method="POST" action="{{ route('create-transaction') }}" id="checkout" class="max-w-none space-y-6">
+    <x-layouts.form method="POST" action="{{ route('create-order') }}" id="checkout" class="max-w-none space-y-6">
         <section class="navbar sticky top-0 z-10 px-0 py-3 bg-gradient-to-b from-base-100 to-transparent from-90%">
             <div class="navbar-start">
                 <div class="dropdown">

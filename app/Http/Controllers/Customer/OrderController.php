@@ -4,14 +4,14 @@ namespace App\Http\Controllers\Customer;
 
 use App\Http\Controllers\Controller;
 use App\Models\Discount;
+use App\Models\Order;
 use App\Models\Product;
-use App\Models\Transaction;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Services\CheckoutService;
 use App\Services\MidtransService;
 
-class TransactionController extends Controller
+class OrderController extends Controller
 {
     protected $checkout_service;
 
@@ -29,7 +29,7 @@ class TransactionController extends Controller
             });
 
         $discounts = Discount::where('active', '=', true)->get();
-        return view('customer.transaction.create', compact('products', 'discounts'));
+        return view('customer.order.create', compact('products', 'discounts'));
     }
 
     public function store(Request $request)
@@ -45,7 +45,7 @@ class TransactionController extends Controller
 
         [$sub_total, $grand_total, $discounts] = $this->checkout_service->total($quantities, $discounts);
 
-        $transaction = Transaction::with('discount')->create([
+        $order = Order::with('discount')->create([
             'seller_id' => Auth::id(),
             'buyer' => $buyer,
             'sub_total' => $sub_total,
@@ -54,40 +54,36 @@ class TransactionController extends Controller
         ]);
 
         if ($discounts->isNotEmpty()) {
-            $transaction->discounts()->attach($discounts);
+            $order->discounts()->attach($discounts);
         }
 
         foreach ($quantities as $product_id => $quantity) {
             if ($quantity > 0) {
-                $transaction->products()->attach($product_id, ['quantity' => $quantity]);
+                $order->products()->attach($product_id, ['quantity' => $quantity]);
             }
         }
 
-        return redirect()->route('checkout-transaction', $transaction->id);
+        return redirect()->route('checkout-order', $order->id);
     }
 
-    public function show(Transaction $transaction)
+    public function show(Order $order)
     {
-        $transaction->load(['products', 'discounts']);
-        return view('customer.transaction.show', compact('transaction'));
+        $order->load(['products', 'discounts']);
+        return view('customer.order.show', compact('order'));
     }
 
-    public function pay(Request $request, Transaction $transaction, MidtransService $midtrans)
+    public function pay(Request $request, Order $order, MidtransService $midtrans)
     {
-        $request->validate([
+        $order->update($request->validate([
             'buyer' => 'required',
-        ]);
+        ]));        
 
-        $transaction->update([
-            'buyer' => $request->input('buyer'),
-        ]);
-
-        $payment = $transaction->payments->last();
+        $payment = $order->payments->last();
 
         if ($payment == null || $payment->status == 'EXPIRED') {
-            $snap_token = $midtrans->createSnapToken($transaction);
+            $snap_token = $midtrans->createSnapToken($order);
 
-            $transaction->payments()->create([
+            $order->payments()->create([
                 'snap_token' => $snap_token,
                 'status' => 'PENDING',
             ]);
@@ -95,19 +91,19 @@ class TransactionController extends Controller
             $snap_token = $payment->snap_token;
         }
 
-        return view('customer.transaction.pay', compact('transaction', 'snap_token'));
+        return view('customer.order.pay', compact('order', 'snap_token'));
 
-        // foreach ($transaction->products as $product) {
+        // foreach ($order->products as $product) {
         //     $product->decrement('stock', $product->pivot->quantity);
         // }
 
-        // $invoice = $transaction->id;
+        // $invoice = $order->id;
         // return redirect(route('show-invoice', $invoice));
     }
 
-    public function destroy(Transaction $transaction)
+    public function destroy(Order $order)
     {
-        $transaction->delete();
+        $order->delete();
         return redirect(route('home'));
     }
 }

@@ -1,6 +1,6 @@
 <?php
 
-use App\Models\Transaction;
+use App\Models\Order;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -14,7 +14,7 @@ return new class extends Migration
     {
         Schema::create('payments', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(Transaction::class)->nullable()->constrained()->cascadeOnDelete();
+            $table->foreignIdFor(Order::class)->nullable()->constrained()->cascadeOnDelete();
             $table->string('snap_token')->nullable();
             $table->string('status', 32)->default('pending');
             $table->dateTime('paid_at')->nullable();

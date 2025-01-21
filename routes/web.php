@@ -3,24 +3,24 @@
 use App\Http\Controllers\Inventory\CategoryController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Customer\InvoiceController;
+use App\Http\Controllers\Customer\OrderController;
 use App\Http\Controllers\Inventory\ProductController;
 use App\Http\Middleware\BlockMultiCheckout;
 use App\Http\Controllers\Inventory\DiscountController;
-use App\Http\Middleware\CleanupTransactions;
-use App\Http\Controllers\Customer\TransactionController;
+use App\Http\Middleware\CleanupOrders;
 use App\Http\Middleware\ExpireDiscount;
 
 require __DIR__ . '/auth.php';
 
 Route::middleware(['auth:sanctum', ExpireDiscount::class])->group(function () {
 
-    Route::middleware([CleanupTransactions::class])->group(function () {
+    Route::middleware([CleanupOrders::class])->group(function () {
 
         Route::view('/', 'home')->name('home');
 
-        // transactions
-        Route::get('new', [TransactionController::class, 'create'])->name('create-transaction');
-        Route::post('new', [TransactionController::class, 'store'])->name('store-transaction');
+        // orders
+        Route::get('new', [OrderController::class, 'create'])->name('create-order');
+        Route::post('new', [OrderController::class, 'store'])->name('store-order');
 
         // invoices
         Route::get('invoices', [InvoiceController::class, 'index'])->name('index-invoice');
@@ -58,8 +58,8 @@ Route::middleware(['auth:sanctum', ExpireDiscount::class])->group(function () {
 
     // checkout
     Route::middleware([BlockMultiCheckout::class])->group(function () {
-        Route::get('checkout/{transaction}', [TransactionController::class, 'show'])->name('checkout-transaction');
-        Route::post('checkout/{transaction}', [TransactionController::class, 'pay'])->name('pay-transaction');
-        Route::delete('checkout/{transaction}', [TransactionController::class, 'destroy'])->name('delete-transaction');
+        Route::get('checkout/{order}', [OrderController::class, 'show'])->name('checkout-order');
+        Route::post('checkout/{order}', [OrderController::class, 'pay'])->name('pay-order');
+        Route::delete('checkout/{order}', [OrderController::class, 'destroy'])->name('delete-order');
     });
 });

@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Customer;
 
+use App\Http\Controllers\Controller;
 use App\Services\MidtransService;
 use Illuminate\Http\Request;
 
@@ -10,15 +11,15 @@ class PaymentController extends Controller
     public function midtrans_callback(Request $request, MidtransService $midtrans)
     {
         if ($midtrans->isSignatureKeyVerified()) {
-            $transaction = $midtrans->getOrder();
+            $order = $midtrans->getOrder();
 
             if ($midtrans->getStatus() == 'success') {
-                $transaction->update([
+                $order->update([
                     'status' => 'processing',
                     'payment_status' => 'paid',
                 ]);
 
-                $last_payment = $transaction->payments()->latest()->first();
+                $last_payment = $order->payments()->latest()->first();
                 $last_payment->update([
                     'status' => 'PAID',
                     'paid_at' => now(),

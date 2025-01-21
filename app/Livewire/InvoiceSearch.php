@@ -3,7 +3,6 @@
 namespace App\Livewire;
 
 use Livewire\Component;
-use App\Models\Transaction;
 
 class InvoiceSearch extends Component
 {
