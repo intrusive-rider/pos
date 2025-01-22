@@ -11,7 +11,7 @@
             </label>
             <x-forms.error :messages="$errors->get('buyer')" />
             <div class="divider"></div>
-            <div class="flex gap-x-2">
+            <div>
                 <button type="submit" form="pay-order"
                     class="btn btn-primary join-item">{{ __('Confirm payment') }}</button>
                 <button type="submit" form="delete-order"
@@ -24,28 +24,28 @@
                     <x-cards.product-list :$product />
                 @endforeach
             </div>
-            <div class="divider"></div>
-            <div class="flex justify-between">
-                <h1 class="text-lg">{{ __('Subtotal') }}:</h1>
-                <span class="font-bold text-xl tabular-nums opacity-70">{{ $order->sub_total_fmt }}</span>
+            <div class="flex justify-between mt-8">
+                <h1 class="text-lg opacity-70">{{ __('Subtotal') }}:</h1>
+                <span class="font-semibold text-xl tabular-nums">{{ $order->sub_total_fmt }}</span>
             </div>
             @if ($order->discounts)
                 @foreach ($order->discounts as $discount)
                     <div class="flex justify-between">
-                        <h1 class="text-lg">
+                        <h1 class="text-lg opacity-70">
                             {{ $discount->name }}:
                             @isset($discount->max_value)
                                 <div class="text-sm opacity-70">(max. {{ $discount->max_value_fmt }})</div>
                             @endisset
                         </h1>
-                        <span class="font-bold text-lg tabular-nums text-error">
+                        <span class="font-semibold text-xl tabular-nums text-error">
                             -{{ $discount->value_fmt }}
                         </span>
                     </div>
                 @endforeach
             @endif
-            <div class="flex justify-between my-4">
-                <h1 class="text-lg">{{ __('product.total') }}:</h1>
+            <div class="divider"></div>
+            <div class="flex justify-between">
+                <h1 class="text-lg opacity-70">{{ __('product.total') }}:</h1>
                 <span class="font-bold text-3xl text-primary">{{ $order->grand_total_fmt }}</span>
             </div>
         </div>

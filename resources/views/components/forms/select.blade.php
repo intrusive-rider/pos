@@ -16,7 +16,7 @@
 
 <div class="form-control my-3">
     @isset($top_label)
-        <div class="label">
+        <div class="label opacity-70 font-medium">
             {{ $top_label }}
         </div>
     @endisset

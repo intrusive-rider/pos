@@ -18,7 +18,7 @@
                     </ul>
                 </div>
             </div>
-            <div class="navbar-end items-center gap-x-4">
+            <div class="navbar-end items-center gap-x-2">
                 <div class="dropdown dropdown-end">
                     <div tabindex="0" role="button" class="btn btn-circle btn-ghost">
                         @svg('phosphor-seal-percent', 'w-6 h-6')
@@ -64,7 +64,7 @@
                 </div>
             </div>
         @empty
-            <p class="opacity-70">No product found. Add them here.</p>
+            <p class="opacity-70">No product found. <a href="{{ route('create-product') }}">Add them here.</a></p>
         @endforelse
     </x-layouts.form>
 </x-layouts.app>

@@ -4,7 +4,7 @@
             <x-forms.input name="search" icon="magnifying-glass" placeholder="Search product"
                 wire:model.live.debounce.250ms="search" :required="false" />
         </div>
-        <div class="flex items-center gap-x-2">
+        <div>
             <button class="btn btn-ghost" onclick="categories.showModal()">Categories</button>
             <a href="{{ route('new-product') }}" class="btn btn-primary">New product</a>
         </div>
