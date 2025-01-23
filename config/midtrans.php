@@ -8,10 +8,5 @@ return [
     'is_production' => env('MIDTRANS_IS_PRODUCTION', false),
     'is_sanitized' => false,
     'is_3ds' => false,
-<<<<<<< HEAD
 ];
 
-?>
-=======
-];
->>>>>>> 159770e691392fa0abb1b6fa3690024c09f142a4
