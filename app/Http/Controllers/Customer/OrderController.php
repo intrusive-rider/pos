@@ -72,88 +72,6 @@ class OrderController extends Controller
         return view('customer.order.show', compact('order'));
     }
 
-<<<<<<< HEAD:app/Http/Controllers/Customer/TransactionController.php
-    public function pay(Request $request, Transaction $transaction, MidtransService $midtrans)
-    {
-        
-        // $request->validate([
-        //     'buyer' => 'required',
-        //     'payment_method' => 'required|in:cash,midtrans',
-        //     'amount' => 'required_if:payment_method,cash|nullable|numeric',
-        // ]);
-    
-        // if ($request->input('payment_method') === 'cash') {
-        //     $request->validate([
-        //         'amount' => [
-        //             'required',
-        //             'numeric',
-        //             function ($attribute, $value, $fail) use ($transaction) {
-        //                 if ($value < $transaction->grand_total) {
-        //                     $fail('The ' . $attribute . ' cannot be less than Rp' . number_format($transaction->grand_total, 2, ',', '.'));
-        //                 }
-        //             },
-        //         ],
-        //     ]);
-    
-        //     $transaction->update([
-        //         'buyer' => $request->input('buyer'),
-        //         'payment_amount' => $request->input('amount'),
-        //         'payment_status' => 'paid',
-        //     ]);
-    
-        //     foreach ($transaction->products as $product) {
-        //         $product->decrement('stock', $product->pivot->quantity);
-        //     }
-            
-    
-        //     return redirect(route('show-invoice', $transaction->id));
-        // }
-
-        // // Proses jika pembayaran menggunakan Midtrans
-        // if ($request->input('payment_method') === 'midtrans') {
-        //     // Konfigurasi Midtrans
-        //     \Midtrans\Config::$serverKey = config('midtrans.server_key');
-        //     \Midtrans\Config::$isProduction = config('midtrans.is_production');
-        //     \Midtrans\Config::$isSanitized = config('midtrans.is_sanitized');
-        //     \Midtrans\Config::$is3ds = config('midtrans.is_3ds');
-
-        //     // Set parameter untuk Midtrans
-        //     $params = [
-        //         'transaction_details' => [
-        //             'order_id' => 'ORDER-' . $transaction->id . '-' . time(),
-        //             'gross_amount' => $transaction->grand_total,
-        //         ],
-        //         'customer_details' => [
-        //             'first_name' => $request->input('buyer'),
-        //             'email' => Auth::user()->email,
-        //         ],
-        //     ];
-
-        //     // Ambil Snap Token
-        //     $snapToken = \Midtrans\Snap::getSnapToken($params);
-
-        //     $transaction->snap_token = $snapToken;
-        //     $transaction->save();
-
-        //     return redirect()->route('show-invoice', $snapToken);
-        // }
-
-
-        $request->validate([
-            'buyer' => 'required',
-        ]);
-
-        $transaction->update([
-            'buyer' => $request->input('buyer'),
-        ]);
-
-        $payment = $transaction->payments->last();
-
-        if ($payment == null || $payment->status == 'EXPIRED') {
-            $snap_token = $midtrans->createSnapToken($transaction);
-
-            $transaction->payments()->create([
-=======
     public function pay(Request $request, Order $order, MidtransService $midtrans)
     {
         $order->update($request->validate([
@@ -166,7 +84,6 @@ class OrderController extends Controller
             $snap_token = $midtrans->createSnapToken($order);
 
             $order->payments()->create([
->>>>>>> 159770e691392fa0abb1b6fa3690024c09f142a4:app/Http/Controllers/Customer/OrderController.php
                 'snap_token' => $snap_token,
                 'status' => 'PENDING',
             ]);
@@ -174,15 +91,6 @@ class OrderController extends Controller
             $snap_token = $payment->snap_token;
         }
 
-<<<<<<< HEAD:app/Http/Controllers/Customer/TransactionController.php
-        return view('customer.transaction.pay', compact('transaction', 'snap_token'));
-
-        // foreach ($transaction->products as $product) {
-        //     $product->decrement('stock', $product->pivot->quantity);
-        // }
-
-        // $invoice = $transaction->id;
-=======
         return view('customer.order.pay', compact('order', 'snap_token'));
 
         // foreach ($order->products as $product) {
@@ -190,7 +98,6 @@ class OrderController extends Controller
         // }
 
         // $invoice = $order->id;
->>>>>>> 159770e691392fa0abb1b6fa3690024c09f142a4:app/Http/Controllers/Customer/OrderController.php
         // return redirect(route('show-invoice', $invoice));
     }
 

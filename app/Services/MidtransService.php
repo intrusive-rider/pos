@@ -2,11 +2,8 @@
 
 namespace App\Services;
 
-<<<<<<< HEAD
-use App\Models\Transaction;
-=======
+
 use App\Models\Order;
->>>>>>> 159770e691392fa0abb1b6fa3690024c09f142a4
 use Exception;
 use Midtrans\Config;
 use Midtrans\Notification;
@@ -32,17 +29,6 @@ class MidtransService
         Config::$is3ds = $this->is3ds;
     }
 
-<<<<<<< HEAD
-    public function createSnapToken(Transaction $transaction)
-    {
-        $params = [
-            'transaction_details' => [
-                'order_id' => $transaction->id,
-                'gross_amount' => $transaction->grand_total,
-            ],
-            'item_details' => $this->mapItemsToDetails($transaction),
-            'customer_details' => $this->getCustomerDetails($transaction),
-=======
     public function createSnapToken(Order $order)
     {
         $params = [
@@ -52,7 +38,6 @@ class MidtransService
             ],
             'item_details' => $this->mapItemsToDetails($order),
             'customer_details' => $this->getCustomerDetails($order),
->>>>>>> 159770e691392fa0abb1b6fa3690024c09f142a4
         ];
 
         try {
@@ -75,33 +60,19 @@ class MidtransService
         return $localSignatureKey === $notification->signature_key;
     }
 
-<<<<<<< HEAD
-    public function getOrder(): Transaction
-    {
-        $notification = new Notification();
-        return Transaction::where('id', $notification->order_id)->first();
-=======
     public function getOrder()
     {
         $notification = new Notification();
         return Order::where('id', $notification->order_id)->first();
->>>>>>> 159770e691392fa0abb1b6fa3690024c09f142a4
     }
 
     public function getStatus()
     {
         $notification = new Notification();
-<<<<<<< HEAD
-        $transaction_status = $notification->transaction_status;
-        $fraud_status = $notification->fraud_status;
-
-        return match ($transaction_status) {
-=======
         $order_status = $notification->transaction_status;
         $fraud_status = $notification->fraud_status;
 
         return match ($order_status) {
->>>>>>> 159770e691392fa0abb1b6fa3690024c09f142a4
             'capture' => ($fraud_status == 'accept') ? 'success' : 'pending',
             'settlement' => 'success',
             'deny' => 'failed',
@@ -112,15 +83,9 @@ class MidtransService
         };
     }
 
-<<<<<<< HEAD
-    protected function mapItemsToDetails(Transaction $transaction)
-    {
-        return $transaction->products()->get()->map(function ($product) {
-=======
     protected function mapItemsToDetails(Order $order)
     {
         return $order->products()->get()->map(function ($product) {
->>>>>>> 159770e691392fa0abb1b6fa3690024c09f142a4
             return [
                 'id' => $product->id,
                 'price' => $product->price,
@@ -130,17 +95,10 @@ class MidtransService
         })->toArray();
     }
 
-<<<<<<< HEAD
-    protected function getCustomerDetails(Transaction $transaction)
-    {
-        return [
-            'first_name' => $transaction->buyer,
-=======
     protected function getCustomerDetails(Order $order)
     {
         return [
             'first_name' => $order->buyer,
->>>>>>> 159770e691392fa0abb1b6fa3690024c09f142a4
         ];
     }
 }
