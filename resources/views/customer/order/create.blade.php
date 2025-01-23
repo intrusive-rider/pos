@@ -4,7 +4,7 @@
         <h1 class="text-5xl font-bold">{{ __('title.create') }}</h1>
     </section>
 
-    <x-layouts.form method="POST" action="{{ route('create-transaction') }}" id="checkout" class="max-w-none space-y-6">
+    <x-layouts.form method="POST" action="{{ route('create-order') }}" id="checkout" class="max-w-none space-y-6">
         <section class="navbar sticky top-0 z-10 px-0 py-3 bg-gradient-to-b from-base-100 to-transparent from-90%">
             <div class="navbar-start">
                 <div class="dropdown">
@@ -18,7 +18,7 @@
                     </ul>
                 </div>
             </div>
-            <div class="navbar-end items-center gap-x-4">
+            <div class="navbar-end items-center gap-x-2">
                 <div class="dropdown dropdown-end">
                     <div tabindex="0" role="button" class="btn btn-circle btn-ghost">
                         @svg('phosphor-seal-percent', 'w-6 h-6')
@@ -64,7 +64,7 @@
                 </div>
             </div>
         @empty
-            <p class="opacity-70">No product found. Add them here.</p>
+            <p class="opacity-70">No product found. <a href="{{ route('create-product') }}">Add them here.</a></p>
         @endforelse
     </x-layouts.form>
 </x-layouts.app>

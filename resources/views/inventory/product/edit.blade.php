@@ -22,11 +22,49 @@
                     @endforeach
                 </x-forms.select>
 
-                <x-forms.file-input name="image" accept="image/*" :required="false">
-                    @slot('top_label')
-                        Product image
-                    @endslot
-                </x-forms.file-input>
+                @if ($product->image)
+                    <div>
+                        <label class="label opacity-70 font-medium">
+                            Product image
+                        </label>
+                        <div class="flex items-center gap-4">
+                            <!-- image preview -->
+                            <img id="image-preview" src="{{ asset($product->image) }}" alt="{{ $product->name }}"
+                                class="mask mask-squircle w-24 h-24 object-cover">
+
+                            <!-- replace button and hidden file input -->
+                            <div>
+                                <button type="button" class="btn btn-ghost"
+                                    onclick="document.getElementById('file-input').click();">
+                                    Replace
+                                </button>
+                                <input type="file" id="file-input" name="image" accept="image/*" class="hidden"
+                                    onchange="updateImagePreview(event);">
+                            </div>
+                        </div>
+                    </div>
+
+                    <script>
+                        function updateImagePreview(event) {
+                            const file = event.target.files[0];
+                            const preview = document.getElementById('image-preview');
+
+                            if (file) {
+                                const reader = new FileReader();
+                                reader.onload = (e) => {
+                                    preview.src = e.target.result;
+                                };
+                                reader.readAsDataURL(file);
+                            }
+                        }
+                    </script>
+                @else
+                    <x-forms.file-input name="image" accept="image/*" :required="false">
+                        @slot('top_label')
+                            Product image
+                        @endslot
+                    </x-forms.file-input>
+                @endif
 
                 <div class="mt-6">
                     <button type="submit" class="btn btn-primary">{{ __('Update') }}</button>

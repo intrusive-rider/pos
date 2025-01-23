@@ -1,7 +1,7 @@
 <x-layouts.app class="space-y-8">
     <h1 class="text-5xl font-bold">{{ __('Edit discount') }}</h1>
     <x-layouts.form method="PATCH" action="{{ route('update-discount', $discount->id) }}" id="update-discount">
-        <x-forms.input name="name" icon="percent" value="{{ $discount->name }}" :placeholder="__('Name')" />
+        <x-forms.input name="name" icon="seal-percent" value="{{ $discount->name }}" :placeholder="__('Name')" />
 
         <div class="flex items-center gap-4">
             <div class="w-full">
@@ -30,10 +30,8 @@
             value="{{ $discount->end_date ? $discount->end_date->format('Y-m-d') : '' }}" />
 
         <div class="mt-6">
-            <div class="flex gap-x-2">
-                <button type="submit" form="update-discount" class="btn btn-primary">{{ __('Update') }}</button>
-                <a href="{{ route('index-discount') }}" class="btn btn-ghost">{{ __('form.cancel') }}</a>
-            </div>
+            <button type="submit" form="update-discount" class="btn btn-primary">{{ __('Update') }}</button>
+            <a href="{{ route('index-discount') }}" class="btn btn-ghost">{{ __('form.cancel') }}</a>
         </div>
     </x-layouts.form>
 </x-layouts.app>

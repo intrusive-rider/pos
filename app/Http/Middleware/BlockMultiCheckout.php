@@ -15,9 +15,9 @@ class BlockMultiCheckout
      */
     public function handle(Request $request, Closure $next): Response
     {
-        $transaction = $request->route('transaction');
+        $order = $request->route('order');
 
-        if ($transaction->payment_amount !== 0) {
+        if ($order->payment_amount !== 0) {
             return redirect()->route('home')->with('error', 'You are not authorized to access this page.');
         }
 

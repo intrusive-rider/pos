@@ -14,9 +14,9 @@ class Discount extends Model
         'end_date' => 'date',
     ];
 
-    public function transactions()
+    public function order()
     {
-        return $this->belongsToMany(Transaction::class);
+        return $this->belongsToMany(Order::class);
     }
 
     public function getValueFmtAttribute()

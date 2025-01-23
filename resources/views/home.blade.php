@@ -6,7 +6,7 @@
         </div>
     </section>
     <section class="grid grid-cols-2 gap-6">
-        <x-cards.action href="{{ route('create-transaction') }}" icon="shopping-cart" class="bg-primary text-primary">
+        <x-cards.action href="{{ route('create-order') }}" icon="shopping-cart" class="bg-primary text-primary">
             <h1>{{ __('action.create') }}</h1>
         </x-cards.action>
 

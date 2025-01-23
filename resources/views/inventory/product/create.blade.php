@@ -28,7 +28,7 @@
             @endslot
         </x-forms.file-input>
 
-        <div class="mt-6">
+        <div class="mt-6 gap-x-2">
             <button type="submit" class="btn btn-primary">{{ __('Add') }}</button>
             <a href="{{ route('index-product') }}" class="btn btn-ghost">{{ __('form.cancel') }}</a>
         </div>

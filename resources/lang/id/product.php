@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'transaction' => 'Transaksi',
+    'order' => 'Pesanan',
     'invoice' => 'Invois',
     'pay' => 'Bayar',
     'total' => 'Total akhir',
