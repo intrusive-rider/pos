@@ -3,7 +3,7 @@
 return [
     'create' => 'Pesanan baru',
     'update' => 'Perbaharui stok',
-    'discount' => 'Buat diskon',
+    'discount' => 'Promosi',
     'website' => 'Kunjungi situs web',
     'send' => 'Kirim ke pemesan',
     'invoices' => 'Invois',

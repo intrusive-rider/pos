@@ -3,8 +3,8 @@
 
     <x-layouts.form method="POST" action="{{ route('save-product') }}" enctype="multipart/form-data">
         <x-forms.input name="name" icon="package" :placeholder="__('Name')" />
-        <x-forms.input name="price" type="number" icon="tag" :placeholder="__('Price')" class="no-spinner" />
-        <x-forms.input name="stock" type="number" icon="hash-straight" :placeholder="__('Stock')" class="no-spinner" />
+        <x-forms.input name="price" type="number" icon="tag" :placeholder="__('Price')"  />
+        <x-forms.input name="stock" type="number" icon="hash-straight" :placeholder="__('Stock')"  />
 
         <div class="flex items-center gap-4">
             <div class="w-full">

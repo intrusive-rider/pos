@@ -14,12 +14,12 @@
             <h1>{{ __('action.listings') }}</h1>
         </x-cards.action>
 
-        <x-cards.action href="{{ route('index-discount') }}" icon="seal-percent" class="bg-accent text-accent-content">
-            <h1>{{ __('action.discount') }}</h1>
+        <x-cards.action href="https://dashboard.sandbox.midtrans.com/promo" icon="seal-percent" class="bg-accent text-accent-content">
+            <h1>{{ __('Promos') }}</h1>
         </x-cards.action>
 
-        <x-cards.action href="{{ route('index-invoice') }}" icon="scroll" class="bg-secondary text-secondary-content">
-            <h1>{{ __('action.invoices') }}</h1>
+        <x-cards.action href="https://dashboard.sandbox.midtrans.com/beta/transactions" icon="scroll" class="bg-secondary text-secondary-content">
+            <h1>{{ __('Transactions') }}</h1>
         </x-cards.action>
     </section>
 </x-layouts.app>

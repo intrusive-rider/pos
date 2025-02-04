@@ -7,12 +7,12 @@ h2 {
     @apply tracking-tight;
 }
 
-.no-spinner::-webkit-inner-spin-button,
-.no-spinner::-webkit-outer-spin-button {
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
     -webkit-appearance: none;
     @apply m-0;
 }
-.no-spinner {
+input[type="number"] {
     -moz-appearance: textfield;
 }
 
@@ -34,6 +34,7 @@ h2 {
 .select2-results__option {
     @apply rounded px-2;
 }
-.select2-container--default .select2-results__option--highlighted.select2-results__option--selectable {
+.select2-container--default
+    .select2-results__option--highlighted.select2-results__option--selectable {
     @apply bg-primary text-primary-content;
 }

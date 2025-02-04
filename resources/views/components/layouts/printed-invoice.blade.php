@@ -52,7 +52,7 @@
             </p>
             <p id="right">
                 {{ $invoice->buyer }}<br />
-                {{ $invoice->created_at->format('d M. Y, H:i') }}
+                {{ $invoice->created_at->format('d M Y, H:i') }}
             </p>
         </footer>
     </div>

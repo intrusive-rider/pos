@@ -4,9 +4,9 @@
     <x-layouts.form method="PATCH" action="{{ route('update-product', $product->id) }}" enctype="multipart/form-data">
         <x-forms.input name="name" icon="package" :placeholder="__('Name')" value="{{ $product->name }}" />
         <x-forms.input name="price" type="number" icon="tag" :placeholder="__('Price')" value="{{ $product->price }}"
-            class="no-spinner" />
+             />
         <x-forms.input name="stock" type="number" icon="hash-straight" :placeholder="__('Stock')"
-            value="{{ $product->stock }}" class="no-spinner" />
+            value="{{ $product->stock }}"  />
 
         <div class="flex items-center gap-4">
             <div class="w-full">
