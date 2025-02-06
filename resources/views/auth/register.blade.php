@@ -11,8 +11,10 @@
         <x-layouts.form method="POST" action="{{ route('register-user') }}">
             <x-forms.input name="name" icon="user" :placeholder="__('form.username')" />
             <x-forms.input name="email" type="email" icon="envelope" :placeholder="__('form.email')" />
-            <x-forms.input name="password" type="password" icon="key" :placeholder="__('form.password')" />
-            <x-forms.input name="password_confirmation" type="password" icon="key" :placeholder="__('form.confirm_password')" />
+            <x-forms.fieldset title="Password">
+                <x-forms.input name="password" type="password" icon="key" :placeholder="__('form.password')" />
+                <x-forms.input name="password_confirmation" type="password" icon="key" :placeholder="__('form.confirm_password')" />
+            </x-forms.fieldset>
             <button type="submit" class="mt-6 btn btn-primary btn-block">{{ __('form.register') }}</button>
         </x-layouts.form>
     @endslot

@@ -1,4 +1,4 @@
-<div>
+<search>
     <section
         class="flex items-baseline justify-between sticky top-0 z-10 px-0 py-3 bg-gradient-to-b from-base-100 to-transparent from-90%">
         <div class="max-w-lg w-full">
@@ -42,8 +42,8 @@
                         <td>
                             {{ $discount->max_value ? $discount->max_value_fmt : 'None' }}
                         </td>
-                        <td>{{ $discount->start_date->format('d M.') }} &mdash;
-                            {{ $discount->end_date->format('d M.') }}</td>
+                        <td>{{ $discount->start_date->format('d M') }} &ndash;
+                            {{ $discount->end_date->format('d M') }}</td>
                     </tr>
                 @empty
                     <tr>
@@ -53,4 +53,4 @@
             </tbody>
         </table>
     </section>
-</div>
+</search>

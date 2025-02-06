@@ -23,8 +23,10 @@
         <x-forms.input name="max_value" type="number" icon="arrow-line-up" :placeholder="__('Max. value (if in perc.)')" :required="false"
             class="no-spinner" />
 
-        <x-forms.input name="start_date" type="date" icon="calendar-check" :placeholder="__('Start date')" />
-        <x-forms.input name="end_date" type="date" icon="calendar-x" :placeholder="__('End date')" />
+        <x-forms.fieldset title="Availability">
+            <x-forms.input name="start_date" type="date" icon="calendar-check" :placeholder="__('Start date')" />
+            <x-forms.input name="end_date" type="date" icon="calendar-x" :placeholder="__('End date')" />
+        </x-forms.fieldset>
 
         <div class="mt-6">
             <button type="submit" class="btn btn-primary">{{ __('Add') }}</button>
