@@ -1,7 +1,7 @@
 <x-layouts.app class="space-y-8">
-    <h1 class="text-5xl font-bold">{{ __('New product') }}</h1>
+    <x-title>{{ __('New product') }}</x-title>
 
-    <x-layouts.form method="POST" action="{{ route('save-product') }}" enctype="multipart/form-data">
+    <x-layouts.form method="POST" action="{{ route('store-product') }}" enctype="multipart/form-data">
         <x-forms.input name="name" icon="package" :placeholder="__('Name')" />
         <x-forms.input name="price" type="number" icon="tag" :placeholder="__('Price')" class="no-spinner" />
         <x-forms.input name="stock" type="number" icon="hash-straight" :placeholder="__('Stock')" class="no-spinner" />

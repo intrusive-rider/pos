@@ -12,7 +12,7 @@
         <h2 class="card-title text-3xl">{{ $product->name }}</h2>
 
         <p class="text-right">
-            <span class="opacity-70 text-sm">{{ $product->price_fmt }} &times; {{ $product->pivot->quantity }}</span> <br />
+            <span class="opacity-70 text-sm">{{ $product->price }} &times; {{ $product->pivot->quantity }}</span> <br />
             <span class="text-xl font-semibold">Rp{{ number_format($qty_price, 2, ',', '.') }}</span>
         </p>
 

@@ -1,0 +1,1 @@
+<a {{ $attributes(['class' => 'link link-hover text-lg']) }}>&larr; {{ __('link.go_back') }}</a>

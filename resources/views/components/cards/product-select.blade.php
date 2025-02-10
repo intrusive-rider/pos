@@ -1,10 +1,15 @@
-@props(['product'])
+@props([
+    'product', 
+    'order' => null
+])
 
 @php
     $stock_is_empty = $product->stock <= 0;
+    $existing_qty = $order ? optional($order->products->firstWhere('id', $product->id))->pivot->quantity ?? 0 : 0;
+    $remaining_stock = $product->stock - $existing_qty;
 @endphp
 
-<div class="card lg:card-side card-compact bg-base-100 shadow-xl ring-2 ring-base-200" x-data="{ count: 0, stock: {{ $product->stock }} }">
+<div class="card lg:card-side card-compact bg-base-100 shadow-xl ring-2 ring-base-200" x-data="{ count: {{ $existing_qty }}, stock: {{ $remaining_stock }} }">
     <figure>
         <img src="{{ asset($product->image) }}" class="w-96 h-40 object-cover" />
     </figure>

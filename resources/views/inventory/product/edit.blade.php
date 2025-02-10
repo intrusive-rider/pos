@@ -1,5 +1,5 @@
 <x-layouts.app class="space-y-8">
-    <h1 class="text-5xl font-bold">{{ __('Edit product') }}</h1>
+    <x-title>{{ __('Edit product') }}</x-title>
 
     <x-layouts.form method="PATCH" action="{{ route('update-product', $product->id) }}" enctype="multipart/form-data">
         <x-forms.input name="name" icon="package" :placeholder="__('Name')" value="{{ $product->name }}" />
@@ -28,11 +28,8 @@
                             Product image
                         </label>
                         <div class="flex items-center gap-4">
-                            <!-- image preview -->
                             <img id="image-preview" src="{{ asset($product->image) }}" alt="{{ $product->name }}"
                                 class="mask mask-squircle w-24 h-24 object-cover">
-
-                            <!-- replace button and hidden file input -->
                             <div>
                                 <button type="button" class="btn btn-ghost"
                                     onclick="document.getElementById('file-input').click();">

@@ -4,7 +4,7 @@
             <a href="{{ route('index-invoice') }}" class="link link-hover text-lg">&larr; {{ __('link.go_back') }}</a>
             <div class="space-y-3">
                 <span class="text-lg uppercase tracking-wider opacity-70 block">{{ __('product.invoice') }}</span>
-                <h1 class="text-5xl font-bold">{{ $invoice->buyer }}</h1>
+                <x-title>{{ $invoice->buyer }}</x-title>
                 <div class="divider"></div>
                 <div tabindex="0" class="collapse collapse-arrow border-2 border-base-200">
                     <div class="collapse-title text-lg uppercase tracking-wider opacity-70 block">Info</div>

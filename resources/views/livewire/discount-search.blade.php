@@ -5,7 +5,7 @@
             <x-forms.input name="search" icon="magnifying-glass" placeholder="Search discount"
                 wire:model.live.debounce.250ms="search" :required="false" />
         </div>
-        <a href="{{ route('new-discount') }}" class="btn btn-primary">New discount</a>
+        <a href="{{ route('create-discount') }}" class="btn btn-primary">New discount</a>
     </section>
 
     <section class="overflow-x-auto mt-4">
@@ -38,7 +38,7 @@
                                 <span class="hidden group-hover:inline font-bold">Edit</span>
                             </a>
                         </td>
-                        <td class="tabular-nums">{{ $discount->value_fmt }}</td>
+                        <td class="tracking-tight">-{{ $discount->value_fmt }}</td>
                         <td>
                             {{ $discount->max_value ? $discount->max_value_fmt : 'None' }}
                         </td>

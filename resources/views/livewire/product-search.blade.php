@@ -6,7 +6,7 @@
         </div>
         <div>
             <button class="btn btn-ghost" onclick="categories.showModal()">Categories</button>
-            <a href="{{ route('new-product') }}" class="btn btn-primary">New product</a>
+            <a href="{{ route('create-product') }}" class="btn btn-primary">New product</a>
         </div>
     </section>
 
@@ -18,7 +18,7 @@
                     {{ \Illuminate\Support\Str::plural('category', $categories->count()) }}
                 </h2>
                 <div class="items-center gap-x-2">
-                    <a href="{{ route('new-category') }}" class="btn btn-ghost">New category</a>
+                    <a href="{{ route('create-category') }}" class="btn btn-ghost">New category</a>
                 </div>
             </div>
             <div class="overflow-x-auto px-6">
@@ -98,7 +98,7 @@
                             </a>
                         </td>
                         <td class="tabular-nums">{{ $product->stock }}</td>
-                        <td>{{ $product->price_fmt }}</td>
+                        <td class="tracking-tight">{{ $product->price_fmt }}</td>
                         <td>{{ $product->category ? $product->category->name : 'No Category' }}</td>
                         <td>
                             <img class="mask mask-squircle size-12 object-cover" src="{{ asset($product->image) }}"

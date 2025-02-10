@@ -1,5 +1,5 @@
 <x-layouts.app class="space-y-8">
-    <h1 class="text-5xl font-bold">{{ __('Edit category') }}</h1>
+    <x-title>{{ __('Edit category') }}</x-title>
 
     <x-layouts.form method="PATCH" action="{{ route('update-category', $category->id) }}">
         <x-forms.input name="name" icon="tag" :placeholder="__('Name')" value="{{ $category->name }}" />

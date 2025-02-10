@@ -1,6 +1,6 @@
 <x-layouts.app class="space-y-8">
     <section class="space-y-2">
-        <h1 class="text-5xl font-bold">{{ __('title.home', ['name' => Auth::user()->name]) }}</h1>
+        <x-title>{{ __('title.home', ['name' => Auth::user()->name]) }}</x-title>
         <div class="flex items-baseline justify-between">
             <p class="text-2xl">{{ __('title.home_sub') }}</p>
         </div>

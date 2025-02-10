@@ -1,8 +1,8 @@
 <x-layouts.app>
     <section class="flex justify-between">
         <div class="space-y-3 max-w-prose">
-            <a href="{{ route('home') }}" class="link link-hover text-lg">&larr; {{ __('link.go_back') }}</a>
-            <h1 class="text-5xl font-bold">{{ __('action.invoices') }}</h1>
+            <x-go-back href="{{ route('home') }}" />
+            <x-title>{{ __('action.invoices') }}</x-title>
         </div>
         <div class="stats text-right">
             <div class="stat text-primary">

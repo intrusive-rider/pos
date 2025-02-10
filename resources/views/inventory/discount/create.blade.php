@@ -1,6 +1,6 @@
 <x-layouts.app class="space-y-8">
-    <h1 class="text-5xl font-bold">{{ __('New discount') }}</h1>
-    <x-layouts.form method="POST" action="{{ route('save-discount') }}">
+    <x-title>{{ __('New discount') }}</x-title>
+    <x-layouts.form method="POST" action="{{ route('store-discount') }}">
         <x-forms.input name="name" icon="seal-percent" :placeholder="__('Name')" />
 
         <div class="flex items-center gap-4">

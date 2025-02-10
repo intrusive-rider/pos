@@ -1,5 +1,5 @@
 <x-layouts.app class="space-y-8">
-    <h1 class="text-5xl font-bold">{{ __('Edit discount') }}</h1>
+    <x-title>{{ __('Edit discount') }}</x-title>
     <x-layouts.form method="PATCH" action="{{ route('update-discount', $discount->id) }}" id="update-discount">
         <x-forms.input name="name" icon="seal-percent" value="{{ $discount->name }}" :placeholder="__('Name')" />
 

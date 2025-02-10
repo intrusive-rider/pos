@@ -1,7 +1,7 @@
 <x-layouts.app class="space-y-8">
-    <h1 class="text-5xl font-bold">{{ __('New category') }}</h1>
+    <x-title>{{ __('New category') }}</x-title>
 
-    <x-layouts.form method="PATCH" action="{{ route('save-category') }}">
+    <x-layouts.form method="POST" action="{{ route('store-category') }}">
         <x-forms.input name="name" icon="tag" :placeholder="__('Name')" />
 
         <div class="mt-6">
