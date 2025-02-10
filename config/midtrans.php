@@ -8,4 +8,6 @@ return [
     'is_production' => env('MIDTRANS_IS_PRODUCTION', false),
     'is_sanitized' => false,
     'is_3ds' => false,
+
+    'base_url' => config('midtrans.is_production') ? 'https://app.midtrans.com/snap/' : 'https://app.sandbox.midtrans.com/snap/'
 ];
