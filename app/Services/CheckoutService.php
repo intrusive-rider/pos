@@ -4,17 +4,26 @@ namespace App\Services;
 
 use App\Models\Product;
 
+/**
+ * *Utility class* untuk menghitung harga akhir.
+ */
 class CheckoutService
 {
-    public function total($quantities, $discounts)
+    /**
+     * Mendapatkan harga awal, akhir, dan diskon (jika ada).
+     */
+    public function get_total($quantities, $discounts)
     {
-        $sub_total = $this->sub_total($quantities);
-        $grand_total = $this->apply($sub_total, $discounts);
+        $sub_total = $this->get_sub_total($quantities);
+        $grand_total = $this->apply_discount($sub_total, $discounts);
 
-        return [$sub_total, $grand_total, $discounts];
+        return compact('sub_total', 'grand_total', 'discounts');
     }
 
-    private function sub_total($quantities)
+    /**
+     * Menghitung harga awal.
+     */
+    private function get_sub_total($quantities)
     {
         $sub_total = 0;
 
@@ -28,27 +37,29 @@ class CheckoutService
         return $sub_total;
     }
 
-    private function apply($sub_total, $discounts)
+    /**
+     * Menerapkan diskon (jika ada).
+     */
+    private function apply_discount($sub_total, $discounts)
     {
         foreach ($discounts as $discount) {
 
-            // fixed
+            // Nilai tetap
             if ($discount->type === 'fixed') {
                 if ($sub_total > ($discount->value + 5_000)) {
                     $sub_total -= $discount->value;
                 }
             }
-        
-            // perc
+
+            // Persen
             if ($discount->type === 'perc' && $sub_total >= 10_000) {
-                $sub_total -= min(
+                $sub_total -= (int) min(
                     $sub_total * ($discount->value / 100),
                     $discount->max_value ?? $sub_total
                 );
             }
-
         }
-        
+
         return $sub_total;
     }
 }

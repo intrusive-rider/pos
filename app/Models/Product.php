@@ -13,7 +13,7 @@ class Product extends Model
     public function orders()
     {
         return $this->belongsToMany(Order::class)
-            ->withPivot('quantity', 'price')
+            ->withPivot('quantity', 'price') // beserta banyaknya pembelian
             ->withTimestamps();
     }
 
@@ -22,6 +22,9 @@ class Product extends Model
         return $this->belongsTo(Category::class);
     }
 
+    /**
+     * Memformat harga produk.
+     */
     public function getPriceFmtAttribute()
     {
         return 'Rp' . number_format($this->price, 2, ',', '.');

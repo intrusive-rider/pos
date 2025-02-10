@@ -2,15 +2,17 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Concerns\HasUlids;
 use Illuminate\Database\Eloquent\Model;
 
 class Order extends Model
 {
+    use HasUlids;
     protected $guarded = [];
 
-    public function payments()
+    public function payment()
     {
-        return $this->hasMany(Payment::class);
+        return $this->hasOne(Payment::class);
     }
 
     public function products()
@@ -30,18 +32,19 @@ class Order extends Model
         return $this->belongsTo(User::class, 'seller_id');
     }
 
+    /**
+     * Memformat harga awal.
+     */
     public function getSubTotalFmtAttribute()
     {
         return 'Rp' . number_format($this->sub_total, 2, ',', '.');
     }
 
+    /**
+     * Memformat harga akhir.
+     */
     public function getGrandTotalFmtAttribute()
     {
         return 'Rp' . number_format($this->grand_total, 2, ',', '.');
-    }
-    
-    public function getPaymentAmountFmtAttribute()
-    {
-        return 'Rp' . number_format($this->payment_amount, 2, ',', '.');
     }
 }

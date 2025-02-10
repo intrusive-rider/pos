@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Discount extends Model
 {
     use HasFactory;
+
     protected $guarded = [];
     protected $casts = [
         'start_date' => 'date',
@@ -19,6 +20,9 @@ class Discount extends Model
         return $this->belongsToMany(Order::class);
     }
 
+    /**
+     * Memformat nilai diskon.
+     */
     public function getValueFmtAttribute()
     {
         if ($this->type === 'perc') {
@@ -28,6 +32,9 @@ class Discount extends Model
         return 'Rp' . number_format($this->value, 2, ',', '.');
     }
 
+    /**
+     * Memformat nilai maksimal diskon.
+     */
     public function getMaxValueFmtAttribute()
     {
         return 'Rp' . number_format($this->max_value, 2, ',', '.');

@@ -2,102 +2,43 @@
 
 namespace App\Services;
 
-use App\Models\Order;
-use Exception;
-use Midtrans\Config;
-use Midtrans\Notification;
-use Midtrans\Snap;
+use Illuminate\Support\Facades\Http;
 
+/**
+ * *Utility class* untuk API Midtrans
+ */
 class MidtransService
 {
-    protected string $serverKey;
-    protected string $isProduction;
-    protected string $isSanitized;
-    protected string $is3ds;
-
-    public function __construct()
+    /**
+     * Mendapatkan *redirect URL*
+     */
+    public function get_redirect($order_id, int $gross_amount, ?string $buyer)
     {
-        $this->serverKey = config('midtrans.server_key');
-        $this->isProduction = config('midtrans.is_production');
-        $this->isSanitized = config('midtrans.is_sanitized');
-        $this->is3ds = config('midtrans.is_3ds');
+        $api = config('midtrans.base_url') . 'v1/transactions';
 
-        Config::$serverKey = $this->serverKey;
-        Config::$isProduction = $this->isProduction;
-        Config::$isSanitized = $this->isSanitized;
-        Config::$is3ds = $this->is3ds;
-    }
+        $header = [
+            'accept' => 'application/json',
+            'authorization' => 'Basic ' . base64_encode(config('midtrans.server_key') . ':'),
+            'content-type' => 'application/json',
+        ];
 
-    public function createSnapToken(Order $order)
-    {
         $params = [
             'transaction_details' => [
-                'order_id' => 'TRS-' . sprintf('%03d', $order->id),
-                'gross_amount' => $order->grand_total,
+                'order_id' => $order_id,
+                'gross_amount' => $gross_amount,
             ],
-            'item_details' => $this->mapItemsToDetails($order),
-            'customer_details' => $this->getCustomerDetails($order),
+            'customer_details' => [
+                'first_name' => $buyer
+            ],
         ];
 
-        try {
-            return Snap::getSnapToken($params);
-        } catch (Exception $e) {
-            throw new Exception($e->getMessage());
-        }
-    }
+        $response = Http::withHeaders($header)
+            ->withBody(json_encode($params))
+            ->post($api);
 
-    public function isSignatureKeyVerified()
-    {
-        $notification = new Notification();
+        $status = $response->status();
+        $data = $response->json();
 
-        $localSignatureKey = hash(
-            'sha512',
-            $notification->order_id . $notification->status_code .
-                $notification->gross_amount . $this->serverKey
-        );
-
-        return $localSignatureKey === $notification->signature_key;
-    }
-
-    public function getOrder()
-    {
-        $notification = new Notification();
-        return Order::where('id', $notification->order_id)->first();
-    }
-
-    public function getStatus()
-    {
-        $notification = new Notification();
-        $order_status = $notification->transaction_status;
-        $fraud_status = $notification->fraud_status;
-
-        return match ($order_status) {
-            'capture' => ($fraud_status == 'accept') ? 'success' : 'pending',
-            'settlement' => 'success',
-            'deny' => 'failed',
-            'cancel' => 'cancel',
-            'expire' => 'expire',
-            'pending' => 'pending',
-            default => 'unknown',
-        };
-    }
-
-    protected function mapItemsToDetails(Order $order)
-    {
-        return $order->products()->get()->map(function ($product) {
-            return [
-                'id' => $product->id,
-                'price' => $product->price,
-                'quantity' => $product->pivot->quantity,
-                'name' => $product->name,
-            ];
-        })->toArray();
-    }
-
-    protected function getCustomerDetails(Order $order)
-    {
-        return [
-            'first_name' => $order->buyer,
-        ];
+        return compact('status', 'data');
     }
 }

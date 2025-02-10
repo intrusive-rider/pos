@@ -3,107 +3,124 @@
 namespace App\Http\Controllers\Customer;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\OrderRequest;
 use App\Models\Discount;
 use App\Models\Order;
 use App\Models\Product;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Services\CheckoutService;
-use App\Services\MidtransService;
 
 class OrderController extends Controller
 {
-    protected $checkout_service;
+    /**
+     * *Container* untuk CheckoutService
+     */
+    protected $checkout;
 
     public function __construct(CheckoutService $checkout_service)
     {
-        $this->checkout_service = $checkout_service;
+        $this->checkout = $checkout_service;
     }
 
+    /**
+     * Menampilkan hal. pembuatan pesanan.
+     */
     public function create()
     {
         $products = Product::with('category')
             ->get()
-            ->groupBy(function ($product) {
-                return $product->category->name;
-            });
+            ->groupBy(fn($product) => $product->category->name);
 
-        $discounts = Discount::where('active', '=', true)->get();
+        $discounts = Discount::where('active', true)->get();
         return view('customer.order.create', compact('products', 'discounts'));
     }
 
-    public function store(Request $request)
+    /**
+     * Menyimpan pesanan.
+     */
+    public function store(OrderRequest $request)
     {
-        $buyer = 'Buyer';
-        $quantities = $request->input('quantity', []);
-        $discount_id = array_keys($request->input('discount', []));
-        $discounts = Discount::whereIn('id', $discount_id)->get();
+        $data = $request->validated();
 
-        if (empty($quantities) || array_sum($quantities) === 0) {
-            return redirect()->back()->with('error', 'You must add at least one product to proceed.');
-        }
+        $quantities = $data['quantity'];
+        $discounts = Discount::where('name', $data['discount'] ?? null)->get() ?? collect();
 
-        [$sub_total, $grand_total, $discounts] = $this->checkout_service->total($quantities, $discounts);
-
-        $order = Order::with('discount')->create([
-            'seller_id' => Auth::id(),
-            'buyer' => $buyer,
+        [
             'sub_total' => $sub_total,
             'grand_total' => $grand_total,
-            'payment_amount' => 0,
+            'discounts' => $discounts,
+        ] = $this->checkout->get_total($quantities, $discounts);
+
+        $order = Order::create([
+            'seller_id'   => Auth::id(),
+            'sub_total'   => $sub_total,
+            'grand_total' => $grand_total,
         ]);
 
-        if ($discounts->isNotEmpty()) {
-            $order->discounts()->attach($discounts);
-        }
+        $order->products()->attach(
+            collect($quantities)
+                ->filter(fn($qty) => $qty > 0) // Menghilangkan nilai-nilai kosong.
+                ->mapWithKeys(fn($qty, $id) => [$id => ['quantity' => $qty]])
+        );
 
-        foreach ($quantities as $product_id => $quantity) {
-            if ($quantity > 0) {
-                $order->products()->attach($product_id, ['quantity' => $quantity]);
-            }
-        }
+        $order->discounts()->attach($discounts->isNotEmpty() ? $discounts : []);
 
-        return redirect()->route('checkout-order', $order->id);
+        return redirect()->route('show-order', $order);
     }
 
+    /**
+     * Melihat salah satu pesanan.
+     */
     public function show(Order $order)
     {
         $order->load(['products', 'discounts']);
         return view('customer.order.show', compact('order'));
     }
 
-    public function pay(Request $request, Order $order, MidtransService $midtrans)
+    /**
+     * Menampilkan hal. pembaharuan pesanan.
+     */
+    public function edit(Order $order)
     {
-        $order->update($request->validate([
-            'buyer' => 'required',
-        ]));        
+        $products = Product::with('category')
+            ->get()
+            ->groupBy('category.name');
 
-        $payment = $order->payments->last();
+        $discounts = Discount::where('active', true)->get();
+        $order->load(['products', 'discounts']);
 
-        if ($payment == null || $payment->status == 'EXPIRED') {
-            $snap_token = $midtrans->createSnapToken($order);
-
-            $order->payments()->create([
-                'snap_token' => $snap_token,
-                'status' => 'PENDING',
-            ]);
-        } else {
-            $snap_token = $payment->snap_token;
-        }
-
-        return view('customer.order.pay', compact('order', 'snap_token'));
-
-        // foreach ($order->products as $product) {
-        //     $product->decrement('stock', $product->pivot->quantity);
-        // }
-
-        // $invoice = $order->id;
-        // return redirect(route('show-invoice', $invoice));
+        return view('customer.order.edit', compact('products', 'discounts', 'order'));
     }
 
-    public function destroy(Order $order)
+    /**
+     * Memperbaharui pesanan.
+     */
+    public function update(OrderRequest $request, Order $order)
     {
-        $order->delete();
-        return redirect(route('home'));
+        $data = $request->validated();
+
+        $quantities = $data['quantity'];
+        $discounts = Discount::where('name', $data['discount'] ?? null)->get() ?? collect();
+
+        [
+            'sub_total' => $sub_total,
+            'grand_total' => $grand_total,
+            'discounts' => $discounts,
+        ] = $this->checkout->get_total($quantities, $discounts);
+
+        $order->update([
+            'sub_total'   => $sub_total,
+            'grand_total' => $grand_total,
+        ]);
+
+        $order->products()->sync(
+            collect($quantities)
+                ->filter(fn($qty) => $qty > 0) // Menghilangkan nilai-nilai kosong.
+                ->mapWithKeys(fn($qty, $id) => [$id => ['quantity' => $qty]])
+        );
+
+        $order->discounts()->sync($discounts->isNotEmpty() ? $discounts : []);
+
+        return redirect()->route('show-order', $order);
     }
 }

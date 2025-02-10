@@ -20,6 +20,7 @@ class ExpireDiscount
 
         Discount::where('active', true)
             ->where('end_date', '<', $now)
+            ->orWhere('start_date', '>', $now)
             ->update(['active' => false]);
 
         return $next($request);

@@ -3,98 +3,93 @@
 namespace App\Http\Controllers\Inventory;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Inventory\ProductRequest;
 use App\Models\Category;
 use App\Models\Product;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
+use App\Services\ProductService;
 
 class ProductController extends Controller
 {
+    /**
+     * *Container* untuk ProductService
+     */
+    protected $product_service;
+
+    public function __construct(ProductService $product_service)
+    {
+        $this->product_service = $product_service;
+    }
+
+    /**
+     * Menampilkan hal. daftar produk.
+     */
     public function index()
     {
-        $products = Product::all();
-        $categories = Category::all();
-        return view('inventory.product.index', compact('products', 'categories'));
+        return view('inventory.product.index', [
+            'products' => Product::all(),
+            'categories' => Category::all()
+        ]);
     }
 
+    /**
+     * Menampilkan hal. pembuatan produk.
+     */
     public function create()
     {
-        $categories = Category::all();
-        return view('inventory.product.create', compact('categories'));
+        return view('inventory.product.create', [
+            'categories' => Category::all()
+        ]);
     }
 
-    public function store(Request $request)
+    /**
+     * Menyimpan produk.
+     */
+    public function store(ProductRequest $request)
     {
-        $attr = $request->validate([
-            'name' => 'required|max:255|unique:products,name',
-            'price' => 'required|numeric|min:1',
-            'stock' => 'required|numeric|min:1',
-            'category' => 'required|max:255',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp,bmp|max:2048',
-        ]);
-        
-        $category = $this->check_category($attr['category']);
+        $data = $request->validated();
 
-        $attr['category_id'] = $category->id;
-        unset($attr['category']);
+        $data['category_id'] = $this->product_service->get_category_id($data['category']);
+        unset($data['category']);
 
-        if ($request->hasFile('image')) {
-            $attr['image'] = 'storage/' . $request->image->store('product_img', 'public');
-        }
+        $data['image'] = $this->product_service->handle_image($request);
 
-        Product::create($attr);
+        Product::create($data);
         return redirect()->route('index-product');
     }
 
+    /**
+     * Menampilkan hal. pembaharuan produk
+     */
     public function edit(Product $product)
     {
-        $categories = Category::all();
-        return view('inventory.product.edit', compact('product', 'categories'));
+        return view('inventory.product.edit', [
+            'product' => $product,
+            'categories' => Category::all()
+        ]);
     }
 
-    public function update(Request $request, Product $product)
+    /**
+     * Memperbaharui produk.
+     */
+    public function update(ProductRequest $request, Product $product)
     {
-        $attr = $request->validate([
-            'name' => 'required|max:255|unique:products,name,' . $product->id,
-            'price' => 'required|numeric|min:0',
-            'stock' => 'required|integer|min:0',
-            'category' => 'required|max:255',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-        ]);
+        $data = $request->validated();
 
-        $category = $this->check_category($attr['category']);
+        $data['category_id'] = $this->product_service->get_category_id($data['category']);
+        unset($data['category']);
 
-        $attr['category_id'] = $category->id;
-        unset($attr['category']);
+        $data['image'] = $this->product_service->handle_image($request, $product);
 
-        if ($request->hasFile('image')) {
-            if ($product->image && Storage::exists($product->image)) {
-                Storage::delete($product->image);
-            }
-
-            $attr['image'] = 'storage/' . $request->image->store('product_img', 'public');
-        }
-
-        $product->update($attr);
+        $product->update($data);
         return redirect()->route('index-product');
     }
 
+    /**
+     * Menghapus produk.
+     */
     public function destroy(Product $product)
     {
         $product->delete();
         return redirect()->back();
-    }
-
-    protected function check_category($category_name)
-    {
-        $category = Category::where('name', $category_name)->first();
-
-        if (is_null($category)) {
-            $category = Category::create([
-                'name' => $category_name
-            ]);
-        }
-
-        return $category;
     }
 }
