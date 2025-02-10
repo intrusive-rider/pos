@@ -16,7 +16,7 @@ export default {
                 sans: [
                     '"Inter Variable", sans-serif',
                     {
-                        fontFeatureSettings: '"calt", "liga", "cv08", "cv10", "cv01"'
+                        fontFeatureSettings: '"calt", "liga", "cv08", "cv10", "cv01", "ss07"'
                     },
                 ],
             },
