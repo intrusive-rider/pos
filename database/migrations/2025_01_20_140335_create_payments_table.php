@@ -14,9 +14,9 @@ return new class extends Migration
     {
         Schema::create('payments', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(Order::class)->nullable()->constrained()->cascadeOnDelete();
-            $table->string('snap_token')->nullable();
+            $table->foreignIdFor(Order::class)->constrained();
             $table->string('status', 32)->default('pending');
+            $table->string('buyer');
             $table->dateTime('paid_at')->nullable();
             $table->timestamps();
         });

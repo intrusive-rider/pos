@@ -1,6 +1,5 @@
 <?php
 
-use App\Models\Discount;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
@@ -13,12 +12,10 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('orders', function (Blueprint $table) {
-            $table->id();
+            $table->ulid('id')->primary();
             $table->foreignId('seller_id')->constrained('users');
-            $table->string('buyer');
             $table->integer('sub_total');
             $table->integer('grand_total');
-            $table->integer('payment_amount');
             $table->timestamps();
         });
     }

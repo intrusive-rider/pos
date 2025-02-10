@@ -20,7 +20,7 @@ return new class extends Migration
             $table->integer('max_value')->nullable();
             $table->date('start_date');
             $table->date('end_date');
-            $table->boolean('active');
+            $table->boolean('active')->default(true);
             $table->timestamps();
         });
     }
